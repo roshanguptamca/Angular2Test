@@ -1,0 +1,22 @@
+@import "../../styles.scss";
+.failure-component {
+    .sub-navbar-content {
+        padding: $margin-small 0px;
+        li {
+            display: inline-block;
+            text-align: left;
+            a {
+                color: $color-gray-darker;
+                &:hover {
+                    color: $color-blue;
+                }
+            }
+            &:active {
+                color: $color-green;
+            }
+        }
+    }
+    .page-sub-header {
+        background-color: $color-gray-lightest;
+    }
+}

@@ -1,7 +1,9 @@
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { FailureModule } from './failure/failure.module';
 
 import { AppComponent } from './app.component';
 
@@ -9,6 +11,8 @@ import {
   FooterComponent,
   HeaderComponent,
 } from './shared';
+
+const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: false });
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    rootRouting,
+    FailureModule
   ],
   providers: [],
   bootstrap: [AppComponent]

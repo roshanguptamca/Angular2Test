@@ -1,7 +1,7 @@
 @import "../../../styles.scss";
 $top-xs-height: 40px;
 $top-sm-height: 60px;
-$top-md-height: 110px;
+$top-md-height: 100px;
 $top-shrink-by: 40px;
 $top-md-height-reduced: $top-md-height - $top-shrink-by;
 $link-top-margin: $top-md-height - 43px;
@@ -43,31 +43,41 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
     .logo {
         margin: 0px auto;
         display: block;
-        width: 52px;
         margin-top: 0px;
         @include top-nav-transision;
-        @media screen and (min-width: $screen-sm-min) {
+        @media screen and (max-width: $screen-xs-min) {
             width: 80px;
-            margin-top: 0px;
+            margin-top: -40px;
+        }
+        @media screen and (max-width: $screen-md-min) {
+            width: 80px;
+            margin-top: -30px;
         }
         @media screen and (min-width: $screen-md-min) {
-            width: 126px;
+            // width: 126px;
             margin: 26px 40px 0 10px;
             float: left;
         }
         img {
-            width: 100%;
+            width: 126px;
+            @media screen and (max-width: $screen-md-min) {
+                width: 80px;
+                padding-top: 0px;
+            }
+            @media screen and (max-width: $screen-xs-max) {
+                width: 60px;
+                margin-top: -15px;
+            }
         }
     }
     .nav-lvl-1 {
         display: inline-block;
-        margin: $link-top-margin 0 0 0px;
+        margin: 40px 0 0 0px;
         @include top-nav-transision;
         >li {
             &:hover a {
                 color: $color-blue;
                 text-decoration: none;
-                border-bottom: 2px solid $color-green;
             }
             &:active a {
                 color: $kpngreen;
@@ -86,14 +96,53 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
             margin-left: 0;
             z-index: 50;
         }
+        @media screen and (max-width: $screen-md-min) {
+            margin: 0px;
+        }
     }
     .list-inline>li {
         display: inline-block;
         padding-left: 5px;
         padding-right: 5px;
+        &:hover {
+            span {
+                position: relative;
+                display: block;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    background: $kpngreen;
+                    height: 3px;
+                    bottom: -15px;
+                    width: 84%;
+                    left: 8%;
+                    z-index: 10;
+                }
+            }
+        }
         @media screen and (min-width: $screen-md-min) {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        @media screen and (min-width: $screen-md-max) {
             padding-left: 25px;
             padding-right: 25px;
+        }
+        @media screen and (max-width: $screen-md-min) {
+            padding: 0px;
+            display: inline;
+        }
+    }
+    .mobile-navigation {
+        padding-top: 15px;
+        margin-left: -15px;
+        @media screen and (min-width: $screen-md-min) {
+            display: none !important;
+        }
+    }
+    #navbarSupportedContent {
+        @media screen and (max-width: $screen-md-min) {
+            display: none !important;
         }
     }
 }

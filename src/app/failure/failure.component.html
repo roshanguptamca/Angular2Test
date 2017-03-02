@@ -1,0 +1,31 @@
+<section class="failure-component">
+
+    <div class="page-sub-header">
+        <div class="container">
+            <div class="sub-navbar-content" id="subNavbarContent">
+                <ul class="nav nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/failure" routerLinkActive="active">Broadband</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/planned-maintenance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        Fixed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/archived-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        Mobile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/archived-planned-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        Serviceguard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/archived-planned-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        Other</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
