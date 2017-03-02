@@ -13,9 +13,7 @@ export class FailureComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router
-  ) {
-   
-  }
+  ) {}
 
   ngOnInit() {
     this.route.url.subscribe(data => {

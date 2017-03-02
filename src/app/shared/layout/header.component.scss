@@ -39,6 +39,7 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
     }
     .bg-faded {
         background-color: $white;
+        padding-bottom: 0px;
     }
     .logo {
         margin: 0px auto;
@@ -52,6 +53,7 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
         @media screen and (max-width: $screen-md-min) {
             width: 80px;
             margin-top: -30px;
+            padding-bottom: 0px;
         }
         @media screen and (min-width: $screen-md-min) {
             // width: 126px;
@@ -143,6 +145,44 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
     #navbarSupportedContent {
         @media screen and (max-width: $screen-md-min) {
             display: none !important;
+        }
+    }
+    .active-link {
+        a {
+            color: $kpngreen !important;
+        }
+        span {
+            position: relative;
+            display: block;
+            &:before {
+                content: '';
+                position: absolute;
+                background: $kpngreen;
+                height: 3px;
+                bottom: -15px;
+                width: 84%;
+                left: 8%;
+                z-index: 10;
+            }
+        }
+    }
+    .mobile-active-link {
+        a {
+            color: $kpngreen !important;
+        }
+        span {
+            position: relative;
+            display: block;
+            &:before {
+                content: '';
+                position: absolute;
+                background: $kpngreen;
+                height: 3px;
+                bottom: -15px;
+                width: 84%;
+                left: 8%;
+                z-index: 10;
+            }
         }
     }
 }
