@@ -101,6 +101,10 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
         @media screen and (max-width: $screen-md-min) {
             margin: 0px;
         }
+        @media screen and (min-width: $screen-md-max) {
+            display: table;
+            width: 100%;
+        }
     }
     .list-inline>li {
         display: inline-block;
@@ -127,8 +131,7 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
             padding-right: 10px;
         }
         @media screen and (min-width: $screen-md-max) {
-            padding-left: 25px;
-            padding-right: 25px;
+            display: table-cell;
         }
         @media screen and (max-width: $screen-md-min) {
             padding: 0px;
@@ -169,20 +172,6 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
     .mobile-active-link {
         a {
             color: $kpngreen !important;
-        }
-        span {
-            position: relative;
-            display: block;
-            &:before {
-                content: '';
-                position: absolute;
-                background: $kpngreen;
-                height: 3px;
-                bottom: -15px;
-                width: 84%;
-                left: 8%;
-                z-index: 10;
-            }
         }
     }
 }
