@@ -1,9 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule , Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FailureModule } from './failure/failure.module';
+import { PlannedMaintenanceModule  } from './planned-maintenance/planned-maintenance.moule';
+import { ArchivedFailureModule } from './archived-failure/archived-failure.module';
+import { ArchivedPlannedMaintenanceModule  } from './archived-planned-maintenance/archived-planned-maintenance.moule';
 import { BroadbandComponent } from './sub-navigation/broadband-component/broadband.component';
 import{ FixedComponent } from './sub-navigation/fixed-component/fixed-component';
 import{ MobileComponent } from './sub-navigation/mobile-component/mobile-component';
@@ -16,6 +19,7 @@ import {
   FooterComponent,
   HeaderComponent,
 } from './shared';
+
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: false });
 
@@ -35,7 +39,10 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: fal
     FormsModule,
     HttpModule,
     rootRouting,
-    FailureModule
+    FailureModule,
+    PlannedMaintenanceModule,
+    ArchivedFailureModule,
+    ArchivedPlannedMaintenanceModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
