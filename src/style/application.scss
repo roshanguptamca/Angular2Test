@@ -16,3 +16,10 @@
         }
     }
 }
+
+body {
+    @media screen and (max-width: $screen-xs-min) {
+        display: block !important;
+        position: absolute;
+    }
+}
