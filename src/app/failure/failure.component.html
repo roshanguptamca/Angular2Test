@@ -4,28 +4,31 @@
         <div class="container">
             <div class="sub-navbar-content" id="subNavbarContent">
                 <ul class="nav nav-fill">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/failure" routerLinkActive="active">Broadband</a>
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['broadband']">Broadband</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/planned-maintenance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['fixed']">
                             Fixed</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/archived-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['mobile']">
                             Mobile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/archived-planned-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['serviceguard']">
                             Serviceguard</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/archived-planned-failure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['other']">
                             Other</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+
+    <router-outlet></router-outlet>
+
 </section>

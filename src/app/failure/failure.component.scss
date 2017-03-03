@@ -19,4 +19,10 @@
     .page-sub-header {
         background-color: $color-gray-lightest;
     }
+    .active-link {
+        color: $kpngreen !important;
+        a {
+            color: $kpngreen !important;
+        }
+    }
 }

@@ -6,34 +6,34 @@
                 </button>
 
             <a class="navbar-brand logo hidden-lg-up" href="javascript:void(0);">
-                <img src="https://kpn.com/mobiel/cmstatic/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
+                <img src="./assets/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
             </a>
         </div>
 
         <div class="container container-fluid container-full ">
             <!-- KPN logo -->
             <a class="navbar-brand logo hidden-md-down" href="javascript:void(0);">
-                <img src="https://kpn.com/mobiel/cmstatic/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
+                <img src="./assets/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
             </a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav  nav-fill nav-lvl-1 list-inline row">
-                    <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link">
                         <a class="nav-link" [routerLink]="['/failure']">Failure</a>
                         <span></span>
                     </li>
-                    <li class="nav-item megamenu__primary-li">
-                        <a class="nav-link" routerLink="/planned-maintenance" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="/planned-maintenance">
                         Planned maintenance</a>
                         <span></span>
                     </li>
-                    <li class="nav-item megamenu__primary-li">
-                        <a class="nav-link" routerLink="/archived-failure" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" routerLink="/archived-failure">
                         Archived failure</a>
                         <span></span>
                     </li>
-                    <li class="nav-item megamenu__primary-li">
-                        <a class="nav-link" routerLink="/archived-planned-failure" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" routerLink="/archived-planned-failure">
                         Archived planned failure</a>
                         <span></span>
                     </li>

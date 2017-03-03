@@ -16,9 +16,7 @@ export class FailureComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.url.subscribe(data => {
-      
-    });
+  
   }
 
 }
