@@ -16,7 +16,7 @@
                 <img src="./assets/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
             </a>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="currentUser">
                 <ul class="nav  nav-fill nav-lvl-1 list-inline">
                     <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link">
                         <a class="nav-link" [routerLink]="['/failure']">Failure</a>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="mobile-navigation collapse navbar-collapse" id="mobileNavbarSupportedContent">
+        <div class="mobile-navigation collapse navbar-collapse" id="mobileNavbarSupportedContent" *ngIf="currentUser">
             <ul class="nav  nav-fill nav-lvl-1 list-inline row">
                 <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="mobile-active-link">
                     <a class="nav-link" [routerLink]="['/failure']">Failure</a>

@@ -12,23 +12,26 @@ import{ FixedComponent } from './sub-navigation/fixed-component/fixed-component'
 import{ MobileComponent } from './sub-navigation/mobile-component/mobile-component';
 import{ ServiceguardComponent } from './sub-navigation/serviceguard-component/serviceguard.component';
 import{ OtherComponent } from './sub-navigation/other-component/other-component';
-import { AuthModule } from './auth/auth.module';
 
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
+import { AuthGuard } from './_guards/index';
+import { AuthenticationService, UserService } from './_services/index';
+import { LoginComponent } from './login/index';
+import { HomeComponent } from './home/index';
+ 
 import { AppComponent } from './app.component';
-
+import { routing }        from './app.routing';
 
 import {
   FooterComponent,
   HeaderComponent,
-  SharedModule,
-  AuthGuard,
-  UserService,
-  ApiService,
-  JwtService
 } from './shared';
 
 
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: false });
+//const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: false });
 
 @NgModule({
   declarations: [
@@ -39,25 +42,28 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: fal
     FixedComponent,
     MobileComponent,
     ServiceguardComponent,
-    OtherComponent
+    OtherComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
-    AuthModule,
-    SharedModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    rootRouting,
     FailureModule,
     PlannedMaintenanceModule,
     ArchivedFailureModule,
     ArchivedPlannedMaintenanceModule,
+    routing
   ],
   providers: [
-    ApiService,
     AuthGuard,
     UserService,
-    JwtService
+    AuthenticationService,
+    // providers used to create fake backend
+        fakeBackendProvider,
+        MockBackend,
+        BaseRequestOptions
   ],
   bootstrap: [AppComponent]
 })

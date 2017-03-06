@@ -9,6 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BroadbandComponent implements OnInit {
   public selectedUrl: String;
 
+  broadbandFailureList={
+
+  };
+
    constructor(
       private activatedRoute: ActivatedRoute,
       private router: Router
