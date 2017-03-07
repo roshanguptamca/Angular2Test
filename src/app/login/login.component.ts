@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
- 
+
 import { AuthenticationService } from '../_services/index';
  
+
 @Component({
     selector: 'login-component',
     templateUrl: 'login.component.html'
 })
  
 export class LoginComponent implements OnInit {
+
     model: any = {};
     loading = false;
     error = '';
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === true) {
-                    // login successful
+                   // login successful
                     this.router.navigate(['/']);
                 } else {
                     // login failed

@@ -127,8 +127,8 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
             }
         }
         @media screen and (min-width: $screen-md-min) {
-            padding-left: 10px;
-            padding-right: 10px;
+            padding-left: 0px;
+            padding-right: 0px;
         }
         @media screen and (min-width: $screen-md-max) {
             display: table-cell;

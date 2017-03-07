@@ -14,7 +14,7 @@ import{ ServiceguardComponent } from './sub-navigation/serviceguard-component/se
 import{ OtherComponent } from './sub-navigation/other-component/other-component';
 
 // used to create fake backend
-import { fakeBackendProvider } from './_helpers/index';
+import { ApiService } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { AuthGuard } from './_guards/index';
@@ -61,7 +61,7 @@ import {
     UserService,
     AuthenticationService,
     // providers used to create fake backend
-        fakeBackendProvider,
+        ApiService,
         MockBackend,
         BaseRequestOptions
   ],
