@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule , Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FailureModule } from './failure/failure.module';
 import { PlannedMaintenanceModule  } from './planned-maintenance/planned-maintenance.moule';
@@ -18,12 +18,14 @@ import { ApiService } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService } from './_services/index';
+import { AuthenticationService, UserService, FailureService } from './_services/index';
 import { LoginComponent } from './login/index';
 import { HomeComponent } from './home/index';
  
 import { AppComponent } from './app.component';
 import { routing }        from './app.routing';
+
+import { MainPipe } from './main-pipe.module';
 
 import {
   FooterComponent,
@@ -49,21 +51,25 @@ import {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     FailureModule,
     PlannedMaintenanceModule,
     ArchivedFailureModule,
     ArchivedPlannedMaintenanceModule,
-    routing
+    routing,
+    MainPipe
   ],
   providers: [
+    // Service providers used
     AuthGuard,
     UserService,
     AuthenticationService,
+    FailureService,
     // providers used to create fake backend
-        ApiService,
-        MockBackend,
-        BaseRequestOptions
+    ApiService,
+    MockBackend,
+    BaseRequestOptions,
   ],
   bootstrap: [AppComponent]
 })

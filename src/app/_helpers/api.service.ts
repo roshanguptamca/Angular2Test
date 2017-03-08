@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { Headers, Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -26,6 +26,12 @@ export class ApiService {
 
   get(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`, { headers: this.setHeaders(), search: params })
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+
+  getWithOptions(path: string, requestOptions:RequestOptions): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`, requestOptions)
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }
