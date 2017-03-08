@@ -11,7 +11,6 @@ export class SearchPipe implements PipeTransform {
  transform(failures: Failure[], args: any[]): any {
    if(args != null && args.length > 0 ){
        return failures.filter(failure => {
-         debugger;
             for (let field in args) {
                 if ((failure.region != null && failure.region.toLowerCase().indexOf(args.toString().toLowerCase()) == 0)
                 || (failure.type !== null && failure.type.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0)

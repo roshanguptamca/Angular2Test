@@ -1,33 +1,37 @@
-<div class="container">
-    <div class="failure-list">
-        <input type="text" id="inputType" class="form-control" placeholder="Search String" [(ngModel)]="searchString">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Region</th>
-                    <th>State</th>
-                    <th>Type</th>
-                    <th>Service</th>
-                    <th>Impact</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['id'] ; let i = index; trackBy:trackByFn;">
-                    <th scope="row">{{failure.id}}</th>
-                    <td>{{failure.region}}</td>
-                    <td>{{failure.type}}</td>
-                    <td>{{failure.state}}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>{{failure.start_date | date:"dd-MMM-yyyy"}}</td>
-                    <td>{{failure.end_date | date:"dd-MMM-yyyy"}}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+<section class="broadbond-component-template">
+    <div class="container">
+        <div class="failure-list">
+            <div class="row">
+                <input type="search" id="inputType" class="form-control glyphicon-search-input" placeholder="Search String" [(ngModel)]="searchString">
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Region</th>
+                        <th>State</th>
+                        <th>Type</th>
+                        <th>Service</th>
+                        <th>Impact</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['id'] ; let i = index; trackBy:trackByFn;">
+                        <th scope="row">{{failure.id}}</th>
+                        <td>{{failure.region}}</td>
+                        <td>{{failure.type}}</td>
+                        <td>{{failure.state}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{failure.start_date | date:"dd-MMM-yyyy"}}</td>
+                        <td>{{failure.end_date | date:"dd-MMM-yyyy"}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</section>
