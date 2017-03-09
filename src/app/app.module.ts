@@ -3,6 +3,7 @@ import { RouterModule , Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { FailureModule } from './failure/failure.module';
 import { PlannedMaintenanceModule  } from './planned-maintenance/planned-maintenance.moule';
 import { ArchivedFailureModule } from './archived-failure/archived-failure.module';
@@ -50,6 +51,7 @@ import {
   ],
   imports: [
     BrowserModule,
+    Angular2FontawesomeModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
