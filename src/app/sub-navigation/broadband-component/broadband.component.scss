@@ -21,4 +21,10 @@
     .fa {
         cursor: pointer;
     }
+    .form-group {
+        width: 50%;
+        .col-form-label {
+            text-align: right;
+        }
+    }
 }

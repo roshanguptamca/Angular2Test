@@ -1,5 +1,35 @@
 <section class="broadbond-component-template">
-    <div class="container">
+
+    <div *ngIf="addOrUpdateMode" class="jumbotron container">
+        <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
+
+            <div class="row">
+                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !type.valid), 'has-danger': (!type.valid && type.touched) , 
+            'has-success': (type.valid && type.touched)}">
+                    <label class="col-2 col-form-label" for="type">Type</label>
+                    <div class="col-10">
+                        <input type="text" [ngClass]="{'form-control-success': type.valid && type.touched, 'form-control-danger': !type.valid && type.touched }" class="form-control" name="type" [(ngModel)]="model.type" #type="ngModel" required />
+                        <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !source.valid), 'has-danger': (!source.valid && source.touched) , 
+            'has-success': (source.valid && source.touched)}">
+                    <label class="col-2 col-form-label" for="password">Source</label>
+                    <div class="col-10">
+                        <input [ngClass]="{'form-control-success': source.valid , 'form-control-danger': !source.valid }" type="text" class="form-control" name="source" [(ngModel)]="model.source" #source="ngModel" required />
+                        <div *ngIf="f.submitted && !source.valid" class="help-block">Source is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </form>
+    </div>
+
+    <div *ngIf="!addOrUpdateMode" class="container">
         <div class="failure-list">
             <div class="row">
                 <input type="search" id="inputType" class="form-control glyphicon-search-input" placeholder="Search String" [(ngModel)]="searchString">
@@ -30,9 +60,9 @@
                         <td>{{failure.end_date | date:"dd-MMM-yyyy"}}</td>
                         <td>
                             <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
-                            <i class="fa fa-edit" title="Edit"></i>
+                            <i (click)="addOrUpdateMode = true" class="fa fa-edit" title="Edit"></i>
                             <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
-                            <i class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                            <i (click)="addOrUpdateMode = true" class="fa fa-plus" aria-hidden="true" title="Add"></i>
                         </td>
                     </tr>
                 </tbody>

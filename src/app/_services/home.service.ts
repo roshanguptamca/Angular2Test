@@ -19,8 +19,8 @@ export class HomeService {
          if(this.user != null && this.user.token){
              let headers = new Headers({ 'Authorization': 'Token ' + this.user.token });
              let options = new RequestOptions({ headers: headers });
-             //return this.apiService.getWithOptions('/v5/?method=kpn.otty.YaraList',options);
-             return this.apiService.getWithOptions("/disturbances/v1/failures/",options);
+             return this.apiService.getWithOptions('/v5/?method=kpn.otty.YaraList',options);
+            // return this.apiService.getWithOptions("/disturbances/v1/failures/",options);
          }
          else{
              // redirect to login page

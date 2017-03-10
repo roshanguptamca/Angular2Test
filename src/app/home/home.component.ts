@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
             },
             error => {
                 this.error = error;
-                debugger;
                 console.log(error);
                 if(error.detail === "Invalid token." || error.detail === "Time-Out") {
                      this.redirectToLogin();
