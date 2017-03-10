@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
  
-import { User } from '../shared/models/index';
-import { UserService } from '../_services/index';
+import { Failure } from '../shared/models/index';
+import { HomeService } from '../_services/index';
+
+import { ActivatedRoute, Router } from '@angular/router';
  
 @Component({
     selector: 'home-component',
@@ -9,16 +11,38 @@ import { UserService } from '../_services/index';
 })
  
 export class HomeComponent implements OnInit {
-    users: User[] = [];
+    failureList: Failure[] = [];
+    private error:any;
+    isApplicationLoading:Boolean = false;
  
-    constructor(private userService: UserService) { }
+    constructor(private homeService: HomeService,  private router:Router) { }
  
     ngOnInit() {
-        // get users from secure api end point
-        // this.userService.getUsers()
-        //     .subscribe(users => {
-        //         this.users = users;
-        //     });
+        // get dashboard data from secure api end point
+         this.isApplicationLoading = true;
+         this.homeService.getFailureList()
+         .subscribe(failurs => {
+                this.failureList = failurs;
+            },
+            error => {
+                this.error = error;
+                debugger;
+                console.log(error);
+                if(error.detail === "Invalid token." || error.detail === "Time-Out") {
+                     this.redirectToLogin();
+                }
+            },
+            () => {
+                this.isApplicationLoading = false;
+            });
+
     }
+
+    // Method in component class
+  redirectToLogin() {
+    localStorage.removeItem('currentUser');
+    this.isApplicationLoading = false;
+    this.router.navigate(['/login']);
+  }
  
 }

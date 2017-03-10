@@ -22,4 +22,19 @@ body {
         display: block !important;
         position: absolute;
     }
+    .kpn-app-loading {
+        opacity: 0.5;
+        z-index: 999;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: $color-white;
+    }
+    .kpn-app-loading__img {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+    }
 }

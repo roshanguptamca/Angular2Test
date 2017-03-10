@@ -15,17 +15,32 @@ export class FailureService {
  
     getFailureList(): Observable<Failure[]> {
         // add authorization header with jwt token
-         this.user =  JSON.parse(localStorage.getItem('currentUser'));
-         if(this.user != null && this.user.token){
-             let headers = new Headers({ 'Authorization': 'Token ' + this.user.token });
-             let options = new RequestOptions({ headers: headers });
-             //return this.apiService.getWithOptions('/v5/?method=kpn.otty.YaraList',options);
-             return this.apiService.getWithOptions("/disturbances/v1/failures/",options);
-         }
-         else{
-             // redirect to login page
-         }
-
-       
+        return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
+    }
+    getById(id: number) {
+        return this.apiService.get('/disturbances/v1/failures/' + id).map((response: Response) => response.json());
+    }
+ 
+    create(failure: Failure) {
+        return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt()).map((response: Response, failure) => response.json());
+    }
+ 
+    update(failure: Failure) {
+        return this.apiService.putWithOptions('/disturbances/v1/failures/' + failure.id, this.jwt(), failure).map((response: Response) => response.json());
+    }
+ 
+    delete(id: number) {
+        return this.apiService.deleteWithOption('/disturbances/v1/failures/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+ 
+    // private helper methods
+ 
+    private jwt() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'Authorization': 'Token ' + currentUser.token });
+            return new RequestOptions({ headers: headers });
+        }
     }
 }

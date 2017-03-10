@@ -14,6 +14,7 @@ export class BroadbandComponent implements OnInit {
   failureList: Failure[] = [];
   searchQuery: any[] = [];
   private searchString: string;
+  isApplicationLoading:Boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,16 +25,34 @@ export class BroadbandComponent implements OnInit {
   }
 
   ngOnInit() {
+  // get dashboard data from secure api end point
+    this.isApplicationLoading = true;
     // get failurs from secure api end point
     this.failureService.getFailureList()
       .subscribe(failurs => {
         this.failureList = failurs;
+      },
+      error =>{
+        console.error(error);
+        if(error.detail === "Invalid token." || error.detail === "Time-Out") {
+          this.redirectToLogin();
+        }
+      },
+      () => {
+         this.isApplicationLoading = false;
       });
   }
 
     // Method in component class
   trackByFn(index, item) {
     return item.id;
+  }
+
+    // Method in component class
+  redirectToLogin() {
+    localStorage.removeItem('currentUser');
+    this.isApplicationLoading = false;
+    this.router.navigate(['/login']);
   }
 
   

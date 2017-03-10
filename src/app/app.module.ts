@@ -19,7 +19,11 @@ import { ApiService } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService, FailureService } from './_services/index';
+import { AuthenticationService, 
+         UserService, 
+         FailureService,
+         HomeService 
+        } from './_services/index';
 import { LoginComponent } from './login/index';
 import { HomeComponent } from './home/index';
  
@@ -31,6 +35,7 @@ import { MainPipe } from './main-pipe.module';
 import {
   FooterComponent,
   HeaderComponent,
+  Errors
 } from './shared';
 
 
@@ -68,6 +73,9 @@ import {
     UserService,
     AuthenticationService,
     FailureService,
+    HomeService,
+    // Model providers
+    Errors,
     // providers used to create fake backend
     ApiService,
     MockBackend,
