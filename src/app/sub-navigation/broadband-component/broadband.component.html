@@ -22,6 +22,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !startDate.valid), 'has-danger': (!startDate.valid && startDate.touched) , 
+            'has-success': (startDate.valid && startDate.touched)}">
+                    <label class="col-2 col-form-label" for="startDate">Start date</label>
+                    <div class="col-10">
+                        <input type="<date> </date>" [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" [(ngModel)]="model.startDate" #startDate="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !endDate.valid), 'has-danger': (!endDate.valid && endDate.touched) , 
+            'has-success': (endDate.valid && endDate.touched)}">
+                    <label class="col-2 col-form-label" for="endDate">End Date</label>
+                    <div class="col-10">
+                        <input [ngClass]="{'form-control-success': endDate.valid , 'form-control-danger': !endDate.valid }" type="date" class="form-control" name="endDate" [(ngModel)]="model.endDate" #endDate="ngModel" required />
+                        <div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-group">
                 <button [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
             </div>
