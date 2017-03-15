@@ -1,11 +1,11 @@
 export class Failure {
-  id: number;
-  type: number;
-  source: number;
+  id: Number;
+  type: Number;
+  source: Number;
   region: String;
   state: String;
-  cause: number;
-  start_date: Date;
-  end_date: Date;
+  cause: Number;
+  start_date: String;
+  end_date: String;
   criteria: String[];
 }

@@ -1,0 +1,202 @@
+// Relative path from the CSS directory
+$font-path: '/assets/fonts';
+@font-face {
+    font-family: KPN-Accent;
+    src: url('#{$font-path}/KPN-Accent/KPN-Accent-Light-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Light-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Light-WF.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: KPN-Accent;
+    src: url('#{$font-path}/KPN-Accent/KPN-Accent-Normal-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Normal-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Normal-WF.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: KPN-Accent;
+    src: url('#{$font-path}/KPN-Accent/KPN-Accent-Bold-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Bold-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Accent/KPN-Accent-Bold-WF.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: KPN-Sans;
+    src: url('#{$font-path}/KPN-Sans/KPN-Sans-Light-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Light-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Light-WF.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: KPN-Sans;
+    src: url('#{$font-path}/KPN-Sans/KPN-Sans-Normal-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Normal-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Normal-WF.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: KPN-Sans;
+    src: url('#{$font-path}/KPN-Sans/KPN-Sans-Bold-WF.eot');
+    src: local('‚ò∫'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Bold-WF.woff') format('woff'),
+    url('#{$font-path}/KPN-Sans/KPN-Sans-Bold-WF.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "KPN-Icons";
+    src: url("#{$font-path}/KPN-Icons/KPN-Icons.eot");
+    src: url("#{$font-path}/KPN-Icons/KPN-Icons.eot?#iefix") format("embedded-opentype"),
+    url("#{$font-path}/KPN-Icons/KPN-Icons.woff") format("woff"),
+    url("#{$font-path}/KPN-Icons/KPN-Icons.ttf") format("truetype"),
+    url("#{$font-path}/KPN-Icons/KPN-Icons.svg#KPN-Sans-Icons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.kpn-icon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: "KPN-Icons";
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.kpn-briefcase:before {
+    content: "\f11c";
+}
+
+.kpn-chevron-circle-down:before {
+    content: "\f11d";
+}
+
+.kpn-chevron-circle-left:before {
+    content: "\f11e";
+}
+
+.kpn-chevron-circle-right:before {
+    content: "\f11f";
+}
+
+.kpn-chevron-circle-up:before {
+    content: "\f120";
+}
+
+.kpn-chevron-down:before {
+    content: "\f121";
+}
+
+.kpn-chevron-left:before {
+    content: "\f122";
+}
+
+.kpn-chevron-right:before {
+    content: "\f123";
+}
+
+.kpn-chevron-up:before {
+    content: "\f124";
+}
+
+.kpn-circle-o-ampersand:before {
+    content: "\f125";
+}
+
+.kpn-home:before {
+    content: "\f133";
+}
+
+.kpn-kpn-logo:before {
+    content: "\f134";
+}
+
+.kpn-logo-facebook:before {
+    content: "\f126";
+}
+
+.kpn-logo-google-plus:before {
+    content: "\f127";
+}
+
+.kpn-logo-linkedin:before {
+    content: "\f128";
+}
+
+.kpn-logo-pinterest:before {
+    content: "\f129";
+}
+
+.kpn-logo-twitter:before {
+    content: "\f12a";
+}
+
+.kpn-logo-youtube:before {
+    content: "\f12b";
+}
+
+.kpn-mail:before {
+    content: "\f12c";
+}
+
+.kpn-menu:before {
+    content: "\f135";
+}
+
+.kpn-minus:before {
+    content: "\f12d";
+}
+
+.kpn-minus-circle:before {
+    content: "\f12e";
+}
+
+.kpn-mobile:before {
+    content: "\f110";
+}
+
+.kpn-person-service:before {
+    content: "\f12f";
+}
+
+.kpn-plus:before {
+    content: "\f111";
+}
+
+.kpn-plus-circle:before {
+    content: "\f112";
+}
+
+.kpn-search:before {
+    content: "\f130";
+}
+
+.kpn-tag:before {
+    content: "\f131";
+}
+
+.kpn-times:before {
+    content: "\f136";
+}
+
+.kpn-times-circle:before {
+    content: "\f132";
+}

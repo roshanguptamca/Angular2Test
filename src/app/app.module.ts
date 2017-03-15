@@ -1,34 +1,41 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { RouterModule , Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { FailureModule } from './failure/failure.module';
-import { PlannedMaintenanceModule  } from './planned-maintenance/planned-maintenance.moule';
+import { PlannedMaintenanceModule } from './planned-maintenance/planned-maintenance.moule';
 import { ArchivedFailureModule } from './archived-failure/archived-failure.module';
-import { ArchivedPlannedMaintenanceModule  } from './archived-planned-maintenance/archived-planned-maintenance.moule';
+import { ArchivedPlannedMaintenanceModule } from './archived-planned-maintenance/archived-planned-maintenance.moule';
 import { BroadbandComponent } from './sub-navigation/broadband-component/broadband.component';
-import{ FixedComponent } from './sub-navigation/fixed-component/fixed-component';
-import{ MobileComponent } from './sub-navigation/mobile-component/mobile-component';
-import{ ServiceguardComponent } from './sub-navigation/serviceguard-component/serviceguard.component';
-import{ OtherComponent } from './sub-navigation/other-component/other-component';
+import { FixedComponent } from './sub-navigation/fixed-component/fixed-component';
+import { MobileComponent } from './sub-navigation/mobile-component/mobile-component';
+import { ServiceguardComponent } from './sub-navigation/serviceguard-component/serviceguard.component';
+import { OtherComponent } from './sub-navigation/other-component/other-component';
+import { DatePipe } from '@angular/common';
+
 
 // used to create fake backend
-import { ApiService } from './_helpers/index';
+import {
+  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter
+} from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, 
-         UserService, 
-         FailureService,
-         HomeService 
-        } from './_services/index';
+import {
+  AuthenticationService,
+  UserService,
+  FailureService,
+  HomeService,
+  ApplicationUtillService
+} from './_services/index';
 import { LoginComponent } from './login/index';
 import { HomeComponent } from './home/index';
- 
+
 import { AppComponent } from './app.component';
-import { routing }        from './app.routing';
+import { routing } from './app.routing';
 
 import { MainPipe } from './main-pipe.module';
 
@@ -65,7 +72,8 @@ import {
     ArchivedFailureModule,
     ArchivedPlannedMaintenanceModule,
     routing,
-    MainPipe
+    MainPipe,
+    NgbModule.forRoot()
   ],
   providers: [
     // Service providers used
@@ -74,12 +82,17 @@ import {
     AuthenticationService,
     FailureService,
     HomeService,
+    ApplicationUtillService,
+    DateFormatorSerice,
+    { provide: NgbDateParserFormatter, useFactory: () => new CustomNgbDateParserFormatter('dd-MM-yyyy') },
     // Model providers
     Errors,
     // providers used to create fake backend
     ApiService,
     MockBackend,
     BaseRequestOptions,
+    // lib providers
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

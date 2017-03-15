@@ -2,13 +2,31 @@
 
     <div *ngIf="addOrUpdateMode" class="jumbotron container">
         <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !cause.valid), 'has-danger': (!cause.valid && cause.touched) , 
+            'has-success': (cause.valid && cause.touched)}">
+                    <label class="col-2 col-form-label" for="cause">Cause</label>
+                    <div class="col-6">
+                        <select class="form-control" name="type" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <option *ngFor="let cause of causeList" value= {{cause.id}}>
+                            {{cause.value}}
+                        </option>
+                        </select>
+                        <div *ngIf="f.submitted && !cause.valid" class="help-block">Cause is required</div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !type.valid), 'has-danger': (!type.valid && type.touched) , 
             'has-success': (type.valid && type.touched)}">
                     <label class="col-2 col-form-label" for="type">Type</label>
-                    <div class="col-10">
-                        <input type="text" [ngClass]="{'form-control-success': type.valid && type.touched, 'form-control-danger': !type.valid && type.touched }" class="form-control" name="type" [(ngModel)]="model.type" #type="ngModel" required />
+                    <div class="col-6">
+                        <select class="form-control" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}}>
+                            {{failureType.value}}
+                        </option>
+                        </select>
                         <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
                     </div>
                 </div>
@@ -16,8 +34,12 @@
                 <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !source.valid), 'has-danger': (!source.valid && source.touched) , 
             'has-success': (source.valid && source.touched)}">
                     <label class="col-2 col-form-label" for="password">Source</label>
-                    <div class="col-10">
-                        <input [ngClass]="{'form-control-success': source.valid , 'form-control-danger': !source.valid }" type="text" class="form-control" name="source" [(ngModel)]="model.source" #source="ngModel" required />
+                    <div class="col-6">
+                        <select class="form-control" name="source" [(ngModel)]="selectedsource.id" #source="ngModel" required>
+                        <option *ngFor="let source of sourceList" value= {{source.id}}>
+                            {{source.value}}
+                        </option>
+                        </select>
                         <div *ngIf="f.submitted && !source.valid" class="help-block">Source is required</div>
                     </div>
                 </div>
@@ -27,26 +49,35 @@
                 <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !startDate.valid), 'has-danger': (!startDate.valid && startDate.touched) , 
             'has-success': (startDate.valid && startDate.touched)}">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
-                    <div class="col-10">
-                        <input type="<date> </date>" [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" [(ngModel)]="model.startDate" #startDate="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>
+                    <div class="col-6">
+                        <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyyy" ngbDatepicker [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate"
+                            [(ngModel)]="model.startDate" #startDate="ngbDatepicker" required />
+                        <!--<div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>-->
                     </div>
+                    <div class="col-4">
+                        <i class="fa fa-calendar" aria-hidden="true" (click)="startDate.toggle()"></i>
+                    </div>
+
                 </div>
 
                 <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !endDate.valid), 'has-danger': (!endDate.valid && endDate.touched) , 
             'has-success': (endDate.valid && endDate.touched)}">
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
-                    <div class="col-10">
-                        <input [ngClass]="{'form-control-success': endDate.valid , 'form-control-danger': !endDate.valid }" type="date" class="form-control" name="endDate" [(ngModel)]="model.endDate" #endDate="ngModel" required />
-                        <div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>
+                    <div class="col-6">
+                        <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyy" ngbDatepicker [ngClass]="{'form-control-success': endDate.valid , 'form-control-danger': !endDate.valid }" class="form-control" name="endDate" [(ngModel)]="model.endDate" #endDate="ngbDatepicker"
+                            required />
+                        <!--<div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>-->
+                    </div>
+                    <div class="col-4">
+                        <i class="fa fa-calendar" aria-hidden="true" (click)="endDate.toggle()"></i>
                     </div>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <button [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
+                <button type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
+                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false" class="btn btn-primary">Back</button>
             </div>
             <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         </form>
@@ -83,9 +114,9 @@
                         <td>{{failure.end_date | date:"dd-MMM-yyyy"}}</td>
                         <td>
                             <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
-                            <i (click)="addOrUpdateMode = true" class="fa fa-edit" title="Edit"></i>
+                            <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
-                            <i (click)="addOrUpdateMode = true" class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                            <i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -93,3 +124,5 @@
         </div>
     </div>
 </section>
+<!--<input type="text" [ngClass]="{'form-control-success': type.valid && type.touched, 'form-control-danger': !type.valid && type.touched }"
+                         class="form-control" name="type" [(ngModel)]="model.type" #type="ngModel" required />-->

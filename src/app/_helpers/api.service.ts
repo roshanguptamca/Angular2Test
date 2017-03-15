@@ -60,9 +60,7 @@ export class ApiService {
   putWithOptions(path: string, requestOptions:RequestOptions, body: Object = {}): Observable<any> {
     return this.http.put(
       `${environment.api_url}${path}`,
-      JSON.stringify(body),
-      { headers: this.setHeaders() }
-    )
+      JSON.stringify(body),requestOptions)
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }
@@ -78,11 +76,10 @@ export class ApiService {
   }
 
  postWithOption(path: string, requestOptions:RequestOptions, body: Object = {}): Observable<any> {
+   debugger;
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body),
-      { headers: this.setHeaders() }
-    )
+      JSON.stringify(body),requestOptions)
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }

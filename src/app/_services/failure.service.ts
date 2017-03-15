@@ -23,7 +23,8 @@ export class FailureService {
     }
  
     create(failure: Failure) {
-        return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt()).map((response: Response, failure) => response.json());
+        debugger;
+        return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt(), failure).map((response: Response, failure) => response.json());
     }
  
     update(failure: Failure) {
@@ -40,7 +41,9 @@ export class FailureService {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Token ' + currentUser.token });
+            let headers = new Headers({ 'Authorization': 'Token ' + currentUser.token,
+         'Content-Type': 'application/json' },
+            );
             return new RequestOptions({ headers: headers });
         }
     }
