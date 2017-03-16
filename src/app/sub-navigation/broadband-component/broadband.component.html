@@ -1,10 +1,23 @@
 <section class="broadbond-component-template">
 
     <div *ngIf="addOrUpdateMode" class="jumbotron container">
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.length > 0">
+            <span *ngFor="let error of errors.apiError"> <strong>{{error}}</strong></span>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.service && errors.apiError.service.length > 0">
+            <span *ngFor="let serviceError of errors.apiError.service"> <strong>{{serviceError}}</strong></span>
+        </div>
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.start_date && errors.apiError.start_date.length > 0">
+            <span *ngFor="let dateError of errors.apiError.start_date"> <strong>{{dateError}}</strong></span>
+        </div>
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.end_date && errors.apiError.end_date.length > 0">
+            <span *ngFor="let dateError of errors.apiError.end_date"> <strong>{{dateError}}</strong></span>
+        </div>
+
         <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
             <div class="row">
-                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !cause.valid), 'has-danger': (!cause.valid && cause.touched) , 
-            'has-success': (cause.valid && cause.touched)}">
+                <div class="form-group row">
                     <label class="col-2 col-form-label" for="cause">Cause</label>
                     <div class="col-6">
                         <select class="form-control" name="type" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
@@ -18,8 +31,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !type.valid), 'has-danger': (!type.valid && type.touched) , 
-            'has-success': (type.valid && type.touched)}">
+                <div class="form-group row">
                     <label class="col-2 col-form-label" for="type">Type</label>
                     <div class="col-6">
                         <select class="form-control" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
@@ -31,8 +43,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !source.valid), 'has-danger': (!source.valid && source.touched) , 
-            'has-success': (source.valid && source.touched)}">
+                <div class="form-group row">
                     <label class="col-2 col-form-label" for="password">Source</label>
                     <div class="col-6">
                         <select class="form-control" name="source" [(ngModel)]="selectedsource.id" #source="ngModel" required>
@@ -46,13 +57,11 @@
             </div>
 
             <div class="row">
-                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !startDate.valid), 'has-danger': (!startDate.valid && startDate.touched) , 
-            'has-success': (startDate.valid && startDate.touched)}">
+                <div class="form-group row">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-6">
                         <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyyy" ngbDatepicker [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate"
                             [(ngModel)]="model.startDate" #startDate="ngbDatepicker" required />
-                        <!--<div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>-->
                     </div>
                     <div class="col-4">
                         <i class="fa fa-calendar" aria-hidden="true" (click)="startDate.toggle()"></i>
@@ -60,13 +69,11 @@
 
                 </div>
 
-                <div class="form-group row" [ngClass]="{ 'has-error': (f.submitted && !endDate.valid), 'has-danger': (!endDate.valid && endDate.touched) , 
-            'has-success': (endDate.valid && endDate.touched)}">
+                <div class="form-group row">
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
                     <div class="col-6">
                         <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyy" ngbDatepicker [ngClass]="{'form-control-success': endDate.valid , 'form-control-danger': !endDate.valid }" class="form-control" name="endDate" [(ngModel)]="model.endDate" #endDate="ngbDatepicker"
                             required />
-                        <!--<div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>-->
                     </div>
                     <div class="col-4">
                         <i class="fa fa-calendar" aria-hidden="true" (click)="endDate.toggle()"></i>

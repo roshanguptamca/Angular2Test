@@ -19,7 +19,7 @@ import { DatePipe } from '@angular/common';
 
 // used to create fake backend
 import {
-  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter
+  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory
 } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
@@ -84,7 +84,8 @@ import {
     HomeService,
     ApplicationUtillService,
     DateFormatorSerice,
-    { provide: NgbDateParserFormatter, useFactory: () => new CustomNgbDateParserFormatter('dd-MM-yyyy') },
+   // { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
+    { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
     // Model providers
     Errors,
     // providers used to create fake backend

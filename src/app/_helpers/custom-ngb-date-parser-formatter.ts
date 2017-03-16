@@ -32,3 +32,7 @@ export class CustomNgbDateParserFormatter extends NgbDateParserFormatter {
 		return returnVal;
 	}
 }
+
+export function CustomNgbDateParserFormatterFactory() {
+  return  new CustomNgbDateParserFormatter("dd-MM-yyyy");
+}

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
 import { FailureService, ApplicationUtillService } from '../../_services/index';
-import { Failure, FailureTypes, Source, Cause } from '../../shared/models/index';
+import { Failure, FailureTypes, Source, Cause, Errors } from '../../shared/models/index';
 
 import { DateFormatorSerice } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
-
+import { AppConstant } from '../../commons/application.constant';
+ 
 @Component({
   selector: 'broadband-component',
   templateUrl: './broadband.component.html',
@@ -15,6 +15,8 @@ import { DatePipe } from '@angular/common';
 })
 export class BroadbandComponent implements OnInit {
   public selectedUrl: String;
+  private searchString: string;
+  errors = new Errors();
   failureList: Failure[] = [];
   model: any = {};
   failureTypesList: FailureTypes[];
@@ -24,7 +26,6 @@ export class BroadbandComponent implements OnInit {
   causeList: Cause[];
   selectedCause: Cause;
   searchQuery: any[] = [];
-  private searchString: string;
   isApplicationLoading: Boolean = false;
   addOrUpdateMode: Boolean = false;
   dateModel: NgbDateStruct;
@@ -40,7 +41,7 @@ export class BroadbandComponent implements OnInit {
     private applicationUtillService: ApplicationUtillService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private dateFormatorSerice: DateFormatorSerice,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {
     this.selectedUrl = router.url;
   }
@@ -53,24 +54,30 @@ export class BroadbandComponent implements OnInit {
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
     this.selectedCause = this.causeList[0];
-
     // get dashboard data from secure api end point
     this.isApplicationLoading = true;
+    this.getAllFailureList();
+  }
+
+ getAllFailureList() {
     // get failurs from secure api end point
+    this.errors.reset();
     this.failureService.getFailureList()
       .subscribe(failurs => {
         this.failureList = failurs;
       },
       error => {
         console.error(error);
+        debugger;
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
+        }else {
         }
       },
       () => {
         this.isApplicationLoading = false;
       });
-  }
+ }
 
   // Method in component class
   trackByFn(index, item) {
@@ -79,18 +86,22 @@ export class BroadbandComponent implements OnInit {
 
   // Method in component class
   updateFailure(failure: Failure) {
+    this.errors.reset();
+    debugger;
     this.addOrUpdateMode = true;
-    this.selectedCause.id = failure.cause;
-    this.selectedFailureTypes.id = failure.type;
-    this.selectedsource.id = failure.source;
-    //this.model.endDate = this.setDefaultDate(failure.end_date);
+    this.selectedCause = this.causeList[failure.cause];
+    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedsource =  this.sourceList[failure.source];
+    this.model.endDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.end_date));
     this.onSelectDate(this.model.endDate);
-    //this.model.startDate = this.setDefaultDate(failure.start_date);
+    this.model.startDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.start_date));
     this.onSelectDate(this.model.startDate);
   }
 
   // Method in component class
   addNewFailure(failure: Failure) {
+    this.errors.reset();
+    debugger;
     this.addOrUpdateMode = true;
     this.model = {};
   }
@@ -110,16 +121,21 @@ export class BroadbandComponent implements OnInit {
     console.log(this.selectedsource);
     console.log(this.selectedCause);
     this.prepaireFailure();
-    debugger
-     this.failureService.create(this.failure)
+    this.failureService.create(this.failure)
       .subscribe(newfailur => {
        // this.failureList = failurs;
         console.log(newfailur);
+        this.addOrUpdateMode = false;
+        this.getAllFailureList();
       },
       error => {
         console.error(error);
+        debugger;
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
+        }
+        else{
+          this.errors.apiError = error;
         }
       },
       () => {
@@ -133,15 +149,11 @@ export class BroadbandComponent implements OnInit {
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
-   this.failure.start_date = new Date().toLocaleTimeString();
-   this.failure.end_date = new Date().toLocaleTimeString();
+   this.failure.start_date = this.dateFormatorSerice.format(this.model.startDate,AppConstant.DB_DATE_FORMAT);
+   this.failure.end_date = this.dateFormatorSerice.format(this.model.endDate,AppConstant.DB_DATE_FORMAT);
    this.failure.criteria = [
       "1062KS"
    ];
-  }
-
-  format(date: NgbDateStruct) {
-    this.model.startDate = this.dateFormatorSerice.formatDate(date);
   }
 
   onSelectDate(date: NgbDateStruct) {
