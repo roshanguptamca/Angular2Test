@@ -20,7 +20,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="cause">Cause</label>
                     <div class="col-6">
-                        <select class="form-control" name="type" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <select class="form-control" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
                         <option *ngFor="let cause of causeList" value= {{cause.id}}>
                             {{cause.value}}
                         </option>
