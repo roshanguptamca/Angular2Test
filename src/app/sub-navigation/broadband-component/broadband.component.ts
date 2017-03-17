@@ -45,7 +45,7 @@ export class BroadbandComponent implements OnInit {
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
   ) {
-    this.selectedUrl = router.url;
+    this.selectedUrl = this.router.url;
   }
 
   ngOnInit() {

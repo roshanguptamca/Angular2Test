@@ -10,6 +10,7 @@ import { FailureOverviewService, ApplicationUtillService } from '../../_services
   styleUrls: ['./failure-overview.component.scss']
 })
 export class FailureOverviewComponent implements OnInit, OnDestroy  {
+  private selectedUrl: string;
   failUreId: number;
   private sub: any;
   errors = new Errors();
@@ -30,6 +31,7 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
 
   ngOnInit() {
     this.isApplicationLoading = true;
+    this.selectedUrl = this.router.url;
     this.sub = this.route.params.subscribe(params => {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
        // In a real app: dispatch action to load the details here.
@@ -41,6 +43,13 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
     this.sub.unsubscribe();
   }
 
+redirectToParent() {
+  var tempStringArray: string[];
+  if(this.selectedUrl  && this.selectedUrl != null){
+    tempStringArray = this.selectedUrl.split('/');
+    this.router.navigate([tempStringArray[1]+"/"+tempStringArray[2]]);
+  }
+}
   // v5/?method=kpn.otty.YaraAffectedElementsList
 
   getAffectedElementsByFailureId(failureId: number){
