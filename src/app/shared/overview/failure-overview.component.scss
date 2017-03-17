@@ -1,1 +1,4 @@
-.overview-component-template {}
+@import "../../../styles.scss";
+.overview-component-template {
+    padding-top: $margin-large;
+}

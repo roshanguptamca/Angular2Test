@@ -29,7 +29,8 @@ import {
   UserService,
   FailureService,
   HomeService,
-  ApplicationUtillService
+  ApplicationUtillService,
+  FailureOverviewService
 } from './_services/index';
 
 import { LoginComponent } from './login/index';
@@ -85,6 +86,7 @@ import {
     ApplicationUtillService,
     DateFormatorSerice,
     { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
+    FailureOverviewService,
     // Model providers
     Errors,
     // providers used to create fake backend

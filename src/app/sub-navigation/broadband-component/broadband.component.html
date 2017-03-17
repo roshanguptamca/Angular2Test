@@ -117,8 +117,8 @@
                         <td>{{failure.state}}</td>
                         <td>-</td>
                         <td>-</td>
-                        <td>{{failure.start_date | date:"dd-MMM-yyyy"}}</td>
-                        <td>{{failure.end_date | date:"dd-MMM-yyyy"}}</td>
+                        <td>{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td>{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>
                             <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>

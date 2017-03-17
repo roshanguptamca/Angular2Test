@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FailureService, ApplicationUtillService } from '../../_services/index';
@@ -33,6 +33,8 @@ export class BroadbandComponent implements OnInit {
   tempdateString: string;
   failure: Failure;
   page: number = 1;
+  private sub: any;
+  
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -61,7 +63,7 @@ export class BroadbandComponent implements OnInit {
  getAllFailureList() {
     // get failurs from secure api end point
     this.errors.reset();
-    this.failureService.getFailureList()
+    this.sub = this.failureService.getFailureList()
       .subscribe(failurs => {
         this.failureList = failurs;
       },
@@ -115,7 +117,6 @@ export class BroadbandComponent implements OnInit {
 
     // Method in component class
   redirectToOverview(failureId: number) {
-    debugger;
     this.router.navigate([this.selectedUrl+'/overview/'+failureId]);
   }
 
@@ -178,6 +179,11 @@ export class BroadbandComponent implements OnInit {
     else {
       return this.ngbDateParserFormatter.parse(null);
     }
+  }
+
+
+ ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

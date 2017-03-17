@@ -17,15 +17,15 @@ const failureRouting: ModuleWithProviders = RouterModule.forChild([
     children: [
             {path: '', redirectTo: 'broadband', pathMatch: 'full'},
             {path: 'broadband', component: BroadbandComponent},
-            {path: 'broadband/overview/:{id}', component: FailureOverviewComponent},
+            {path: 'broadband/overview/:id', component: FailureOverviewComponent},
             {path: 'fixed', component: FixedComponent},
             {path: 'mobile', component: MobileComponent},
             {path: 'serviceguard', component: ServiceguardComponent},
             {path: 'other', component: OtherComponent},
             {path: 'fixed/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'serviceguard/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'other/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'mobile/overview/:{id}', component: FailureOverviewComponent}
+            {path: 'serviceguard/overview/:id', component: FailureOverviewComponent},
+            {path: 'other/overview/:id', component: FailureOverviewComponent},
+            {path: 'mobile/overview/:id', component: FailureOverviewComponent}
         ]
   }
 ]);
