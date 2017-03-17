@@ -95,7 +95,7 @@
             <div class="row">
                 <input type="search" id="inputType" class="form-control glyphicon-search-input" placeholder="Search String" [(ngModel)]="searchString">
             </div>
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -110,7 +110,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['id'] ; let i = index; trackBy:trackByFn;">
+                    <tr (click)="redirectToOverview(failure.id)" class="clickalble" *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{failure.id}}</th>
                         <td>{{failure.region}}</td>
                         <td>{{failure.type}}</td>
@@ -128,8 +128,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
         </div>
     </div>
 </section>
-<!--<input type="text" [ngClass]="{'form-control-success': type.valid && type.touched, 'form-control-danger': !type.valid && type.touched }"
-                         class="form-control" name="type" [(ngModel)]="model.type" #type="ngModel" required />-->

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { FailureService } from '../_services/failure.service';
 import { Failure } from '../shared/models/failure.model';
@@ -15,8 +14,6 @@ export class FailureComponent implements OnInit {
   failureList: Failure[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private failureService: FailureService
   ) { }
 

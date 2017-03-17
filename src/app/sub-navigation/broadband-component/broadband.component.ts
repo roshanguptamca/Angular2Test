@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FailureService, ApplicationUtillService } from '../../_services/index';
@@ -17,7 +17,7 @@ export class BroadbandComponent implements OnInit {
   public selectedUrl: String;
   private searchString: string;
   errors = new Errors();
-  failureList: Failure[] = [];
+  public failureList: Failure[] = [];
   model: any = {};
   failureTypesList: FailureTypes[];
   selectedFailureTypes: FailureTypes;
@@ -32,8 +32,8 @@ export class BroadbandComponent implements OnInit {
   dateString: string;
   tempdateString: string;
   failure: Failure;
-
-
+  page: number = 1;
+  sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -49,7 +49,6 @@ export class BroadbandComponent implements OnInit {
   ngOnInit() {
     this.failureTypesList = this.applicationUtillService.getFailureTypes();
     this.selectedFailureTypes = this.failureTypesList[0];
-
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
@@ -68,10 +67,10 @@ export class BroadbandComponent implements OnInit {
       },
       error => {
         console.error(error);
-        debugger;
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }else {
+          // todo
         }
       },
       () => {
@@ -109,11 +108,18 @@ export class BroadbandComponent implements OnInit {
   // Method in component class
   redirectToLogin() {
     localStorage.removeItem('currentUser');
-    this.isApplicationLoading = false; this.addOrUpdateMode = false;
+    this.isApplicationLoading = false; 
+    this.addOrUpdateMode = false;
     this.router.navigate(['/login']);
   }
 
+    // Method in component class
+  redirectToOverview(failureId: number) {
+    debugger;
+    this.router.navigate([this.selectedUrl+'/overview/'+failureId]);
+  }
 
+// Method in component class
   createFailure() {
     this.isApplicationLoading = true;
     console.log(this.model);
@@ -142,9 +148,8 @@ export class BroadbandComponent implements OnInit {
         this.isApplicationLoading = false;
       });
   }
-
+// Method in component class
   prepaireFailure() {
-    debugger;
    this.failure = new Failure();
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
@@ -155,14 +160,14 @@ export class BroadbandComponent implements OnInit {
       "1062KS"
    ];
   }
-
+// Method in component class
   onSelectDate(date: NgbDateStruct) {
     if (date != null) {
       this.dateModel = date;   //needed for first time around due to ngModel not binding during ngOnInit call. Seems like a bug in ng2.
       this.dateString = this.ngbDateParserFormatter.format(date);
     }
   }
-
+// Method in component class
   setDefaultDate(date:Date): NgbDateStruct {
     if(date !== null) {
       let startYear = this.datePipe.transform(date, 'yyyy');

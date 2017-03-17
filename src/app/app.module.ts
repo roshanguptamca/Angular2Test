@@ -15,12 +15,12 @@ import { MobileComponent } from './sub-navigation/mobile-component/mobile-compon
 import { ServiceguardComponent } from './sub-navigation/serviceguard-component/serviceguard.component';
 import { OtherComponent } from './sub-navigation/other-component/other-component';
 import { DatePipe } from '@angular/common';
+import {Ng2PaginationModule} from 'ng2-pagination';
 
-
-// used to create fake backend
 import {
   ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory
 } from './_helpers/index';
+
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { AuthGuard } from './_guards/index';
@@ -31,22 +31,20 @@ import {
   HomeService,
   ApplicationUtillService
 } from './_services/index';
+
 import { LoginComponent } from './login/index';
 import { HomeComponent } from './home/index';
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
 import { MainPipe } from './main-pipe.module';
 
 import {
   FooterComponent,
   HeaderComponent,
-  Errors
+  Errors,
+  FailureOverviewComponent
 } from './shared';
 
-
-//const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: false });
 
 @NgModule({
   declarations: [
@@ -59,7 +57,8 @@ import {
     ServiceguardComponent,
     OtherComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    FailureOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +72,8 @@ import {
     ArchivedPlannedMaintenanceModule,
     routing,
     MainPipe,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    Ng2PaginationModule
   ],
   providers: [
     // Service providers used
@@ -84,7 +84,6 @@ import {
     HomeService,
     ApplicationUtillService,
     DateFormatorSerice,
-   // { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
     { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
     // Model providers
     Errors,

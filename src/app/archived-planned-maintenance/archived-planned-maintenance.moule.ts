@@ -7,6 +7,7 @@ import{ MobileComponent } from '../sub-navigation/mobile-component/mobile-compon
 import{ ServiceguardComponent } from '../sub-navigation/serviceguard-component/serviceguard.component';
 import{ OtherComponent } from '../sub-navigation/other-component/other-component';
 import { AuthGuard } from '../_guards/index';
+import { FailureOverviewComponent } from '../shared/index';
 
 const plannedMaintenanceRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -19,7 +20,12 @@ const plannedMaintenanceRouting: ModuleWithProviders = RouterModule.forChild([
             {path: 'fixed', component: FixedComponent},
             {path: 'mobile', component: MobileComponent},
             {path: 'serviceguard', component: ServiceguardComponent},
-            {path: 'other', component: OtherComponent}
+            {path: 'other', component: OtherComponent},
+            {path: 'broadband/overview/:{id}', component: FailureOverviewComponent},
+            {path: 'fixed/overview/:{id}', component: FailureOverviewComponent},
+            {path: 'serviceguard/overview/:{id}', component: FailureOverviewComponent},
+            {path: 'other/overview/:{id}', component: FailureOverviewComponent},
+            {path: 'mobile/overview/:{id}', component: FailureOverviewComponent}
         ]
   }
 ]);

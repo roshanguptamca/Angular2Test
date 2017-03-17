@@ -15,8 +15,8 @@ export class FailureService {
  
     getFailureList(): Observable<Failure[]> {
         // add authorization header with jwt token
-        return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
-       // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraList",this.jwt());
+       // return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
+        return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraList",this.jwt());
     }
     getById(id: number) {
         return this.apiService.get('/disturbances/v1/failures/' + id).map((response: Response) => response.json());

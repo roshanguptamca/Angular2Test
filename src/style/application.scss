@@ -17,7 +17,14 @@
     }
 }
 
+.ng2-pagination {
+    li {
+        cursor: pointer;
+    }
+}
+
 body {
+    margin-bottom: 100px;
     @media screen and (max-width: $screen-xs-min) {
         display: block !important;
         position: absolute;

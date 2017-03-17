@@ -19,8 +19,8 @@ export class AuthenticationService {
     }
  
     login(username: string, password: string): Observable<boolean> {
-        return this.apiService.post('/disturbances/v1/auth/token', { username: username, password: password })
-       // return this.apiService.post('/v5/?method=kpn.ci.Login', { username: username, password: password })
+       // return this.apiService.post('/disturbances/v1/auth/token', { username: username, password: password })
+        return this.apiService.post('/v5/?method=kpn.ci.Login', { username: username, password: password })
             .map((user: User) => {
                 // login successful if there's a jwt token in the response
                 this.userAuthentedEvent.emit(user);
