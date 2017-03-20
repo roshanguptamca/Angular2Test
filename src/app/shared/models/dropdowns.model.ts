@@ -1,5 +1,5 @@
 export class FailureTypes {
-  constructor(public id: number, public value: string) { }
+  constructor(public id: number, public value: string, public disabled:boolean) { }
 }
 
 export class Cause {

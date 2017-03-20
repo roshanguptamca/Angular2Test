@@ -3,8 +3,10 @@
         <ngb-tab title="Affected Elements">
             <template ngbTabContent>
       <h3>Affected Elements</h3>
-
-           <table class="table table-striped">
+      <div *ngIf="affectedElementList && affectedElementList.results && affectedElementList.results.length <= 0">
+          <p> No Data Found .</p>
+      </div>
+           <table class="table table-striped" *ngIf="affectedElementList && affectedElementList.results && affectedElementList.results.length > 0">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -15,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  class="clickalble" *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index;">
+                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index;">
                         <th scope="row">{{affectedElement.id}}</th>
                         <td>{{affectedElement.failure}}</td>
                         <td>{{affectedElement.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
@@ -31,7 +33,10 @@
         <ngb-tab title="Affected Customers">
             <template ngbTabContent>
       <h3>Affected Customers</h3>
-       <table class="table table-striped">
+      <div *ngIf="affectedCoustomerList && affectedCoustomerList.results && affectedCoustomerList.results.length <= 0">
+          <p class="text-center"> No Data Found .</p>
+      </div>
+       <table class="table table-striped" *ngIf="affectedCoustomerList && affectedCoustomerList.results && affectedCoustomerList.results.length > 0">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -42,12 +47,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  class="clickalble" *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index;">
-                        <th scope="row">{{affectedElement.id}}</th>
-                        <td>{{affectedElement.failure}}</td>
-                        <td>{{affectedElement.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                        <td>{{affectedElement.updated_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                         <td>{{affectedElement.attributes.zip_code4}},{{affectedElement.attributes.zip_code}}</td>
+                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id']; let i = index;">
+                        <th scope="row">{{affectedCoustomer.id}}</th>
+                        <td>{{affectedCoustomer.failure}}</td>
+                        <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td>{{affectedCoustomer.updated_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                         <td>{{affectedCoustomer.attributes.zip_code4}},{{affectedCoustomer.attributes.zip_code}}</td>
                     </tr>
                 </tbody>
             </table>

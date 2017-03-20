@@ -15,7 +15,8 @@ import { MobileComponent } from './sub-navigation/mobile-component/mobile-compon
 import { ServiceguardComponent } from './sub-navigation/serviceguard-component/serviceguard.component';
 import { OtherComponent } from './sub-navigation/other-component/other-component';
 import { DatePipe } from '@angular/common';
-import {Ng2PaginationModule} from 'ng2-pagination';
+import { Ng2PaginationModule } from 'ng2-pagination';
+import { Ng2DatetimePickerModule, Ng2Datetime } from 'ng2-datetime-picker';
 
 import {
   ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory
@@ -74,7 +75,8 @@ import {
     routing,
     MainPipe,
     NgbModule.forRoot(),
-    Ng2PaginationModule
+    Ng2PaginationModule,
+    Ng2DatetimePickerModule
   ],
   providers: [
     // Service providers used

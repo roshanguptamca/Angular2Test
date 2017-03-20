@@ -19,13 +19,25 @@
             <div class="row">
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="cause">Cause</label>
-                    <div class="col-6">
-                        <select class="form-control" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
-                        <option *ngFor="let cause of causeList" value= {{cause.id}}>
+                    <div class="col-8">
+                        <select (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <option *ngFor="let cause of causeList" value= {{cause.id}} [selected]="cause.id == selectedCause.id">
                             {{cause.value}}
                         </option>
                         </select>
                         <div *ngIf="f.submitted && !cause.valid" class="help-block">Cause is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
+                    <label class="col-2 col-form-label" for="service">Service</label>
+                    <div class="col-8">
+                        <select class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
+                        <option *ngFor="let service of serviceList" value= {{service.id}} [selected]="service.id == selectedService.id">
+                            {{service.value}}
+                        </option>
+                        </select>
+                        <div *ngIf="f.submitted && !service.valid" class="help-block">Service is required</div>
                     </div>
                 </div>
             </div>
@@ -33,9 +45,9 @@
             <div class="row">
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="type">Type</label>
-                    <div class="col-6">
-                        <select class="form-control" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
-                        <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}}>
+                    <div class="col-8">
+                        <select class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}} [selected]="failureType.id == selectedFailureTypes.id">
                             {{failureType.value}}
                         </option>
                         </select>
@@ -45,9 +57,9 @@
 
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="password">Source</label>
-                    <div class="col-6">
-                        <select class="form-control" name="source" [(ngModel)]="selectedsource.id" #source="ngModel" required>
-                        <option *ngFor="let source of sourceList" value= {{source.id}}>
+                    <div class="col-8">
+                        <select class="form-control clickable" name="source" [(ngModel)]="selectedsource.id" #source="ngModel" required>
+                        <option *ngFor="let source of sourceList" value= {{source.id}} [selected]="source.id == selectedsource.id">
                             {{source.value}}
                         </option>
                         </select>
@@ -59,28 +71,46 @@
             <div class="row">
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
-                    <div class="col-6">
-                        <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyyy" ngbDatepicker [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate"
-                            [(ngModel)]="model.startDate" #startDate="ngbDatepicker" required />
+                    <div class="col-8">
+                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="dd-MM-yyyy" [(ngModel)]="model.startDate" name="startDate"
+                            #startDate="ngModel" required ng2-datetime-picker/>
                     </div>
-                    <div class="col-4">
-                        <i class="fa fa-calendar" aria-hidden="true" (click)="startDate.toggle()"></i>
-                    </div>
-
                 </div>
 
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
-                    <div class="col-6">
-                        <input (ngModelChange)="onSelectDate($event)" placeholder="dd-MM-yyy" ngbDatepicker [ngClass]="{'form-control-success': endDate.valid , 'form-control-danger': !endDate.valid }" class="form-control" name="endDate" [(ngModel)]="model.endDate" #endDate="ngbDatepicker"
-                            required />
-                    </div>
-                    <div class="col-4">
-                        <i class="fa fa-calendar" aria-hidden="true" (click)="endDate.toggle()"></i>
+                    <div class="col-8">
+                        <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="dd-MM-yyyy" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
+                            required ng2-datetime-picker/>
                     </div>
                 </div>
             </div>
 
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="description">Description</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="description" [ngClass]="{'form-control-success': description.valid , 'form-control-danger': !description.valid }" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="longDescription">Long Description</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="longDescription" [ngClass]="{'form-control-success': longDescription.valid , 'form-control-danger': !longDescription.valid }" class="form-control" name="longDescription" [(ngModel)]="model.longDescription" #longDescription="ngModel"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="criteria">Criteria</label>
+                    <div class="col-8">
+                        <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <button type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
@@ -88,6 +118,7 @@
             </div>
             <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         </form>
+
     </div>
 
     <div *ngIf="!addOrUpdateMode" class="container">
@@ -110,7 +141,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr (click)="redirectToOverview(failure.id)" class="clickalble" *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
+                    <tr (click)="redirectToOverview(failure.id)" class="clickable" *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{failure.id}}</th>
                         <td>{{failure.region}}</td>
                         <td>{{failure.type}}</td>

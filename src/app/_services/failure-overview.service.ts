@@ -14,14 +14,14 @@ export class FailureOverviewService {
     }
     getAffectedElementsByFailureId(failureId: number): Observable<AffectedElement[]> {
         // add authorization header with jwt token
-       // return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
-        return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
+        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-elements/",this.jwt());
+       // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
     }
 
     getAffectedCustomersByFailureId(failureId: number): Observable<AffectedCoustomer[]> {
         // add authorization header with jwt token
-       // return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
-        return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
+        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-customers/",this.jwt());
+       // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
     }
     private jwt() {
         // create authorization header with jwt token

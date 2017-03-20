@@ -5,20 +5,31 @@ import { FailureTypes, Cause, Service, State, Source } from '../shared/models/in
 export class ApplicationUtillService {
     constructor(){}
     failureTypes = [
-        new FailureTypes(0,"TYPE_BROADBAND"),
-        new FailureTypes(1,"TYPE_GEOGRAPHICAL_BROADBAND"),
-        new FailureTypes(2,"TYPE_CUSTOMER_ID"),
-        new FailureTypes(3,"TYPE_GENERIC"),
-        new FailureTypes(4,"TYPE_FIXED"),
-        new FailureTypes(5,"TYPE_GEOGRAPHICAL_FIXED"),
-        new FailureTypes(6,"TYPE_MOBILE"),
-        new FailureTypes(7,"TYPE_FIA_BROADBAND"),
-        new FailureTypes(8,"TYPE_SERVICE_ID")
+        new FailureTypes(0,"Broadband",false),
+        new FailureTypes(1,"Geographical Broadband",false),
+        new FailureTypes(2,"Customer ID",false),
+        new FailureTypes(3,"Generic",false),
+        new FailureTypes(4,"PSTN-ISDN",false),
+        new FailureTypes(5,"Geographical PSTN-ISDN",false),
+        new FailureTypes(6,"Mobile",false),
+        new FailureTypes(7,"FIA Broadband",false),
+        new FailureTypes(8,"Service ID Broadband",false)
+    ];
+
+     failureTypesByCause = [
+        new FailureTypes(1,"Geographical Broadband",false),
+        new FailureTypes(2,"Customer ID",false),
+        new FailureTypes(3,"Generic",false),
+        new FailureTypes(4,"PSTN-ISDN",false),
+        new FailureTypes(5,"Geographical PSTN-ISDN",false),
+        new FailureTypes(6,"Mobile",false),
+        new FailureTypes(7,"FIA Broadband",false),
+        new FailureTypes(8,"Service ID Broadband",false)
     ];
 
     causes = [
-        new Cause(0,"CAUSE_DISTURBANCE"),
-        new Cause(1,"CAUSE_PLANNED_MAINTENANCE")
+        new Cause(0,"Failure"),
+        new Cause(1,"Planned maintenance")
     ];
     sources = [
         new Source(0,"SOURCE_GUI"),
@@ -26,13 +37,13 @@ export class ApplicationUtillService {
     ];
 
     services = [
-        new Service(0,"SERVICE_ITV"),
-        new Service(1,"SERVICE_VOIP"),
-        new Service(2,"SERVICE_INTERNET"),
-        new Service(3,"SERVICE_MIJNKPN"),
-        new Service(4,"SERVICE_WEBMAIL"),
-        new Service(5,"SERVICE_VAS"),
-        new Service(6,"SERVICE_NO_ACCESS")
+        new Service(0,"I-TV"),
+        new Service(1,"VoIP"),
+        new Service(2,"Internet"),
+        new Service(3,"MijnKPN"),
+        new Service(4,"Webmail"),
+        new Service(5,"Spotify"),
+        new Service(6,"Other")
     ];
 
     states = [
@@ -47,6 +58,16 @@ export class ApplicationUtillService {
     ];
     getFailureTypes(): FailureTypes[] {
         return  this.failureTypes;
+    }
+
+    getFailureTypesByCause(selectedCause:number): FailureTypes[] {
+        debugger;
+         if(selectedCause == 1){
+            return this.failureTypesByCause;
+         }
+         else {
+            return this.failureTypes;
+         }
     }
 
      getCauses(): Cause[] {

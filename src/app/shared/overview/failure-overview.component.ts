@@ -36,6 +36,7 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
        // In a real app: dispatch action to load the details here.
        this.getAffectedElementsByFailureId(this.failUreId);
+       this.getAffectedCustomersByFailureId(this.failUreId);
     });
   }
 

@@ -2,7 +2,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FailureService, ApplicationUtillService } from '../../_services/index';
-import { Failure, FailureTypes, Source, Cause, Errors } from '../../shared/models/index';
+import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 import { DateFormatorSerice } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
@@ -14,6 +15,8 @@ import { AppConstant } from '../../commons/application.constant';
   styleUrls: ['./broadband.component.scss']
 })
 export class BroadbandComponent implements OnInit {
+  startTime = {hour: 13, minute: 30};
+  endTime = {hour:17, minute: 30};
   public selectedUrl: String;
   private searchString: string;
   errors = new Errors();
@@ -25,6 +28,9 @@ export class BroadbandComponent implements OnInit {
   selectedsource: Source;
   causeList: Cause[];
   selectedCause: Cause;
+  serviceList: Service[];
+  selectedService: Service;
+
   searchQuery: any[] = [];
   isApplicationLoading: Boolean = false;
   addOrUpdateMode: Boolean = false;
@@ -49,12 +55,16 @@ export class BroadbandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.failureTypesList = this.applicationUtillService.getFailureTypes();
-    this.selectedFailureTypes = this.failureTypesList[0];
+    
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
     this.selectedCause = this.causeList[0];
+    this.serviceList = this.applicationUtillService.getServices();
+    this.selectedService = this.serviceList[0];
+    this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
+    this.selectedFailureTypes = this.failureTypesList[0];
+
     // get dashboard data from secure api end point
     this.isApplicationLoading = true;
     this.getAllFailureList();
@@ -93,10 +103,12 @@ export class BroadbandComponent implements OnInit {
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
-    this.model.endDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.end_date));
-    this.onSelectDate(this.model.endDate);
-    this.model.startDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.start_date));
-    this.onSelectDate(this.model.startDate);
+    this.model.endDate = failure.end_date;
+    this.model.startDate = failure.start_date;
+   // this.model.endDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.end_date));
+    //this.onSelectDate(this.model.endDate);
+    //this.model.startDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.start_date));
+   // this.onSelectDate(this.model.startDate);
   }
 
   // Method in component class
@@ -158,8 +170,9 @@ export class BroadbandComponent implements OnInit {
    this.failure.start_date = this.dateFormatorSerice.format(this.model.startDate,AppConstant.DB_DATE_FORMAT);
    this.failure.end_date = this.dateFormatorSerice.format(this.model.endDate,AppConstant.DB_DATE_FORMAT);
    this.failure.criteria = [
-      "1062KS"
+      this.formateCriteria(this.model.criteria)
    ];
+   debugger;
   }
 // Method in component class
   onSelectDate(date: NgbDateStruct) {
@@ -185,5 +198,32 @@ export class BroadbandComponent implements OnInit {
  ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+formateCriteria(newValue){
+  var tempCriteria;
+  var templist: string;
+  if(newValue != null && newValue!= "" && newValue.length > 0){
+    tempCriteria = newValue.split(",");
+    tempCriteria.forEach(element => {
+      if(templist){
+        templist = templist + '"'+element +'",';
+      }
+      else{
+        templist = '"'+element +'",';
+      }
+    });
+    return templist.substr(1,templist.length-2);
+  }
+  else {
+    return "";
+  }
+}
+
+onChangeCause(newvalue){
+  debugger
+  this.selectedCause = this.causeList[newvalue];
+  this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
+  this.selectedFailureTypes = this.failureTypesList[0];
+}
 
 }
