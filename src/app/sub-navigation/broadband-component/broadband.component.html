@@ -15,6 +15,10 @@
             <span *ngFor="let dateError of errors.apiError.end_date"> <strong>{{dateError}}</strong></span>
         </div>
 
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.criteria && errors.apiError.criteria.length > 0">
+            <span *ngFor="let criteriaError of errors.apiError.criteria"> <strong>{{criteriaError}}</strong></span>
+        </div>
+
         <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
             <div class="row">
                 <div class="form-group row">
@@ -72,7 +76,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-8">
-                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="dd-MM-yyyy" [(ngModel)]="model.startDate" name="startDate"
+                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate"
                             #startDate="ngModel" required ng2-datetime-picker/>
                     </div>
                 </div>
@@ -80,7 +84,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
                     <div class="col-8">
-                        <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="dd-MM-yyyy" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
+                        <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
                             required ng2-datetime-picker/>
                     </div>
                 </div>
@@ -93,7 +97,7 @@
                         <input type="text" placeholder="description" [ngClass]="{'form-control-success': description.valid , 'form-control-danger': !description.valid }" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" />
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
                     <label class="col-2 col-form-label" for="longDescription">Long Description</label>
                     <div class="col-8">
                         <input type="text" placeholder="longDescription" [ngClass]="{'form-control-success': longDescription.valid , 'form-control-danger': !longDescription.valid }" class="form-control" name="longDescription" [(ngModel)]="model.longDescription" #longDescription="ngModel"

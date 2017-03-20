@@ -55,8 +55,11 @@ export class BroadbandComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.sourceList = this.applicationUtillService.getSources();
+   this.bootstarpComponent();
+  }
+
+bootstarpComponent(){
+   this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
     this.selectedCause = this.causeList[0];
@@ -64,11 +67,10 @@ export class BroadbandComponent implements OnInit {
     this.selectedService = this.serviceList[0];
     this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
     this.selectedFailureTypes = this.failureTypesList[0];
-
     // get dashboard data from secure api end point
     this.isApplicationLoading = true;
     this.getAllFailureList();
-  }
+}
 
  getAllFailureList() {
     // get failurs from secure api end point
@@ -98,25 +100,24 @@ export class BroadbandComponent implements OnInit {
   // Method in component class
   updateFailure(failure: Failure) {
     this.errors.reset();
-    debugger;
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
     this.model.endDate = failure.end_date;
     this.model.startDate = failure.start_date;
-   // this.model.endDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.end_date));
-    //this.onSelectDate(this.model.endDate);
-    //this.model.startDate = this.setDefaultDate(this.dateFormatorSerice.parsStringtoDate(failure.start_date));
-   // this.onSelectDate(this.model.startDate);
   }
 
   // Method in component class
   addNewFailure(failure: Failure) {
     this.errors.reset();
-    debugger;
+    let today = new Date();
     this.addOrUpdateMode = true;
-    this.model = {};
+    this.model = {
+      startDate: new Date(),
+      endDate: this.datePipe.transform((today.setHours(today.getHours() + 4)),"yyyy-MM-dd hh:mm")
+    };
+    this.bootstarpComponent();
   }
 
   // Method in component class
@@ -167,33 +168,14 @@ export class BroadbandComponent implements OnInit {
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
-   this.failure.start_date = this.dateFormatorSerice.format(this.model.startDate,AppConstant.DB_DATE_FORMAT);
-   this.failure.end_date = this.dateFormatorSerice.format(this.model.endDate,AppConstant.DB_DATE_FORMAT);
+   this.failure.service = this.selectedService.id;
+   this.failure.start_date = this.model.startDate;
+   this.failure.end_date = this.model.endDate;
    this.failure.criteria = [
       this.formateCriteria(this.model.criteria)
    ];
    debugger;
   }
-// Method in component class
-  onSelectDate(date: NgbDateStruct) {
-    if (date != null) {
-      this.dateModel = date;   //needed for first time around due to ngModel not binding during ngOnInit call. Seems like a bug in ng2.
-      this.dateString = this.ngbDateParserFormatter.format(date);
-    }
-  }
-// Method in component class
-  setDefaultDate(date:Date): NgbDateStruct {
-    if(date !== null) {
-      let startYear = this.datePipe.transform(date, 'yyyy');
-      let startMonth = this.datePipe.transform(date, 'MM');
-      let startDay = this.datePipe.transform(date, 'dd');
-      return this.ngbDateParserFormatter.parse(startYear + "-" + startMonth.toString() + "-" + startDay);
-    }
-    else {
-      return this.ngbDateParserFormatter.parse(null);
-    }
-  }
-
 
  ngOnDestroy() {
     this.sub.unsubscribe();
