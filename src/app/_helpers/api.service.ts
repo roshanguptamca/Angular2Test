@@ -41,6 +41,7 @@ export class ApiService {
   }
 
   getWithOptions(path: string, requestOptions:RequestOptions): Observable<any> {
+    debugger;
     return this.http.get(`${environment.api_url}${path}`, requestOptions)
     //.timeoutWith(1000000, Observable.defer(() => Observable.throw({'errorCode': 'Time-Out'})))
     .catch(this.formatErrors)

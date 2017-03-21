@@ -148,8 +148,8 @@
                     <tr (click)="redirectToOverview(failure.id)" class="clickable" *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{failure.id}}</th>
                         <td>{{failure.region}}</td>
-                        <td>{{failure.type}}</td>
                         <td>{{failure.state}}</td>
+                        <td>{{failure.type}}</td>
                         <td>-</td>
                         <td>-</td>
                         <td>{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>

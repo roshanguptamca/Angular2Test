@@ -19,10 +19,10 @@ export class FailureComponent implements OnInit {
 
   ngOnInit() {
    // get failurs from secure api end point
-    this.failureService.getFailureList()
-      .subscribe(failurs => {
-        this.failureList = failurs;
-      });
+    // this.failureService.getFailureList()
+    //   .subscribe(failurs => {
+    //     this.failureList = failurs;
+    //   });
 
   }
 

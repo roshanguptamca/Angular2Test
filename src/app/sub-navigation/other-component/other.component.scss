@@ -1,0 +1,30 @@
+@import "../../../styles.scss";
+.other-component-template {
+    padding-top: $margin-large;
+    .glyphicon-search-input {
+        background: url("../../../assets/images/01-molecules/04-forms/icon_searchbox.svg") top left no-repeat;
+        background-repeat: no-repeat;
+        text-indent: $margin-larger;
+        &::-webkit-input-placeholder {
+            color: $kpngreen;
+        }
+        &:-ms-input-placeholder {
+            color: $kpngreen;
+        }
+        &::-moz-placeholder {
+            color: $kpngreen;
+        }
+        &:-moz-placeholder {
+            color: $kpngreen;
+        }
+    }
+    .fa {
+        cursor: pointer;
+    }
+    .form-group {
+        width: 50%;
+        .col-form-label {
+            text-align: right;
+        }
+    }
+}

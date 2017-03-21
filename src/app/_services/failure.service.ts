@@ -13,9 +13,9 @@ export class FailureService {
         private apiService: ApiService) {
     }
  
-    getFailureList(): Observable<Failure[]> {
+    getFailureList(queryString:string): Observable<Failure[]> {
         // add authorization header with jwt token
-        return this.apiService.getWithOptions("/disturbances/v1/failures/",this.jwt());
+        return this.apiService.getWithOptions("/disturbances/v1/failures/"+queryString,this.jwt());
        // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraList",this.jwt());
     }
     getById(id: number) {
@@ -24,7 +24,7 @@ export class FailureService {
  
     create(failure: Failure) {
         debugger;
-        return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt(), failure).map((response: Response, failure) => response.json());
+        return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt(), failure);
     }
  
     update(failure: Failure) {
