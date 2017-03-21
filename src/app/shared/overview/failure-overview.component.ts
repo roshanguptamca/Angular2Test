@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {NgbTabsetConfig} from '@ng-bootstrap/ng-bootstrap';
 import { AffectedCoustomer, AffectedElement, Failure, Errors } from '../models/index';
 import { FailureOverviewService, ApplicationUtillService } from '../../_services/index';
+import { Broadcaster } from '../../commons/application-broadcaster.service';
+import { MessageEvent } from '../../commons/message-event';
+import { AppConstant } from '../../commons/application.constant';
 
 @Component({
   selector: 'failure-overview',
@@ -17,11 +20,15 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
   public affectedElementList: AffectedElement[] = [];
   public affectedCoustomerList: AffectedCoustomer[] = [];
   isApplicationLoading: boolean = false;
+  page: number = 1;
+  sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
 
    constructor(config: NgbTabsetConfig, private route: ActivatedRoute,
     private failureOverviewService: FailureOverviewService,
     private applicationUtillService: ApplicationUtillService,
-    private router: Router
+    private router: Router,
+    private broadcaster: Broadcaster,
+    private messageEvent: MessageEvent
     ) {
     // customize default values of tabsets used by this component tree
     config.justify = 'center';
@@ -31,6 +38,7 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
 
   ngOnInit() {
     this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
     this.selectedUrl = this.router.url;
     this.sub = this.route.params.subscribe(params => {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
@@ -38,6 +46,9 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
        this.getAffectedElementsByFailureId(this.failUreId);
        this.getAffectedCustomersByFailureId(this.failUreId);
     });
+
+    this.isApplicationLoading = false;
+    this.emitApplicationLoadingBroadcast();
   }
 
   ngOnDestroy() {
@@ -54,7 +65,9 @@ redirectToParent() {
   // v5/?method=kpn.otty.YaraAffectedElementsList
 
   getAffectedElementsByFailureId(failureId: number){
-        // get failurs from secure api end point
+    // get Affected Elements from secure api end point
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
     this.errors.reset();
     this.sub = this.failureOverviewService.getAffectedElementsByFailureId(failureId)
       .subscribe(affectedElements => {
@@ -70,12 +83,15 @@ redirectToParent() {
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
   }
 
   getAffectedCustomersByFailureId(failureId: number){
 
-            // get failurs from secure api end point
+    // get Affected Customers from secure api end point
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
     this.errors.reset();
     this.sub = this.failureOverviewService.getAffectedCustomersByFailureId(failureId)
       .subscribe(affectedCoustomers => {
@@ -91,6 +107,7 @@ redirectToParent() {
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
 
   }
@@ -101,5 +118,13 @@ redirectToParent() {
     this.isApplicationLoading = false; 
     this.router.navigate(['/login']);
   }
+  
+  // Method in component class
+  trackByFn(index, item) {
+    return item.id;
+  }
 
+  emitApplicationLoadingBroadcast() {
+    this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
+  }
 }
