@@ -8,6 +8,8 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { DateFormatorSerice } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
+import { Broadcaster } from '../../commons/application-broadcaster.service';
+import { MessageEvent } from '../../commons/message-event';
  
 @Component({
   selector: 'broadband-component',
@@ -32,7 +34,7 @@ export class BroadbandComponent implements OnInit {
   selectedService: Service;
 
   searchQuery: any[] = [];
-  isApplicationLoading: Boolean = false;
+  isApplicationLoading: boolean = false;
   addOrUpdateMode: Boolean = false;
   dateModel: NgbDateStruct;
   dateString: string;
@@ -40,6 +42,9 @@ export class BroadbandComponent implements OnInit {
   failure: Failure;
   page: number = 1;
   private sub: any;
+
+  message: string;
+  _timer: any;
   
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
@@ -50,13 +55,20 @@ export class BroadbandComponent implements OnInit {
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
+    private broadcaster: Broadcaster,
+    private messageEvent: MessageEvent
   ) {
     debugger;
     this.selectedUrl = this.router.url;
   }
 
   ngOnInit() {
+   // get dashboard data from secure api end point
+   this.isApplicationLoading = true;
+   this.getAllFailureList();
    this.bootstarpComponent();
+   this.isApplicationLoading = false;
+   this.getAllFailureList();
   }
 
 bootstarpComponent(){
@@ -69,12 +81,13 @@ bootstarpComponent(){
     this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
     this.selectedFailureTypes = this.failureTypesList[0];
     // get dashboard data from secure api end point
-    this.isApplicationLoading = true;
     this.getAllFailureList();
 }
 
  getAllFailureList() {
     // get failurs from secure api end point
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
     this.errors.reset();
     this.sub = this.failureService.getFailureList(this.getApiFilterString())
       .subscribe(failurs => {
@@ -90,6 +103,7 @@ bootstarpComponent(){
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
  }
 
@@ -136,7 +150,8 @@ bootstarpComponent(){
 
 // Method in component class
   createFailure() {
-    this.isApplicationLoading = true;
+     this.isApplicationLoading = true;
+     this.emitApplicationLoadingBroadcast();
     console.log(this.model);
     console.log(this.selectedFailureTypes);
     console.log(this.selectedsource);
@@ -161,6 +176,7 @@ bootstarpComponent(){
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
   }
 // Method in component class
@@ -203,7 +219,6 @@ formateCriteria(newValue){
 }
 
 onChangeCause(newvalue){
-  debugger
   this.selectedCause = this.causeList[newvalue];
   this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
   this.selectedFailureTypes = this.failureTypesList[0];
@@ -223,5 +238,7 @@ getApiFilterString(){
   }
   return queryString;
 }
-
+  emitApplicationLoadingBroadcast() {
+    this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
+  }
 }

@@ -8,6 +8,9 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { DateFormatorSerice } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
+import { Broadcaster } from '../../commons/application-broadcaster.service';
+import { MessageEvent } from '../../commons/message-event';
+
 
 @Component({
   selector: 'fixed-component',
@@ -33,8 +36,8 @@ export class FixedComponent implements OnInit{
   selectedService: Service;
 
   searchQuery: any[] = [];
-  isApplicationLoading: Boolean = false;
-  addOrUpdateMode: Boolean = false;
+  isApplicationLoading: boolean = false;
+  addOrUpdateMode: boolean = false;
   dateModel: NgbDateStruct;
   dateString: string;
   tempdateString: string;
@@ -51,13 +54,18 @@ export class FixedComponent implements OnInit{
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
+    private broadcaster: Broadcaster,
+    private messageEvent: MessageEvent
   ) {
-    debugger;
     this.selectedUrl = this.router.url;
   }
 
   ngOnInit() {
+   this.isApplicationLoading = false;
+   this.emitApplicationLoadingBroadcast();
    this.bootstarpComponent();
+   this.isApplicationLoading = true;
+   this.emitApplicationLoadingBroadcast();
   }
 
 bootstarpComponent(){
@@ -76,6 +84,8 @@ bootstarpComponent(){
 
  getAllFailureList() {
     // get failurs from secure api end point
+    this.isApplicationLoading = false;
+    this.emitApplicationLoadingBroadcast();
     this.errors.reset();
     this.sub = this.failureService.getFailureList(this.getApiFilterString())
       .subscribe(failurs => {
@@ -91,6 +101,7 @@ bootstarpComponent(){
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
  }
 
@@ -138,6 +149,7 @@ bootstarpComponent(){
 // Method in component class
   createFailure() {
     this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
     console.log(this.model);
     console.log(this.selectedFailureTypes);
     console.log(this.selectedsource);
@@ -162,6 +174,7 @@ bootstarpComponent(){
       },
       () => {
         this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       });
   }
 // Method in component class
@@ -224,5 +237,9 @@ getApiFilterString(){
   }
   return queryString;
 }
+
+  emitApplicationLoadingBroadcast() {
+    this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
+  }
 
 }

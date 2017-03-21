@@ -39,6 +39,8 @@ import { HomeComponent } from './home/index';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { MainPipe } from './main-pipe.module';
+import { Broadcaster } from './commons/application-broadcaster.service';
+import { MessageEvent } from './commons/message-event';
 
 import {
   FooterComponent,
@@ -46,7 +48,6 @@ import {
   Errors,
   FailureOverviewComponent
 } from './shared';
-
 
 @NgModule({
   declarations: [
@@ -89,9 +90,10 @@ import {
     DateFormatorSerice,
     { provide: NgbDateParserFormatter, useFactory: CustomNgbDateParserFormatterFactory },
     FailureOverviewService,
+    Broadcaster,
+    MessageEvent,
     // Model providers
     Errors,
-    // providers used to create fake backend
     ApiService,
     MockBackend,
     BaseRequestOptions,
