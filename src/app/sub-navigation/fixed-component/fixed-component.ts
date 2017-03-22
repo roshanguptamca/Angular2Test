@@ -121,6 +121,9 @@ bootstarpComponent(){
     this.model.endDate = failure.end_date;
     this.model.startDate = failure.start_date;
     this.model.failureId = failure.id;
+    this.model.description =  failure.description;
+    this.model.longDescription =  failure.longDescription;
+    this.model.region =  failure.region;
   }
 
   // Method in component class
@@ -151,6 +154,7 @@ bootstarpComponent(){
 
 // Method in component class
   createFailure() {
+    debugger;
     this.prepaireFailure();
     if(this.failure.id){
       this.patchFailure();
@@ -189,9 +193,37 @@ bootstarpComponent(){
 
 // Method in component class
   patchFailure() {
+    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.failureService.update(this.failure)
+      .subscribe(newFailure => {
+        console.log(newFailure);
+        this.addOrUpdateMode = false;
+        this.getAllFailureList();
+      },
+      error => {
+        console.error(error);
+        if (error.detail === "Invalid token." || error.detail === "Time-Out") {
+          this.redirectToLogin();
+        }
+        else{
+          this.errors.apiError = error;
+          this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
+        }
+      },
+      () => {
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      });
+  }
+
+// Method in component class
+  closeFailure() {
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
+    this.failureService.closeFailure(this.failure.id)
       .subscribe(newFailure => {
         console.log(newFailure);
         this.addOrUpdateMode = false;
@@ -225,9 +257,14 @@ bootstarpComponent(){
    this.failure.end_date = this.model.endDate;
    this.failure.id = this.model.failureId;
    this.failure.region =  this.model.region;
-   this.failure.criteria = [
+   this.failure.description =  this.model.description;
+   this.failure.longDescription =  this.model.longDescription;
+   if(this.mode === "create"){
+      this.failure.criteria = [
       this.failureService.formateCriteria(this.model.criteria)
-   ];
+   ];    
+   }
+ 
   }
 
  ngOnDestroy() {

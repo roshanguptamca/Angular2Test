@@ -165,7 +165,7 @@
                         <td>{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>
-                            <i class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
+                            <i (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
                             <i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>

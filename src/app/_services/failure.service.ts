@@ -27,11 +27,11 @@ export class FailureService {
     }
 
     update(failure: Failure) {
-        return this.apiService.patchWithOption('/disturbances/v1/failures/' + failure.id, this.jwt1(), failure);
+        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/", this.jwt1(), failure);
     }
 
-    delete(id: number) {
-        return this.apiService.deleteWithOption('/disturbances/v1/failures/' + id, this.jwt());
+    closeFailure(id: number) {
+         return this.apiService.postWithOption('/disturbances/v1/failures/' + id +"/", this.jwt1(), {"close":true});
     }
 
     // private helper methods

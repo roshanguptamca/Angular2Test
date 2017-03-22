@@ -8,5 +8,7 @@ export class Failure {
   cause: number;
   start_date: string;
   end_date: string;
+  description: string;
+  longDescription: string;
   criteria: string[];
 }
