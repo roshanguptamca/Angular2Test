@@ -40,6 +40,8 @@ export class BroadbandComponent implements OnInit {
   page: number = 1;
   private sub: any;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
+  mode: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -106,6 +108,7 @@ export class BroadbandComponent implements OnInit {
 
   // Method in component class
   updateFailure(failure: Failure) {
+    this.mode = 'update';
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
@@ -117,6 +120,7 @@ export class BroadbandComponent implements OnInit {
 
   // Method in component class
   addNewFailure(failure: Failure) {
+    this.mode = 'create';
     this.errors.reset();
     let today = new Date();
     this.addOrUpdateMode = true;

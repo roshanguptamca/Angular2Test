@@ -42,7 +42,7 @@ export class MobileComponent implements OnInit {
   failure: Failure;
   page: number = 1;
   private sub: any;
-
+  mode: string;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -93,6 +93,7 @@ export class MobileComponent implements OnInit {
 
   // Method in component class
   updateFailure(failure: Failure) {
+    this.mode = 'update';
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
@@ -104,6 +105,7 @@ export class MobileComponent implements OnInit {
 
   // Method in component class
   addNewFailure(failure: Failure) {
+    this.mode = 'create';
     this.errors.reset();
     let today = new Date();
     this.addOrUpdateMode = true;

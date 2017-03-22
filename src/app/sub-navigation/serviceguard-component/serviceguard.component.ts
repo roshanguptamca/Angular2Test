@@ -32,7 +32,7 @@ export class ServiceguardComponent implements OnInit {
   selectedCause: Cause;
   serviceList: Service[];
   selectedService: Service;
-
+  mode: string;
   searchQuery: any[] = [];
   isApplicationLoading: boolean = false;
   addOrUpdateMode: boolean = false;
@@ -116,6 +116,7 @@ bootstarpComponent(){
 
   // Method in component class
   updateFailure(failure: Failure) {
+    this.mode = 'update';
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
@@ -127,6 +128,7 @@ bootstarpComponent(){
 
   // Method in component class
   addNewFailure(failure: Failure) {
+    this.mode = 'create';
     this.errors.reset();
     let today = new Date();
     this.addOrUpdateMode = true;
