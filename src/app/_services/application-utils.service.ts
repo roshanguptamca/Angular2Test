@@ -61,7 +61,6 @@ export class ApplicationUtillService {
     }
 
     getFailureTypesByCause(selectedCause:number): FailureTypes[] {
-        debugger;
          if(selectedCause == 1){
             return this.failureTypesByCause;
          }

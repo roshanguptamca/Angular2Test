@@ -41,7 +41,6 @@ export class ApiService {
   }
 
   getWithOptions(path: string, requestOptions:RequestOptions): Observable<any> {
-    debugger;
     return this.http.get(`${environment.api_url}${path}`, requestOptions)
     //.timeoutWith(1000000, Observable.defer(() => Observable.throw({'errorCode': 'Time-Out'})))
     .catch(this.formatErrors)
@@ -77,7 +76,6 @@ export class ApiService {
   }
 
  postWithOption(path: string, requestOptions:RequestOptions, body: Object = {}): Observable<any> {
-   debugger;
     return this.http.post(
       `${environment.api_url}${path}`,
       JSON.stringify(body),requestOptions)
@@ -99,6 +97,14 @@ export class ApiService {
       `${environment.api_url}${path}`,
       { headers: this.setHeaders() }
     )
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+
+ patchWithOption(path: string, requestOptions:RequestOptions, body: Object = {}): Observable<any> {
+    return this.http.patch(
+      `${environment.api_url}${path}`,
+      JSON.stringify(body),requestOptions)
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }

@@ -119,6 +119,7 @@ bootstarpComponent(){
     this.selectedsource =  this.sourceList[failure.source];
     this.model.endDate = failure.end_date;
     this.model.startDate = failure.start_date;
+    this.model.failureId = failure.id;
   }
 
   // Method in component class
@@ -148,28 +149,35 @@ bootstarpComponent(){
 
 // Method in component class
   createFailure() {
+    debugger;
+    this.prepaireFailure();
+    if(this.failure.id){
+      this.patchFailure();
+    }
+    else {
+      this.saveFailure();
+    }
+  }
+
+// Method in component class
+  saveFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
-    console.log(this.model);
-    console.log(this.selectedFailureTypes);
-    console.log(this.selectedsource);
-    console.log(this.selectedCause);
-    this.prepaireFailure();
     this.failureService.create(this.failure)
-      .subscribe(newfailur => {
-       // this.failureList = failurs;
-        console.log(newfailur);
+      .subscribe(newFailure => {
+        console.log(newFailure);
         this.addOrUpdateMode = false;
         this.getAllFailureList();
       },
       error => {
         console.error(error);
-        debugger;
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
         else{
           this.errors.apiError = error;
+           this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
         }
       },
       () => {
@@ -177,6 +185,35 @@ bootstarpComponent(){
         this.emitApplicationLoadingBroadcast();
       });
   }
+
+// Method in component class
+  patchFailure() {
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
+    this.failureService.update(this.failure)
+      .subscribe(newFailure => {
+        console.log(newFailure);
+        this.addOrUpdateMode = false;
+        debugger;
+        this.getAllFailureList();
+      },
+      error => {
+        console.error(error);
+        if (error.detail === "Invalid token." || error.detail === "Time-Out") {
+          this.redirectToLogin();
+        }
+        else{
+          this.errors.apiError = error;
+          this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
+        }
+      },
+      () => {
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      });
+  }
+
 // Method in component class
   prepaireFailure() {
    this.failure = new Failure();
@@ -186,45 +223,24 @@ bootstarpComponent(){
    this.failure.service = this.selectedService.id;
    this.failure.start_date = this.model.startDate;
    this.failure.end_date = this.model.endDate;
+   this.failure.id = this.model.failureId;
+   this.failure.region =  this.model.region;
    this.failure.criteria = [
-      this.formateCriteria(this.model.criteria)
+      this.failureService.formateCriteria(this.model.criteria)
    ];
-   debugger;
   }
 
  ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-formateCriteria(newValue){
-  var tempCriteria;
-  var templist: string;
-  if(newValue != null && newValue!= "" && newValue.length > 0){
-    tempCriteria = newValue.split(",");
-    tempCriteria.forEach(element => {
-      if(templist){
-        templist = templist + '"'+element +'",';
-      }
-      else{
-        templist = '"'+element +'",';
-      }
-    });
-    return templist.substr(1,templist.length-3);
-  }
-  else {
-    return "";
-  }
-}
-
 onChangeCause(newvalue){
-  debugger
   this.selectedCause = this.causeList[newvalue];
   this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
   this.selectedFailureTypes = this.failureTypesList[0];
 }
 
 getApiFilterString(){
-  debugger;
   let queryString: string ="";
   if(AppConstant.APP_FAILURE_FIXED_URL === this.selectedUrl){
       queryString = "?cause=0&source=0&source=2&type=4&type=5";

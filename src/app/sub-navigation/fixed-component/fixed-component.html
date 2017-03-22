@@ -114,6 +114,14 @@
                         <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="region">Region</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
+                    </div>
+                </div>
+
             </div>
 
             <div class="form-group">
@@ -121,6 +129,9 @@
                 <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false" class="btn btn-primary">Back</button>
             </div>
             <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+            <!--hidden values-->
+            <input type="hidden" name="failureId" [(ngModel)]="model.failureId" #failureId="ngModel" />
         </form>
 
     </div>
