@@ -151,7 +151,6 @@ bootstarpComponent(){
 
 // Method in component class
   createFailure() {
-    debugger;
     this.prepaireFailure();
     if(this.failure.id){
       this.patchFailure();
@@ -196,7 +195,6 @@ bootstarpComponent(){
       .subscribe(newFailure => {
         console.log(newFailure);
         this.addOrUpdateMode = false;
-        debugger;
         this.getAllFailureList();
       },
       error => {

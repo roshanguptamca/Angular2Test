@@ -21,11 +21,11 @@ const ArchivedFailureRouting: ModuleWithProviders = RouterModule.forChild([
             {path: 'mobile', component: MobileComponent},
             {path: 'serviceguard', component: ServiceguardComponent},
             {path: 'other', component: OtherComponent},
-            {path: 'broadband/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'fixed/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'serviceguard/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'other/overview/:{id}', component: FailureOverviewComponent},
-            {path: 'mobile/overview/:{id}', component: FailureOverviewComponent}
+            {path: 'broadband/overview/:id', component: FailureOverviewComponent},
+            {path: 'fixed/overview/:id', component: FailureOverviewComponent},
+            {path: 'serviceguard/overview/:id', component: FailureOverviewComponent},
+            {path: 'other/overview/:id', component: FailureOverviewComponent},
+            {path: 'mobile/overview/:id', component: FailureOverviewComponent}
         ]
   }
 ]);

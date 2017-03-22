@@ -27,7 +27,7 @@ export class FailureService {
     }
 
     update(failure: Failure) {
-        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id, this.jwt(), failure);
+        return this.apiService.patchWithOption('/disturbances/v1/failures/' + failure.id, this.jwt1(), failure);
     }
 
     delete(id: number) {
@@ -43,6 +43,21 @@ export class FailureService {
             let headers = new Headers({
                 'Authorization': 'Token ' + currentUser.token,
                 'Content-Type': 'application/json'
+            },
+            );
+            return new RequestOptions({ headers: headers });
+        }
+    }
+
+    // private helper methods
+    private jwt1() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({
+                'Authorization': 'Token ' + currentUser.token,
+                'Content-Type': 'application/json',
+                'X-HTTP-METHOD-OVERRIDE': "PATCH"
             },
             );
             return new RequestOptions({ headers: headers });

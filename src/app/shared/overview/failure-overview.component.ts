@@ -20,7 +20,7 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
   public affectedElementList: AffectedElement[] = [];
   public affectedCoustomerList: AffectedCoustomer[] = [];
   isApplicationLoading: boolean = false;
-  page: number = 1;
+  pageSize: number = 1;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
 
    constructor(config: NgbTabsetConfig, private route: ActivatedRoute,

@@ -100,7 +100,7 @@ export class ApiService {
     .catch(this.formatErrors)
     .map((res:Response) => res.json());
   }
-
+patch
  patchWithOption(path: string, requestOptions:RequestOptions, body: Object = {}): Observable<any> {
     return this.http.patch(
       `${environment.api_url}${path}`,
