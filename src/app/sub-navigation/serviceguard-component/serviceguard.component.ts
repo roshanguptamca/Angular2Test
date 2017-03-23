@@ -218,6 +218,34 @@ bootstarpComponent(){
   }
 
 // Method in component class
+  closeFailure(failure: Failure) {
+    debugger;
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
+    this.failureService.closeFailure(failure.id)
+      .subscribe(newFailure => {
+        console.log(newFailure);
+        this.addOrUpdateMode = false;
+        this.getAllFailureList();
+      },
+      error => {
+        console.error(error);
+        if (error.detail === "Invalid token." || error.detail === "Time-Out") {
+          this.redirectToLogin();
+        }
+        else{
+          this.errors.apiError = error;
+          this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
+        }
+      },
+      () => {
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      });
+  }
+
+// Method in component class
   prepaireFailure() {
    this.failure = new Failure();
    this.failure.cause = this.selectedCause.id;

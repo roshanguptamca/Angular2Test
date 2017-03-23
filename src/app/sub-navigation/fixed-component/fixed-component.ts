@@ -126,7 +126,7 @@ bootstarpComponent(){
     this.model.region =  failure.region;
   }
 
-  // Method in component class
+  // Method in component class.
   addNewFailure(failure: Failure) {
     this.mode = 'create';
     this.errors.reset();
@@ -220,10 +220,11 @@ bootstarpComponent(){
   }
 
 // Method in component class
-  closeFailure() {
+  closeFailure(failure: Failure) {
+    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
-    this.failureService.closeFailure(this.failure.id)
+    this.failureService.closeFailure(failure.id)
       .subscribe(newFailure => {
         console.log(newFailure);
         this.addOrUpdateMode = false;

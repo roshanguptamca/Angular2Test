@@ -155,15 +155,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr (click)="redirectToOverview(failure.id)" class="clickable" *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
-                        <th scope="row">{{failure.id}}</th>
-                        <td>{{failure.region}}</td>
-                        <td>{{failure.state}}</td>
-                        <td>{{failure.type}}</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                        <td>{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                    <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
+                        <th (click)="redirectToOverview()" class="clickable" scope="row">{{failure.id}}</th>
+                        <td (click)="redirectToOverview()" class="clickable">{{failure.region}}</td>
+                        <td (click)="redirectToOverview()" class="clickable">{{failure.state}}</td>
+                        <td (click)="redirectToOverview()" class="clickable">{{failure.type}}</td>
+                        <td (click)="redirectToOverview()" class="clickable">-</td>
+                        <td (click)="redirectToOverview()" class="clickable">-</td>
+                        <td (click)="redirectToOverview()" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td (click)="redirectToOverview()" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>
                             <i (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
