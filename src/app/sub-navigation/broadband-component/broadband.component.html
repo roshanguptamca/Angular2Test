@@ -148,8 +148,8 @@
                         <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.type}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failureTypesList[failure.type].value}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{ failure.service }}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
