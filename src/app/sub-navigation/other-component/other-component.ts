@@ -59,11 +59,7 @@ export class OtherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isApplicationLoading = false;
-    this.emitApplicationLoadingBroadcast();
     this.bootstarpComponent();
-    this.isApplicationLoading = true;
-    this.emitApplicationLoadingBroadcast();
   }
 
   emitApplicationLoadingBroadcast() {
@@ -92,6 +88,8 @@ bootstarpComponent(){
     this.sub = this.failureService.getFailureList(this.getApiFilterString())
       .subscribe(failurs => {
         this.failureList = failurs;
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       error => {
         console.error(error);

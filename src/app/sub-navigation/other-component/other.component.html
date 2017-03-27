@@ -57,16 +57,10 @@
                         <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-2 col-form-label" for="password">Source</label>
+                    <label class="col-2 col-form-label" for="region">Region</label>
                     <div class="col-8">
-                        <select class="form-control clickable" name="source" [(ngModel)]="selectedsource.id" #source="ngModel" required>
-                        <option *ngFor="let source of sourceList" value= {{source.id}} [selected]="source.id == selectedsource.id">
-                            {{source.value}}
-                        </option>
-                        </select>
-                        <div *ngIf="f.submitted && !source.valid" class="help-block">Source is required</div>
+                        <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
                     </div>
                 </div>
             </div>
@@ -113,14 +107,6 @@
                         <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label class="col-2 col-form-label" for="region">Region</label>
-                    <div class="col-8">
-                        <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
-                    </div>
-                </div>
-
             </div>
 
             <div class="form-group">
@@ -155,14 +141,14 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
-                        <th (click)="redirectToOverview()" class="clickable" scope="row">{{failure.id}}</th>
-                        <td (click)="redirectToOverview()" class="clickable">{{failure.region}}</td>
-                        <td (click)="redirectToOverview()" class="clickable">{{failure.state}}</td>
-                        <td (click)="redirectToOverview()" class="clickable">{{failure.type}}</td>
-                        <td (click)="redirectToOverview()" class="clickable">-</td>
-                        <td (click)="redirectToOverview()" class="clickable">-</td>
-                        <td (click)="redirectToOverview()" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                        <td (click)="redirectToOverview()" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.type}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>
                             <i (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>

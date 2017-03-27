@@ -12,7 +12,7 @@ import { AppConstant } from '../../commons/application.constant';
   templateUrl: './failure-overview.component.html',
   styleUrls: ['./failure-overview.component.scss']
 })
-export class FailureOverviewComponent implements OnInit, OnDestroy  {
+export class FailureOverviewComponent implements OnInit  {
   private selectedUrl: string;
   failUreId: number;
   private sub: any;
@@ -37,22 +37,14 @@ export class FailureOverviewComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
-    this.isApplicationLoading = true;
-    this.emitApplicationLoadingBroadcast();
     this.selectedUrl = this.router.url;
     this.sub = this.route.params.subscribe(params => {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
        // In a real app: dispatch action to load the details here.
+       debugger;
        this.getAffectedElementsByFailureId(this.failUreId);
        this.getAffectedCustomersByFailureId(this.failUreId);
     });
-
-    this.isApplicationLoading = false;
-    this.emitApplicationLoadingBroadcast();
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
 redirectToParent() {
@@ -80,6 +72,8 @@ redirectToParent() {
         }else {
           // todo
         }
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       () => {
         this.isApplicationLoading = false;
@@ -88,7 +82,6 @@ redirectToParent() {
   }
 
   getAffectedCustomersByFailureId(failureId: number){
-
     // get Affected Customers from secure api end point
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -104,6 +97,8 @@ redirectToParent() {
         }else {
           // todo
         }
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       () => {
         this.isApplicationLoading = false;

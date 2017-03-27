@@ -58,11 +58,7 @@ export class BroadbandComponent implements OnInit {
 
   ngOnInit() {
     // get dashboard data from secure api end point
-    this.isApplicationLoading = true;
-    this.emitApplicationLoadingBroadcast();
     this.bootstarpComponent();
-    this.isApplicationLoading = false;
-    this.emitApplicationLoadingBroadcast();
   }
 
   bootstarpComponent() {
@@ -86,6 +82,8 @@ export class BroadbandComponent implements OnInit {
     this.sub = this.failureService.getFailureList(this.getApiFilterString())
       .subscribe(failurs => {
         this.failureList = failurs;
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       error => {
         console.error(error);
@@ -94,6 +92,8 @@ export class BroadbandComponent implements OnInit {
         } else {
           // todo
         }
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       () => {
         this.isApplicationLoading = false;

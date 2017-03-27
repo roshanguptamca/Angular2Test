@@ -4,7 +4,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { FailureService, ApplicationUtillService } from '../../_services/index';
 import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DateFormatorSerice } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
@@ -45,6 +45,7 @@ export class FixedComponent implements OnInit{
   page: number = 1;
   private sub: any;
   mode: string;
+  closeResult: string;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -55,21 +56,37 @@ export class FixedComponent implements OnInit{
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
     private broadcaster: Broadcaster,
-    private messageEvent: MessageEvent
+    private messageEvent: MessageEvent,
+    private modalService: NgbModal
   ) {
     this.selectedUrl = this.router.url;
   }
 
   ngOnInit() {
-   this.isApplicationLoading = false;
-   this.emitApplicationLoadingBroadcast();
    this.bootstarpComponent();
-   this.isApplicationLoading = true;
-   this.emitApplicationLoadingBroadcast();
   }
 
+  // open(content) {
+  //   debugger;
+  //   this.modalService.open(content).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
+
 bootstarpComponent(){
-   this.sourceList = this.applicationUtillService.getSources();
+    this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
     this.selectedCause = this.causeList[0];
@@ -84,12 +101,14 @@ bootstarpComponent(){
 
  getAllFailureList() {
     // get failurs from secure api end point
-    this.isApplicationLoading = false;
+    this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.errors.reset();
     this.sub = this.failureService.getFailureList(this.getApiFilterString())
       .subscribe(failurs => {
         this.failureList = failurs;
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       error => {
         console.error(error);
@@ -98,6 +117,9 @@ bootstarpComponent(){
         }else {
           // todo
         }
+
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
       },
       () => {
         this.isApplicationLoading = false;

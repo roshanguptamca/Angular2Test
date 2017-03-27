@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
+                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize } ; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{affectedElement.id}}</th>
                         <td>{{affectedElement.failure}}</td>
                         <td>{{affectedElement.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page }; let i = index; trackBy:trackByFn;">
+                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize }; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{affectedCoustomer.id}}</th>
                         <td>{{affectedCoustomer.failure}}</td>
                         <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>

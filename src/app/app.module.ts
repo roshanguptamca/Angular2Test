@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { FailureModule } from './failure/failure.module';
@@ -75,6 +75,7 @@ import {
     ArchivedPlannedMaintenanceModule,
     routing,
     MainPipe,
+    JsonpModule,
     NgbModule.forRoot(),
     Ng2PaginationModule,
     Ng2DatetimePickerModule
