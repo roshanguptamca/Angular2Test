@@ -217,7 +217,6 @@ bootstarpComponent(){
 
 // Method in component class
   closeFailure(failure: Failure) {
-    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.failureService.closeFailure(failure.id)

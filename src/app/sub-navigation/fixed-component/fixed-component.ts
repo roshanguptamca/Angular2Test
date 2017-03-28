@@ -67,7 +67,6 @@ export class FixedComponent implements OnInit{
   }
 
   // open(content) {
-  //   debugger;
   //   this.modalService.open(content).result.then((result) => {
   //     this.closeResult = `Closed with: ${result}`;
   //   }, (reason) => {
@@ -176,7 +175,6 @@ bootstarpComponent(){
 
 // Method in component class
   createFailure() {
-    debugger;
     this.prepaireFailure();
     if(this.failure.id){
       this.patchFailure();
@@ -215,7 +213,6 @@ bootstarpComponent(){
 
 // Method in component class
   patchFailure() {
-    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.failureService.update(this.failure)
@@ -243,7 +240,6 @@ bootstarpComponent(){
 
 // Method in component class
   closeFailure(failure: Failure) {
-    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.failureService.closeFailure(failure.id)

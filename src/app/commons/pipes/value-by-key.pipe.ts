@@ -5,7 +5,6 @@ import { Pipe,PipeTransform } from '@angular/core';
 })
 export class ValueByKeyPipe implements PipeTransform {
     transform(value:any, args:any):string {
-        debugger;
         if (value && typeof value != undefined && value != "") {
             return args[value].value;
         }

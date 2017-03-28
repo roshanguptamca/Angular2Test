@@ -41,7 +41,6 @@ export class FailureOverviewComponent implements OnInit  {
     this.sub = this.route.params.subscribe(params => {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
        // In a real app: dispatch action to load the details here.
-       debugger;
        this.getAffectedElementsByFailureId(this.failUreId);
        this.getAffectedCustomersByFailureId(this.failUreId);
     });
