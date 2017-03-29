@@ -248,13 +248,15 @@ bootstarpComponent(){
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
-   this.failure.service = this.selectedService.id;
+   if(this.failure.type && this.failure.type == 3){
+      this.failure.service = this.selectedService.id;
+   }
    this.failure.start_date = this.model.startDate;
    this.failure.end_date = this.model.endDate;
    this.failure.id = this.model.failureId;
-   this.failure.criteria = [
-      this.failureService.formateCriteria(this.model.criteria)
-   ];
+   if(this.mode === "create" && this.model.criteria){
+    this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
+   }
   }
 
  ngOnDestroy() {

@@ -83,4 +83,15 @@ export class FailureService {
             return "";
         }
     }
+
+    getCriteriaList(newValue) {
+        var tempCriteria;
+        var templist: string;
+        if (newValue != null && newValue != "" && newValue.length > 0) {
+           return tempCriteria = newValue.split(";");
+        }
+        else {
+            return "";
+        }
+    }
 }
