@@ -1,6 +1,9 @@
 # KpnYara
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.0.
+# Getting started
+Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally, 
+then run `npm install` to resolve all dependencies (might take a minute).
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
