@@ -1,0 +1,177 @@
+@import "../../../styles.scss";
+$top-xs-height: 40px;
+$top-sm-height: 60px;
+$top-md-height: 100px;
+$top-shrink-by: 40px;
+$top-md-height-reduced: $top-md-height - $top-shrink-by;
+$link-top-margin: $top-md-height - 43px;
+$normalheader_megamenu: $top-md-height;
+$smallheader_megamenu: $top-md-height-reduced+360px;
+@mixin top-nav-transision {
+    transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    -webkit-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+}
+
+.kpn-yara-main-header {
+    position: relative;
+    z-index: 200;
+    width: 100%;
+    top: 0;
+    background-color: $white;
+    height: $top-xs-height;
+    @include top-nav-transision;
+    &:before {
+        content: '';
+        position: absolute;
+        box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .10);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 201;
+    }
+    @media screen and (min-width: $screen-sm-min) {
+        height: $top-sm-height;
+    }
+    @media screen and (min-width: $screen-md-min) {
+        height: $top-md-height;
+    }
+    .bg-faded {
+        background-color: $white;
+        padding-bottom: 0px;
+    }
+    .logo {
+        margin: 0px auto;
+        display: block;
+        margin-top: 0px;
+        @include top-nav-transision;
+        @media screen and (max-width: $screen-xs-min) {
+            width: 80px;
+            margin-top: -40px;
+        }
+        @media screen and (max-width: $screen-md-min) {
+            width: 80px;
+            margin-top: -30px;
+            padding-bottom: 0px;
+        }
+        @media screen and (min-width: $screen-md-min) {
+            // width: 126px;
+            margin: 26px 40px 0 10px;
+            float: left;
+        }
+        img {
+            width: 126px;
+            @media screen and (max-width: $screen-md-min) {
+                width: 80px;
+                padding-top: 0px;
+            }
+            @media screen and (max-width: $screen-xs-max) {
+                width: 60px;
+                margin-top: 0px;
+            }
+        }
+    }
+    .nav-lvl-1 {
+        display: inline-block;
+        margin: 40px 0 0 0px;
+        @include top-nav-transision;
+        >li {
+            &:hover a {
+                color: $color-blue;
+                text-decoration: none;
+            }
+            &:active a {
+                color: $kpngreen;
+            }
+            >a {
+                font-family: $secondary-font;
+                font-size: 16px;
+                padding: 0 20px 10px;
+                color: $gray01;
+                position: relative;
+            }
+        }
+        &.pull-right {
+            position: absolute;
+            right: 0;
+            margin-left: 0;
+            z-index: 50;
+        }
+        @media screen and (max-width: $screen-md-min) {
+            margin: 0px;
+        }
+        @media screen and (min-width: $screen-md-max) {
+            display: table;
+            width: 100%;
+        }
+    }
+    .list-inline>li {
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+        &:hover {
+            span {
+                position: relative;
+                display: block;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    background: $kpngreen;
+                    height: 3px;
+                    bottom: -20px;
+                    width: 84%;
+                    left: 8%;
+                    z-index: 10;
+                }
+            }
+        }
+        @media screen and (min-width: $screen-md-min) {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        @media screen and (min-width: $screen-md-max) {
+            display: table-cell;
+        }
+        @media screen and (max-width: $screen-md-min) {
+            padding: 0px;
+            display: inline;
+        }
+    }
+    .mobile-navigation {
+        padding-top: 15px;
+        margin-left: -15px;
+        @media screen and (min-width: $screen-md-min) {
+            display: none !important;
+        }
+    }
+    #navbarSupportedContent {
+        @media screen and (max-width: $screen-md-min) {
+            display: none !important;
+        }
+    }
+    .active-link {
+        a {
+            color: $kpngreen !important;
+        }
+        span {
+            position: relative;
+            display: block;
+            &:before {
+                content: '';
+                position: absolute;
+                background: $kpngreen;
+                height: 3px;
+                bottom: -20px;
+                width: 84%;
+                left: 8%;
+                z-index: 10;
+            }
+        }
+    }
+    .mobile-active-link {
+        a {
+            color: $kpngreen !important;
+        }
+    }
+}

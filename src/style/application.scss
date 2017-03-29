@@ -1,0 +1,47 @@
+.container {
+    @media screen and (min-width: $screen-lg-min) {
+        max-width: 1280px !important;
+        width: 1280px !important;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+#subNavbarContent {
+    ul {
+        display: inline-flex;
+        width: 100%;
+        li {
+            display: table-cell;
+        }
+    }
+}
+
+.ng2-pagination {
+    li {
+        cursor: pointer;
+    }
+}
+
+body {
+    margin-bottom: 100px;
+    @media screen and (max-width: $screen-xs-min) {
+        display: block !important;
+        position: absolute;
+    }
+    .kpn-app-loading {
+        opacity: 0.5;
+        z-index: 999;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: $color-white;
+    }
+    .kpn-app-loading__img {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+    }
+}

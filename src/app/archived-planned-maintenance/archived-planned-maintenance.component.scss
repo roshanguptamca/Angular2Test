@@ -1,0 +1,28 @@
+@import "../../styles.scss";
+.archived-planned-maintance-component {
+    .sub-navbar-content {
+        padding: $margin-small 0px;
+        li {
+            display: inline-block;
+            text-align: left;
+            a {
+                color: $color-gray-darker;
+                &:hover {
+                    color: $color-blue;
+                }
+            }
+            &:active {
+                color: $color-green;
+            }
+        }
+    }
+    .page-sub-header {
+        background-color: $color-gray-lightest;
+    }
+    .active-link {
+        color: $kpngreen !important;
+        a {
+            color: $kpngreen !important;
+        }
+    }
+}

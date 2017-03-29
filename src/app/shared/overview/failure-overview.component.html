@@ -1,0 +1,71 @@
+<section class="overview-component-template container">
+    <ngb-tabset>
+        <ngb-tab title="Affected Elements">
+            <template ngbTabContent>
+      <h3>Affected Elements</h3>
+      <div *ngIf="affectedElementList && affectedElementList.results && affectedElementList.results.length <= 0">
+          <p class="text-center"> No Data Found .</p>
+      </div>
+           <table class="table table-striped" *ngIf="affectedElementList && affectedElementList.results && affectedElementList.results.length > 0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Failure</th>
+                        <th>Created AT</th>
+                        <th>Updated AT</th>
+                        <th>Attributes (zip_code4,zip_code)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize } ; let i = index; trackBy:trackByFn;">
+                        <th scope="row">{{affectedElement.id}}</th>
+                        <td>{{affectedElement.failure}}</td>
+                        <td>{{affectedElement.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td>{{affectedElement.updated_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                         <td>{{affectedElement.attributes.zip_code4}},{{affectedElement.attributes.zip_code}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="pageSize = $event"></pagination-controls>
+            </div>
+
+    </template>
+        </ngb-tab>
+        <ngb-tab title="Affected Customers">
+            <template ngbTabContent>
+      <h3>Affected Customers</h3>
+      <div *ngIf="affectedCoustomerList && affectedCoustomerList.results && affectedCoustomerList.results.length <= 0">
+          <p class="text-center"> No Data Found .</p>
+      </div>
+       <table class="table table-striped" *ngIf="affectedCoustomerList && affectedCoustomerList.results && affectedCoustomerList.results.length > 0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Failure</th>
+                        <th>Created AT</th>
+                        <th>Updated AT</th>
+                        <th>Attributes (zip_code4,zip_code)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize }; let i = index; trackBy:trackByFn;">
+                        <th scope="row">{{affectedCoustomer.id}}</th>
+                        <td>{{affectedCoustomer.failure}}</td>
+                        <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td>{{affectedCoustomer.updated_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                         <td>{{affectedCoustomer.attributes.zip_code4}},{{affectedCoustomer.attributes.zip_code}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="pageSize = $event"></pagination-controls>
+            </div>
+    </template>
+        </ngb-tab>
+    </ngb-tabset>
+
+    <div class="row">
+        <button type="button" (click)="redirectToParent()" class="btn btn-primary">Back</button>
+    </div>
+</section>

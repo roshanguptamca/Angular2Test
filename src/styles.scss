@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables.scss";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins.scss";
+@import "/style/_variables.scss";
+@import "/style/_mixins.scss";
+@import "style/application.scss";
+@import "/style/_fonts.scss";
+@import "style/_default.scss";

@@ -1,0 +1,133 @@
+// colors
+$color-green-lighter: #e8f7e8;
+$color-green: #009900;
+$color-blue-light: #5bc0de;
+$color-blue: #0099FF;
+$color-blue-dark: #000099;
+$color-orange-light: #FDEEB1;
+$color-orange: #FF9900;
+$color-gray-light-white:#f9f9f9;
+$color-gray-ash: #9f9f9f;
+$color-gray-soft: #f8f8f8; //or should we say $color-gray-lighter-than-lightest  #namingFail
+$color-gray-lightest: #f3f3f3;
+$color-gray-lighter: #e3e3e3;
+$color-gray-light: #d3d3d3;
+$color-gray: #CCC;
+$color-gray-dark: #535353;
+$color-gray-darker: #333333;
+$color-gray-shadow: #999;
+$color-white: #FFF;
+$color-red: #d9534f;
+$color-purple: #4B0082;
+// Fonts
+$primary-font: "KPN-Sans",
+arial,
+helvetica,
+verdana,
+sans-serif;
+$secondary-font: "KPN-Accent",
+arial,
+helvetica,
+verdana,
+sans-serif;
+$font-size-smaller: 10px;
+$font-size-small: 12px;
+$font-size-base: 14px;
+$font-size-large: 16px;
+$font-size-larger: 18px;
+$font-size-h6: $font-size-small;
+$font-size-h5: $font-size-base;
+$font-size-h4: $font-size-large;
+$font-size-h3: $font-size-large;
+$font-size-h2: 20px;
+$font-size-h1: 30px;
+$font-size-banner: 44px;
+$icon-size-large: 40px;
+$font-weight-light: 200;
+$font-weight-base: 400;
+$font-weight-bold: 600;
+$text-color: $color-gray-darker;
+$background-color: $color-white;
+$margin-smaller: 5px;
+$margin-small: 10px;
+$margin-base: 15px;
+$margin-large: 20px;
+$margin-larger: 30px;
+$border-radius-small: 3px;
+$border-radius-base: 5px;
+$root-images: "../../../assets/images";
+// New KPN Styleguide colors
+$color-2-red: #FF3333;
+// non-official
+$color-2-red-dark: darken($color-2-red, 20%);
+$color-2-aqua: #5bc0de;
+$color-2-aqua-dark: darken($color-2-aqua, 20%);
+$color-2-blue-lighter: #DBECF9;
+// Custom color given by designer
+$color-blue-light-2: #abd5f3;
+$color-2-blue-light: #99CCFF;
+$color-2-blue: #09f;
+$color-2-blue-dark: #0099FF;
+$color-2-blue-darker: #0077CC;
+$color-2-navy-border: #466A96;
+$color-2-navy-blue: #17447B;
+$color-2-green-lighter: #F4FAE3;
+$color-2-green-light: #CCDD77;
+$color-2-green: #99CC00;
+$color-2-green-dark: #009900;
+$color-2-green-darker: #007700;
+$color-2-orange-lighter: #FEEACC;
+$color-2-orange-light: #FFBB55;
+$color-2-orange: #FF9000;
+$color-2-orange-dark: #EE7700;
+$color-2-dark: #333;
+$color-2-dark-1: #333333;
+$color-2-dark-2: #535353;
+$color-2-dark-3: #737373;
+$color-2-dark-4: #939393;
+$color-2-dark-5: #B3B3B3;
+$color-2-dark-6: #D3D3D3;
+$color-2-dark-7: #E3E3E3;
+$color-2-dark-8: #F3F3F3;
+$color-light-grey: #D7D7D7;
+$color-error-red: #d9534f;
+// Legacy designs variables
+$form-group-margin-bottom: $margin-base;
+$form-input-padding: 10px 6px; // 0
+$form-input-xs-height: 45px; // 45px
+$form-input-sm-height: 35px; // 27px
+$form-input-sm-width: 100%; // 150px
+$form-input-xs-width: 100%;
+$form-input-large-sm-width: 100%; // 175px
+$form-single-input-sm-width: 100%; // 160px;
+$form-simcard-input-sm-width: 100%; // 300px;
+$form-simcard-postcode-width: 100%; // auto
+$container-full-width: 1170px;
+// Imported  KPN.com - styleguide
+//
+$lightgreen01: #f4fae3;
+$lightgreen02: #ccdd77;
+$lightgreen03: #99cc00;
+$kpngreen: #009900;
+$darkgreen: #007700;
+$lightblue01: #dbecf9;
+$lightblue02: #99ccff;
+$kpnblue: #0099ff;
+$darkblue: #0077cc;
+$lightorange01: #feeacc;
+$lightorange02: #ffbb55;
+$kpnorange: #ff9900;
+$darkorange: #ee7700;
+$errorred: #ff3333;
+$gray01: #333333;
+$gray02: #535353;
+$gray03: #737373;
+$gray04: #939393;
+$gray05: #b3b3b3;
+$gray06: #d3d3d3;
+$gray07: #e3e3e3;
+$gray08: #f3f3f3;
+$white: #ffffff;
+$transparent: transparent;
+$grayline: $gray06;
+$kpn-slider-bar: #446896;

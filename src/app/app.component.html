@@ -1,3 +1,6 @@
-<h1>
-  {{title}}
-</h1>
+<div *ngIf="isApplicationLoading" class="kpn-app-loading">
+    <img class="kpn-app-loading__img" src="./assets/images/00-atoms/01-global/activity-grey.gif" />
+</div>
+<layout-header></layout-header>
+<router-outlet></router-outlet>
+<layout-footer></layout-footer>

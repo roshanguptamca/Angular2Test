@@ -1,0 +1,69 @@
+<header class="kpn-yara-main-header">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <div>
+            <button aria-controls="mobileNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler " type="button" data-toggle="collapse" data-target="#mobileNavbarSupportedContent">
+                ☰
+                </button>
+
+            <a class="navbar-brand logo hidden-lg-up" href="javascript:void(0);">
+                <img src="./assets/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
+            </a>
+        </div>
+
+        <div class="container container-fluid container-full ">
+            <!-- KPN logo -->
+            <a class="navbar-brand logo hidden-md-down" href="javascript:void(0);">
+                <img src="./assets/images/00-atoms/01-global/kpn-logo.png" alt="KPN Logo" />
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="authenticated">
+                <ul class="nav  nav-fill nav-lvl-1 list-inline">
+                    <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link">
+                        <a class="nav-link" [routerLink]="['/failure']">Failure</a>
+                        <span></span>
+                    </li>
+                    <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="active-link">
+                        <a class="nav-link" routerLink="/planned-maintenance">
+                        Planned maintenance</a>
+                        <span></span>
+                    </li>
+                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
+                        <a class="nav-link" routerLink="/archived-failure">
+                        Archived failure</a>
+                        <span></span>
+                    </li>
+                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
+                        <a class="nav-link" routerLink="/archived-planned-maintenance">
+                        Archived planned failure</a>
+                        <span></span>
+                    </li>
+                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
+                        <a class="nav-link" routerLink="/login">
+                        logout</a>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mobile-navigation collapse navbar-collapse" id="mobileNavbarSupportedContent" *ngIf="authenticated">
+            <ul class="nav  nav-fill nav-lvl-1 list-inline row">
+                <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="mobile-active-link">
+                    <a class="nav-link" [routerLink]="['/failure']">Failure</a>
+                </li>
+                <li class="nav-item megamenu__primary-li" role="presentation" routerLinkActive="mobile-active-link">
+                    <a class="nav-link" routerLink="/planned-maintenance">
+                        Planned maintenance</a>
+                </li>
+                <li class="nav-item megamenu__primary-li" routerLinkActive="mobile-active-link">
+                    <a class="nav-link" routerLink="/archived-failure">
+                        Archived failure</a>
+                </li>
+                <li class="nav-item megamenu__primary-li" routerLinkActive="mobile-active-link">
+                    <a class="nav-link" routerLink="/archived-planned-maintenance">
+                        Archived planned failure</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

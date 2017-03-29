@@ -1,0 +1,32 @@
+<section class="planned-maintance-component">
+    <div class="page-sub-header">
+        <div class="container">
+            <div class="sub-navbar-content" id="subNavbarContent">
+                <ul class="nav nav-fill">
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">
+                        <a class="nav-link" [routerLink]="['broadband']">Broadband</a>
+                    </li>
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">
+                        <a class="nav-link" [routerLink]="['fixed']">
+                            Fixed</a>
+                    </li>
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">
+                        <a class="nav-link" [routerLink]="['mobile']">
+                            Mobile</a>
+                    </li>
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">
+                        <a class="nav-link" [routerLink]="['serviceguard']">
+                            Serviceguard</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">
+                        <a class="nav-link" [routerLink]="['other']">
+                            Other</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+
+</section>

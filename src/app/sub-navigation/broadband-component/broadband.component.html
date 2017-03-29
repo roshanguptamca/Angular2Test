@@ -1,0 +1,170 @@
+<section class="broadbond-component-template">
+
+    <div *ngIf="addOrUpdateMode" class="jumbotron container">
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.length > 0">
+            <span *ngFor="let error of errors.apiError"> <strong>{{error}}</strong></span>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.service && errors.apiError.service.length > 0">
+            <span *ngFor="let serviceError of errors.apiError.service"> <strong>{{serviceError}}</strong></span>
+        </div>
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.start_date && errors.apiError.start_date.length > 0">
+            <span *ngFor="let dateError of errors.apiError.start_date"> <strong>{{dateError}}</strong></span>
+        </div>
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.end_date && errors.apiError.end_date.length > 0">
+            <span *ngFor="let dateError of errors.apiError.end_date"> <strong>{{dateError}}</strong></span>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError.criteria && errors.apiError.criteria.length > 0">
+            <span *ngFor="let criteriaError of errors.apiError.criteria"> <strong>{{criteriaError}}</strong></span>
+        </div>
+
+        <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="cause">Cause</label>
+                    <div class="col-8">
+                        <select (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <option *ngFor="let cause of causeList" value= {{cause.id}} [selected]="cause.id == selectedCause.id">
+                            {{cause.value}}
+                        </option>
+                        </select>
+                        <div *ngIf="f.submitted && !cause.valid" class="help-block">Cause is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
+                    <label class="col-2 col-form-label" for="service">Service</label>
+                    <div class="col-8">
+                        <select class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
+                        <option *ngFor="let service of serviceList" value= {{service.id}} [selected]="service.id == selectedService.id">
+                            {{service.value}}
+                        </option>
+                        </select>
+                        <div *ngIf="f.submitted && !service.valid" class="help-block">Service is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="type">Type</label>
+                    <div class="col-8">
+                        <select class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}} [selected]="failureType.id == selectedFailureTypes.id">
+                            {{failureType.value}}
+                        </option>
+                        </select>
+                        <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="region">Region</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="startDate">Start date</label>
+                    <div class="col-8">
+                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate"
+                            #startDate="ngModel" required ng2-datetime-picker/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="endDate">End Date</label>
+                    <div class="col-8">
+                        <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
+                            required ng2-datetime-picker/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label" for="description">Description</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="description" [ngClass]="{'form-control-success': description.valid , 'form-control-danger': !description.valid }" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" />
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
+                    <label class="col-2 col-form-label" for="longDescription">Long Description</label>
+                    <div class="col-8">
+                        <input type="text" placeholder="longDescription" [ngClass]="{'form-control-success': longDescription.valid , 'form-control-danger': !longDescription.valid }" class="form-control" name="longDescription" [(ngModel)]="model.longDescription" #longDescription="ngModel"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group row" *ngIf="mode === 'create'">
+                    <label class="col-2 col-form-label" for="criteria">Criteria</label>
+                    <div class="col-8">
+                        <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <button *ngIf="mode === 'create'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
+                <button *ngIf="mode === 'update'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Update</button>
+                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false" class="btn btn-primary">Back</button>
+            </div>
+            <!--hidden values-->
+            <input type="hidden" name="failureId" [(ngModel)]="model.failureId" #failureId="ngModel" />
+        </form>
+
+    </div>
+
+    <div *ngIf="!addOrUpdateMode" class="container">
+        <div class="failure-list">
+            <div class="row">
+                <input type="search" id="inputType" class="form-control glyphicon-search-input" placeholder="Search String" [(ngModel)]="searchString">
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Region</th>
+                        <th>State</th>
+                        <th>Type</th>
+                        <th>Service</th>
+                        <th>Impact</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
+                        <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failureTypesList[failure.type].value}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{ failure.service }}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td>
+                            <i (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Remove"></i>
+                            <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
+                            <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
+                            <i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</section>
