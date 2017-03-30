@@ -1,5 +1,5 @@
 // Relative path from the CSS directory
-$font-path: '/assets/fonts';
+$font-path: '/app/assets/fonts';
 @font-face {
     font-family: KPN-Accent;
     src: url('#{$font-path}/KPN-Accent/KPN-Accent-Light-WF.eot');
