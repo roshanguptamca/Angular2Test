@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
     model: any = {};
     loading = false;
-    error = '';
+    error = {};
     isApplicationLoading:boolean = false;
 
     constructor(
@@ -45,18 +45,23 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/']);
                 } else {
                     // login failed
-                    this.error = 'Username or password is incorrect';
+                    this.error = { "detail":'Username or password is incorrect'};
                     this.loading = false;
                 }
+                this.isApplicationLoading = false;
+                this.emitApplicationLoadingBroadcast();
             },
             error => {
                 this.error = error;
                 this.loading = false;
+                this.isApplicationLoading = false;
+                this.emitApplicationLoadingBroadcast();
             },
             () => {
                 this.loading = false;
                 this.isApplicationLoading = false;
                 this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
+                this.emitApplicationLoadingBroadcast();
             });
     }
 }
