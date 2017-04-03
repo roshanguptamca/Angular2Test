@@ -248,8 +248,8 @@ bootstarpComponent(){
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
-   if(this.failure.type && this.failure.type == 3){
-      this.failure.service = this.selectedService.id;
+   if(this.failure.type && this.failure.type == 3 && this.selectedService.id){
+      this.failure.service = this.serviceList[this.selectedService.id].value;
    }
    this.failure.start_date = this.model.startDate;
    this.failure.end_date = this.model.endDate;
@@ -281,6 +281,14 @@ getApiFilterString(){
      queryString = "?cause=1&source=0&source=2&type=3&state=closed";
   }
   return queryString;
+}
+
+onChangFailureType(newvalue) {
+  this.selectedFailureTypes = this.failureTypesList[newvalue];
+}
+
+onChangService(newvalue) {
+  this.selectedService = this.serviceList[newvalue];
 }
 
 }

@@ -15,7 +15,8 @@ export class SearchPipe implements PipeTransform {
                 if ((failure.region != null && failure.region.toLowerCase().indexOf(args.toString().toLowerCase()) == 0)
                 || (failure.type !== null && failure.type.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0)
                 || (failure.id !== null && failure.id.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0)
-                || (failure.state !== null && failure.state.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0))
+                || (failure.state !== null && failure.state.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0)
+                || (failure.service !== null && failure.service.toString().toLowerCase().indexOf(args.toString().toLowerCase()) == 0))
                 {
                     return true;
                 }

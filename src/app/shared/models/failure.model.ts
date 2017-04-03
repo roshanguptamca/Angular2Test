@@ -2,7 +2,7 @@ export class Failure {
   id: number;
   type: number;
   source: number;
-  service: number;
+  service: string;
   region: string;
   state: string;
   cause: number;

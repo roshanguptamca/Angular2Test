@@ -36,7 +36,7 @@
                 <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
                     <label class="col-2 col-form-label" for="service">Service</label>
                     <div class="col-8">
-                        <select class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
+                        <select (ngModelChange)="onChangService($event)" class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
                         <option *ngFor="let service of serviceList" value= {{service.id}} [selected]="service.id == selectedService.id">
                             {{service.value}}
                         </option>
@@ -50,7 +50,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="type">Type</label>
                     <div class="col-8">
-                        <select class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <select (ngModelChange)="onChangFailureType($event)" class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
                         <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}} [selected]="failureType.id == selectedFailureTypes.id">
                             {{failureType.value}}
                         </option>
@@ -115,7 +115,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group row" *ngIf="mode === 'create'">
+                <div class="form-group row" *ngIf="mode === 'create' && selectedFailureTypes.id != 3">
                     <label class="col-2 col-form-label" for="criteria">Criteria</label>
                     <div class="col-8">
                         <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
