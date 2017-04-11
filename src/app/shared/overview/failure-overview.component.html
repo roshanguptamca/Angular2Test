@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize } ; let i = index; trackBy:trackByFn;">
+                    <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{affectedElement.id}}</th>
                         <td>{{affectedElement.failure}}</td>
                         <td>{{affectedElement.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
@@ -27,7 +27,7 @@
                 </tbody>
             </table>
             <div class="has-text-centered">
-                <pagination-controls (pageChange)="pageSize = $event"></pagination-controls>
+                <ngb-pagination (pageChange)="pageChange($event,'ELEMENTS')" [pageSize]="sizePerPage" [collectionSize]="affectedElementList.count" [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
             </div>
 
     </template>
@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: pageSize }; let i = index; trackBy:trackByFn;">
+                    <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
                         <th scope="row">{{affectedCoustomer.id}}</th>
                         <td>{{affectedCoustomer.failure}}</td>
                         <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
@@ -58,8 +58,8 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="has-text-centered">
-                <pagination-controls (pageChange)="pageSize = $event"></pagination-controls>
+           <div class="has-text-centered">
+                <ngb-pagination (pageChange)="pageChange($event,'CUSTOMERS')" [pageSize]="sizePerPage" [collectionSize]="affectedCoustomerList.count" [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
             </div>
     </template>
         </ngb-tab>
