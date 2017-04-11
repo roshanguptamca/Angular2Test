@@ -229,6 +229,10 @@ bootstarpComponent(){
         console.error(error);
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
+        }else if(error.detail != null && error.detail === 'INVALID_TRANSITION'){
+          this.errors.apiError[0] = error.detail;
+          this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
         }
         else{
           this.errors.apiError = error;
@@ -248,8 +252,8 @@ bootstarpComponent(){
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
-   if(this.failure.type && this.failure.type == 3 && this.selectedService.id){
-      this.failure.service = this.serviceList[this.selectedService.id].value;
+   if(this.failure.type && this.failure.type == 3 && this.selectedService){
+      this.failure.service = this.selectedService.value;
    }
    this.failure.start_date = this.model.startDate;
    this.failure.end_date = this.model.endDate;
