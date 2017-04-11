@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   //api_url: 'http://localhost:8000',
-  //api_url: 'https://api.tst.kpn.com'
-  api_url: 'https://api.tst.kpnnl.local'
+  api_url: 'https://api.tst.kpn.com'
+  //api_url: 'https://api.tst.kpnnl.local'
 
 };

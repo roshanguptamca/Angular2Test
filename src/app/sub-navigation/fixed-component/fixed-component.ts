@@ -252,6 +252,10 @@ bootstarpComponent(){
         console.error(error);
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
+        }else if(error.detail != null && error.detail === 'INVALID_TRANSITION'){
+          this.errors.apiError[0] = error.detail;
+          this.isApplicationLoading = false;
+          this.emitApplicationLoadingBroadcast();
         }
         else{
           this.errors.apiError = error;
