@@ -20,7 +20,7 @@ export class FailureOverviewComponent implements OnInit  {
   public affectedElementList: AffectedElement[] = [];
   public affectedCoustomerList: AffectedCoustomer[] = [];
   isApplicationLoading: boolean = false;
-  pageSize: number = 1;
+  currentPage: number = 1;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
 
    constructor(config: NgbTabsetConfig, private route: ActivatedRoute,
@@ -41,8 +41,8 @@ export class FailureOverviewComponent implements OnInit  {
     this.sub = this.route.params.subscribe(params => {
        this.failUreId = +params['id']; // (+) converts string 'id' to a number
        // In a real app: dispatch action to load the details here.
-       this.getAffectedElementsByFailureId(this.failUreId);
-       this.getAffectedCustomersByFailureId(this.failUreId);
+       this.getAffectedElementsByFailureId(this.failUreId,this.currentPage);
+       this.getAffectedCustomersByFailureId(this.failUreId, this.currentPage);
     });
   }
 
@@ -55,12 +55,12 @@ redirectToParent() {
 }
   // v5/?method=kpn.otty.YaraAffectedElementsList
 
-  getAffectedElementsByFailureId(failureId: number){
+  getAffectedElementsByFailureId(failureId: number, page: number){
     // get Affected Elements from secure api end point
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.errors.reset();
-    this.sub = this.failureOverviewService.getAffectedElementsByFailureId(failureId)
+    this.sub = this.failureOverviewService.getAffectedElementsByFailureId(failureId, page, this.sizePerPage)
       .subscribe(affectedElements => {
         this.affectedElementList = affectedElements;
       },
@@ -80,12 +80,12 @@ redirectToParent() {
       });
   }
 
-  getAffectedCustomersByFailureId(failureId: number){
+  getAffectedCustomersByFailureId(failureId: number, page: number){
     // get Affected Customers from secure api end point
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.errors.reset();
-    this.sub = this.failureOverviewService.getAffectedCustomersByFailureId(failureId)
+    this.sub = this.failureOverviewService.getAffectedCustomersByFailureId(failureId, page, this.sizePerPage)
       .subscribe(affectedCoustomers => {
         this.affectedCoustomerList = affectedCoustomers;
       },
@@ -121,4 +121,14 @@ redirectToParent() {
   emitApplicationLoadingBroadcast() {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
   }
+
+pageChange(page,pageChangeFor){
+  debugger;
+  if(pageChangeFor === "CUSTOMERS"){
+    this.getAffectedCustomersByFailureId(this.failUreId, page);
+  }
+  else {
+  this.getAffectedElementsByFailureId(this.failUreId, page);
+  }
+}
 }

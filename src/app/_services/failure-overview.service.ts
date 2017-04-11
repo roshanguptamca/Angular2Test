@@ -12,15 +12,15 @@ export class FailureOverviewService {
     constructor(
         private apiService: ApiService) {
     }
-    getAffectedElementsByFailureId(failureId: number): Observable<AffectedElement[]> {
+    getAffectedElementsByFailureId(failureId: number, page: number, pageSize: number): Observable<AffectedElement[]> {
         // add authorization header with jwt token
-        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-elements/",this.jwt());
+        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-elements/?page="+page+"&page_size="+pageSize,this.jwt());
        // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
     }
 
-    getAffectedCustomersByFailureId(failureId: number): Observable<AffectedCoustomer[]> {
+    getAffectedCustomersByFailureId(failureId: number, page: number, pageSize: number): Observable<AffectedCoustomer[]> {
         // add authorization header with jwt token
-        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-customers/",this.jwt());
+        return this.apiService.getWithOptions("/disturbances/v1/failures/"+failureId+"/affected-customers/?page="+page+"&page_size="+pageSize,this.jwt());
        // return this.apiService.getWithOptions("/v5/?method=kpn.otty.YaraAffectedElementsList",this.jwt());
     }
     private jwt() {
