@@ -122,6 +122,10 @@ bootstarpComponent(){
     this.selectedsource =  this.sourceList[failure.source];
     this.model.endDate = failure.end_date;
     this.model.startDate = failure.start_date;
+    this.model.failureId = failure.id;
+    this.model.description =  failure.description;
+    this.model.longDescription =  failure.long_description;
+    this.model.region = failure.region;
   }
 
   // Method in component class
@@ -252,6 +256,10 @@ bootstarpComponent(){
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
+   this.failure.long_description = this.model.longDescription;
+   this.failure.description = this.model.description;
+   this.failure.description = this.model.description;
+   
    if(this.failure.type && this.failure.type == 3 && this.selectedService){
       this.failure.service = this.selectedService.value;
    }

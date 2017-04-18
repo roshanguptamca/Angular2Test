@@ -143,8 +143,10 @@ bootstarpComponent(){
     this.model.startDate = failure.start_date;
     this.model.failureId = failure.id;
     this.model.description =  failure.description;
-    this.model.longDescription =  failure.longDescription;
+    this.model.longDescription =  failure.long_description;
     this.model.region =  failure.region;
+    this.model.failureId = failure.id;
+    this.model.region = failure.region;
   }
 
   // Method in component class.
@@ -283,7 +285,8 @@ bootstarpComponent(){
    this.failure.id = this.model.failureId;
    this.failure.region =  this.model.region;
    this.failure.description =  this.model.description;
-   this.failure.longDescription =  this.model.longDescription;
+   this.failure.long_description =  this.model.longDescription;
+   this.failure.description = this.model.description;
     if(this.mode === "create" && this.model.criteria){
     this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
    }
