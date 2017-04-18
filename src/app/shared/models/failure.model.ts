@@ -9,6 +9,6 @@ export class Failure {
   start_date: string;
   end_date: string;
   description: string;
-  longDescription: string;
+  long_description: string;
   criteria: string[];
 }
