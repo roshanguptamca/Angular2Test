@@ -259,8 +259,9 @@ bootstarpComponent(){
     this.failure.type = this.selectedFailureTypes.id;
     this.failure.long_description = this.model.longDescription;
     this.failure.description = this.model.description;
-    this.failure.description = this.model.description;
-    this.failure.region = this.model.region;
+    if(this.model.region){
+      this.failure.region = this.model.region;
+    }
     this.failure.start_date = this.model.startDate;
     this.failure.end_date = this.model.endDate;
 

@@ -234,8 +234,9 @@ export class MobileComponent implements OnInit {
    this.failure.type = this.selectedFailureTypes.id;
    this.failure.long_description = this.model.longDescription;
    this.failure.description = this.model.description;
-   this.failure.description = this.model.description;
-   this.failure.region = this.model.region;
+   if(this.model.region){
+    this.failure.region = this.model.region;
+   }
 
    if(this.failure.type && this.failure.type == 3 && this.selectedService){
       this.failure.service = this.selectedService.value;
