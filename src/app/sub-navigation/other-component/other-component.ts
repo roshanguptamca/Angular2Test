@@ -126,6 +126,7 @@ bootstarpComponent(){
     this.model.description =  failure.description;
     this.model.longDescription =  failure.long_description;
     this.model.region = failure.region;
+    this.model.state = failure.state;
   }
 
   // Method in component class
@@ -252,28 +253,30 @@ bootstarpComponent(){
 
 // Method in component class
   prepaireFailure() {
-   this.failure = new Failure();
-   this.failure.cause = this.selectedCause.id;
-   this.failure.source = this.selectedsource.id;
-   this.failure.type = this.selectedFailureTypes.id;
-   this.failure.long_description = this.model.longDescription;
-   this.failure.description = this.model.description;
-   this.failure.description = this.model.description;
-   
-   if(this.failure.type && this.failure.type == 3 && this.selectedService){
-      this.failure.service = this.selectedService.value;
-   }
-   this.failure.start_date = this.model.startDate;
-   this.failure.end_date = this.model.endDate;
-   this.failure.id = this.model.failureId;
-   if(this.mode === "create" && this.model.criteria){
-    this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
-   }
-  }
+    this.failure = new Failure();
+    this.failure.cause = this.selectedCause.id;
+    this.failure.source = this.selectedsource.id;
+    this.failure.type = this.selectedFailureTypes.id;
+    this.failure.long_description = this.model.longDescription;
+    this.failure.description = this.model.description;
+    this.failure.description = this.model.description;
+    this.failure.region = this.model.region;
+    this.failure.start_date = this.model.startDate;
+    this.failure.end_date = this.model.endDate;
+
+    if(this.failure.type && this.failure.type == 3 && this.selectedService){
+        this.failure.service = this.selectedService.value;
+    }
+    
+    this.failure.id = this.model.failureId;
+    if(this.mode === "create" && this.model.criteria){
+      this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
+    }
+}
 
  ngOnDestroy() {
     this.sub.unsubscribe();
-  }
+}
 
 onChangeCause(newvalue){
   this.selectedCause = this.causeList[newvalue];

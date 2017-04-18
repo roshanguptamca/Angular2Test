@@ -147,6 +147,7 @@ bootstarpComponent(){
     this.model.region =  failure.region;
     this.model.failureId = failure.id;
     this.model.region = failure.region;
+    this.model.state = failure.state;
   }
 
   // Method in component class.

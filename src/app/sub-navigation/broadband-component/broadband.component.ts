@@ -120,6 +120,7 @@ export class BroadbandComponent implements OnInit {
     this.model.longDescription = failure.long_description;
     this.model.description = failure.description;
     this.model.region = failure.region;
+    this.model.state = failure.state;
   }
 
   // Method in component classfailure
