@@ -252,18 +252,24 @@ export class BroadbandComponent implements OnInit {
    this.failure.cause = this.selectedCause.id;
    this.failure.source = this.selectedsource.id;
    this.failure.type = this.selectedFailureTypes.id;
+
    this.failure.long_description = this.model.longDescription;
-   this.failure.region = this.model.region;
    this.failure.description = this.model.description;
+   if(this.model.region){
+    this.failure.region = this.model.region;
+   }
+   
    if(this.failure.type && this.failure.type == 3 && this.selectedService){
       this.failure.service = this.selectedService.value;
    }
    this.failure.start_date = this.model.startDate;
    this.failure.end_date = this.model.endDate;
    this.failure.id = this.model.failureId;
+
    if(this.mode === "create" && this.model.criteria){
     this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
    }
+
   }
 
   ngOnDestroy() {
