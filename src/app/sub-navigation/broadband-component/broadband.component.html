@@ -18,6 +18,10 @@
             <span *ngFor="let criteriaError of errors.apiError.criteria"> <strong>{{criteriaError}}</strong></span>
         </div>
 
+        <div class="alert alert-danger" *ngIf="errors && errors.apiError && errors.apiError.detail">
+            <span> <strong>{{errors.apiError.detail}}</strong></span>
+        </div>
+
         <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
             <div class="row">
                 <div class="form-group row">
