@@ -1,0 +1,25 @@
+<template ngbModalContainer #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
+        <div class="form-group row">
+              <label class="col-form-label col-2" for="template">Template</label>
+              <select (ngModelChange)="onChangeTemplate($event)" class="form-control clickable col-9" name="template" [(ngModel)]="selectedTemplate.id" #template="ngModel" required>
+                  <option *ngFor="let template of templateList" value= {{template.id}} [selected]="template.id == selectedTemplate.id">
+                       {{template.value}}
+                  </option>
+              </select>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Send</button>
+     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancle</button>
+  </div>
+</template>
+<i (click)="open(content)" class="fa fa-comments clickable" aria-hidden="true" title="Chat"></i>

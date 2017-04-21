@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FailureTypes, Cause, Service, State, Source } from '../shared/models/index';
+import { FailureTypes, Cause, Service, State, Source, Template } from '../shared/models/index';
  
 @Injectable()
 export class ApplicationUtillService {
@@ -56,6 +56,17 @@ export class ApplicationUtillService {
         new State('STATE_CLOSED',"Failure closed"),
         new State('STATE_CLOSING_NOTIFICATION',"Notifying close failure")
     ];
+
+
+    templates = [
+        new Template(0,"template1"),
+        new Template(1,"template2"),
+        new Template(2,"template3"),
+        new Template(3,"template4"),
+        new Template(4,"template5"),
+        new Template(5,"template6"),
+        new Template(6,"template7")
+    ];
     getFailureTypes(): FailureTypes[] {
         return  this.failureTypes;
     }
@@ -83,5 +94,9 @@ export class ApplicationUtillService {
 
      getStates(): State[] {
         return  this.states;
+    }
+
+     getTemplates(): Template[] {
+        return  this.templates;
     }
 }
