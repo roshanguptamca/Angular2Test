@@ -1,9 +1,9 @@
 import { Pipe,PipeTransform } from '@angular/core';
 // Tell Angular2 we're creating a Pipe with TypeScript decorators
 @Pipe({
-  name: 'closeIconPipe',
+  name: 'customDatePipe',
 })
-export class CloseIconPipe implements PipeTransform {
+export class CustomDatePipe implements PipeTransform {
     transform(value:any, args:any):string {
         debugger;
         if (value && typeof value != undefined && value != "") {

@@ -17,8 +17,8 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./serviceguard.component.scss']
 })
 export class ServiceguardComponent implements OnInit {
-  startTime = {hour: 13, minute: 30};
-  endTime = {hour:17, minute: 30};
+  startTime = { hour: 13, minute: 30 };
+  endTime = { hour: 17, minute: 30 };
   public selectedUrl: String;
   private searchString: string;
   errors = new Errors();
@@ -42,7 +42,7 @@ export class ServiceguardComponent implements OnInit {
   failure: Failure;
   page: number = 1;
   private sub: any;
-  
+
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -66,8 +66,8 @@ export class ServiceguardComponent implements OnInit {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
   }
 
-bootstarpComponent(){
-   this.sourceList = this.applicationUtillService.getSources();
+  bootstarpComponent() {
+    this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
     this.selectedCause = this.causeList[0];
@@ -78,9 +78,9 @@ bootstarpComponent(){
     // get dashboard data from secure api end point
     this.isApplicationLoading = true;
     this.getAllFailureList();
-}
+  }
 
- getAllFailureList() {
+  getAllFailureList() {
     // get failurs from secure api end point
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -95,7 +95,7 @@ bootstarpComponent(){
         console.error(error);
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
-        }else {
+        } else {
           // todo
         }
         this.isApplicationLoading = false;
@@ -105,7 +105,7 @@ bootstarpComponent(){
         this.isApplicationLoading = false;
         this.emitApplicationLoadingBroadcast();
       });
- }
+  }
 
   // Method in component class
   trackByFn(index, item) {
@@ -119,25 +119,27 @@ bootstarpComponent(){
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
-    this.selectedsource =  this.sourceList[failure.source];
-    this.model.endDate = failure.end_date;
-    this.model.startDate = failure.start_date;
+    this.selectedsource = this.sourceList[failure.source];
+    this.model.endDate = this.datePipe.transform(failure.end_date, "yyyy-MM-dd HH:mm:ss");
+    this.model.startDate = this.datePipe.transform(failure.start_date, "yyyy-MM-dd HH:mm:ss");
     this.model.failureId = failure.id;
-    this.model.description =  failure.description;
-    this.model.longDescription =  failure.long_description;
+    this.model.description = failure.description;
+    this.model.longDescription = failure.long_description;
     this.model.region = failure.region;
     this.model.state = failure.state;
   }
 
-  // Method in component class
+  // Method in component classfailure
   addNewFailure(failure: Failure) {
     this.mode = 'create';
     this.errors.reset();
     let today = new Date();
+    let todayEndDate = new Date(today);
+    todayEndDate.setHours(today.getHours() + 4);
     this.addOrUpdateMode = true;
     this.model = {
       startDate: new Date(),
-      endDate: this.datePipe.transform((today.setHours(today.getHours() + 4)),"yyyy-MM-dd hh:mm")
+      endDate: todayEndDate
     };
     this.bootstarpComponent();
   }
@@ -145,20 +147,20 @@ bootstarpComponent(){
   // Method in component class
   redirectToLogin() {
     localStorage.removeItem('currentUser');
-    this.isApplicationLoading = false; 
+    this.isApplicationLoading = false;
     this.addOrUpdateMode = false;
     this.router.navigate(['/login']);
   }
 
-    // Method in component class
+  // Method in component class
   redirectToOverview(failureId: number) {
-    this.router.navigate([this.selectedUrl+'/overview/'+failureId]);
+    this.router.navigate([this.selectedUrl + '/overview/' + failureId]);
   }
 
-// Method in component class
+  // Method in component class
   createFailure() {
     this.prepaireFailure();
-    if(this.failure.id){
+    if (this.failure.id) {
       this.patchFailure();
     }
     else {
@@ -166,7 +168,7 @@ bootstarpComponent(){
     }
   }
 
-// Method in component class
+  // Method in component class
   saveFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -181,7 +183,7 @@ bootstarpComponent(){
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -193,7 +195,7 @@ bootstarpComponent(){
       });
   }
 
-// Method in component class
+  // Method in component class
   patchFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -208,7 +210,7 @@ bootstarpComponent(){
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -220,7 +222,7 @@ bootstarpComponent(){
       });
   }
 
-// Method in component class
+  // Method in component class
   closeFailure(failure: Failure) {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -234,12 +236,12 @@ bootstarpComponent(){
         console.error(error);
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
-        }else if(error.detail != null && error.detail === 'INVALID_TRANSITION'){
+        } else if (error.detail != null && error.detail === 'INVALID_TRANSITION') {
           this.errors.apiError[0] = error.detail;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -251,68 +253,71 @@ bootstarpComponent(){
       });
   }
 
-// Method in component class
+  // Method in component class
   prepaireFailure() {
-   this.failure = new Failure();
-   this.failure.cause = this.selectedCause.id;
-   this.failure.source = this.selectedsource.id;
-   this.failure.type = this.selectedFailureTypes.id;
-   this.failure.long_description = this.model.longDescription;
-   this.failure.description = this.model.description;
-   if(this.model.region){
-    this.failure.region = this.model.region;
-   }
+    this.failure = new Failure();
+    this.failure.cause = this.selectedCause.id;
+    this.failure.source = this.selectedsource.id;
+    this.failure.type = this.selectedFailureTypes.id;
+    this.failure.long_description = this.model.longDescription;
+    this.failure.description = this.model.description;
+    if (this.model.region) {
+      this.failure.region = this.model.region;
+    }
 
-   if(this.failure.type && this.failure.type == 3 && this.selectedService){
+    if (this.failure.type && this.failure.type == 3 && this.selectedService) {
       this.failure.service = this.selectedService.value;
-   }
-   this.failure.start_date = this.model.startDate;
-   this.failure.end_date = this.model.endDate;
-   this.failure.id = this.model.failureId;
-   if(this.mode === "create" && this.model.criteria){
-    this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
-   }
-   }
+    }
+    if (this.model.startDate) {
+      this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+    }
+    if (this.model.endDate) {
+      this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
+    }
+    this.failure.id = this.model.failureId;
+    if (this.mode === "create" && this.model.criteria) {
+      this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
+    }
+  }
 
- ngOnDestroy() {
+  ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-onChangeCause(newvalue){
-  this.selectedCause = this.causeList[newvalue];
-  this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
-  this.selectedFailureTypes = this.failureTypesList[0];
-}
-
-getApiFilterString(){
-  let queryString: string ="";
-  if(AppConstant.APP_FAILURE_SERVICEGARD_URL === this.selectedUrl){
-      queryString = "?cause=0&source=1&type=0";
-  } else if(AppConstant.APP_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl){
-     queryString = "?cause=1&source=1&&type=0";
-  } else if(AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl){
-     queryString = "?cause=0&source=1&type=0&state=closed";
-  } else if(AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl){
-     queryString = "?cause=1&source=1&type=0&state=closed";
+  onChangeCause(newvalue) {
+    this.selectedCause = this.causeList[newvalue];
+    this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
+    this.selectedFailureTypes = this.failureTypesList[0];
   }
-  return queryString;
-}
+
+  getApiFilterString() {
+    let queryString: string = "";
+    if (AppConstant.APP_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
+      queryString = "?cause=0&source=1&type=0";
+    } else if (AppConstant.APP_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
+      queryString = "?cause=1&source=1&&type=0";
+    } else if (AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
+      queryString = "?cause=0&source=1&type=0&state=closed";
+    } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
+      queryString = "?cause=1&source=1&type=0&state=closed";
+    }
+    return queryString;
+  }
 
 
-onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
-}
+  onChangFailureType(newvalue) {
+    this.selectedFailureTypes = this.failureTypesList[newvalue];
+  }
 
-onChangService(newvalue) {
-  this.selectedService = this.serviceList[newvalue];
-}
+  onChangService(newvalue) {
+    this.selectedService = this.serviceList[newvalue];
+  }
 
-  isCloseButtonEnabled(failureStatus){
+  isCloseButtonEnabled(failureStatus) {
     var isCloseIconDisplay = false;
-    debugger;
-   if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-        isCloseIconDisplay = false;
-    } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
+    if (AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
+      isCloseIconDisplay = false;
+    } else if (failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned') {
       isCloseIconDisplay = true;
     }
     else {

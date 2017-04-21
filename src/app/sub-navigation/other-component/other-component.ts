@@ -120,8 +120,8 @@ bootstarpComponent(){
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
-    this.model.endDate = failure.end_date;
-    this.model.startDate = failure.start_date;
+    this.model.endDate = this.datePipe.transform(failure.end_date, "yyyy-MM-dd HH:mm:ss");
+    this.model.startDate = this.datePipe.transform(failure.start_date, "yyyy-MM-dd HH:mm:ss");
     this.model.failureId = failure.id;
     this.model.description =  failure.description;
     this.model.longDescription =  failure.long_description;
@@ -129,15 +129,17 @@ bootstarpComponent(){
     this.model.state = failure.state;
   }
 
-  // Method in component class
+// Method in component classfailure
   addNewFailure(failure: Failure) {
     this.mode = 'create';
     this.errors.reset();
     let today = new Date();
+    let todayEndDate = new Date ( today );
+    todayEndDate.setHours ( today.getHours() + 4 );
     this.addOrUpdateMode = true;
     this.model = {
       startDate: new Date(),
-      endDate: this.datePipe.transform((today.setHours(today.getHours() + 4)),"yyyy-MM-dd hh:mm")
+      endDate: todayEndDate
     };
     this.bootstarpComponent();
   }
@@ -262,11 +264,14 @@ bootstarpComponent(){
     if(this.model.region){
       this.failure.region = this.model.region;
     }
-    this.failure.start_date = this.model.startDate;
-    this.failure.end_date = this.model.endDate;
-
-    if(this.failure.type && this.failure.type == 3 && this.selectedService){
-        this.failure.service = this.selectedService.value;
+    if(this.model.startDate){
+      this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss")
+    }
+     if(this.model.startDate){
+      this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+    }
+    if(this.model.endDate){
+      this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
     }
     
     this.failure.id = this.model.failureId;
@@ -309,8 +314,7 @@ onChangService(newvalue) {
 
   isCloseButtonEnabled(failureStatus){
     var isCloseIconDisplay = false;
-    debugger;
-   if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+   if (AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl) {
         isCloseIconDisplay = false;
     } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
       isCloseIconDisplay = true;

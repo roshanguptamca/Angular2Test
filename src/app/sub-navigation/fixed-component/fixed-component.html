@@ -88,7 +88,7 @@
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-8">
                         <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate"
-                            #startDate="ngModel" required ng2-datetime-picker/>
+                            #startDate="ngModel" required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
                     <div class="col-8">
                         <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
-                            required ng2-datetime-picker/>
+                            required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
                     </div>
                 </div>
             </div>
@@ -167,8 +167,8 @@
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failureTypesList[failure.type].value}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
                             <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
