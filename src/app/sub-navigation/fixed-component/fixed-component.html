@@ -75,7 +75,7 @@
                     </div>
                 </div>-->
 
-                <div class="form-group row">
+                <div class="form-group row" *ngIf="selectedFailureTypes.id != 3">
                     <label class="col-2 col-form-label" for="region">Region</label>
                     <div class="col-8">
                         <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
@@ -151,10 +151,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Region</th>
+                        <th>Description</th>
                         <th>State</th>
                         <th>Type</th>
-                        <th>Service</th>
                         <th>Impact</th>
                         <th>Start</th>
                         <th>End</th>
@@ -167,7 +166,6 @@
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failureTypesList[failure.type].value}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{ failure.service }}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
@@ -175,13 +173,14 @@
                             <i *ngIf="failure.state != 'new' && failure.state != 'planned'" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
-                            <i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                            <!--<i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>-->
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="has-text-centered">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                <button (click)="addNewFailure()" type="button" title="Add" class="btn btn-primary">Create Failure</button>
             </div>
         </div>
     </div>
