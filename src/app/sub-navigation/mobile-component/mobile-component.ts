@@ -89,7 +89,6 @@ export class MobileComponent implements OnInit {
 
   // Method in component class
   updateFailure(failure: Failure) {
-    debugger;
     this.mode = 'update';
     this.errors.reset();
     this.addOrUpdateMode = true;
