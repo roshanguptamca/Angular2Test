@@ -159,7 +159,7 @@
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
                         <td>
-                            <i *ngIf="failure.state != 'new' && failure.state != 'planned'" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
+                            <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
                             <!--<i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>-->

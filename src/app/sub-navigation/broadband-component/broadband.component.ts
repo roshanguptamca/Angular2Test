@@ -152,7 +152,7 @@ export class BroadbandComponent implements OnInit {
   // Method in component class
   createFailure() {
     this.prepaireFailure();
-    if(this.failure.id){
+    if (this.failure.id) {
       this.patchFailure();
     }
     else {
@@ -160,7 +160,7 @@ export class BroadbandComponent implements OnInit {
     }
   }
 
-// Method in component class
+  // Method in component class
   saveFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -175,7 +175,7 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -187,7 +187,7 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   patchFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -202,7 +202,7 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -214,7 +214,7 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   closeFailure(failure: Failure) {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -229,12 +229,12 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else if(error.detail != null && error.detail === 'INVALID_TRANSITION'){
+        else if (error.detail != null && error.detail === 'INVALID_TRANSITION') {
           this.errors.apiError[0] = error.detail;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -246,29 +246,29 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   prepaireFailure() {
-   this.failure = new Failure();
-   this.failure.cause = this.selectedCause.id;
-   this.failure.source = this.selectedsource.id;
-   this.failure.type = this.selectedFailureTypes.id;
+    this.failure = new Failure();
+    this.failure.cause = this.selectedCause.id;
+    this.failure.source = this.selectedsource.id;
+    this.failure.type = this.selectedFailureTypes.id;
 
-   this.failure.long_description = this.model.longDescription;
-   this.failure.description = this.model.description;
-   if(this.model.region){
-    this.failure.region = this.model.region;
-   }
-   
-   if(this.failure.type && this.failure.type == 3 && this.selectedService){
+    this.failure.long_description = this.model.longDescription;
+    this.failure.description = this.model.description;
+    if (this.model.region) {
+      this.failure.region = this.model.region;
+    }
+
+    if (this.failure.type && this.failure.type == 3 && this.selectedService) {
       this.failure.service = this.selectedService.value;
-   }
-   this.failure.start_date = this.model.startDate;
-   this.failure.end_date = this.model.endDate;
-   this.failure.id = this.model.failureId;
+    }
+    this.failure.start_date = this.model.startDate;
+    this.failure.end_date = this.model.endDate;
+    this.failure.id = this.model.failureId;
 
-   if(this.mode === "create" && this.model.criteria){
-    this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
-   }
+    if (this.mode === "create" && this.model.criteria) {
+      this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
+    }
 
   }
 
@@ -300,11 +300,25 @@ export class BroadbandComponent implements OnInit {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
   }
 
-onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
-}
+  onChangFailureType(newvalue) {
+    this.selectedFailureTypes = this.failureTypesList[newvalue];
+  }
 
-onChangService(newvalue) {
-  this.selectedService = this.serviceList[newvalue];
-}
+  onChangService(newvalue) {
+    this.selectedService = this.serviceList[newvalue];
+  }
+
+  isCloseButtonEnabled(failureStatus){
+    var isCloseIconDisplay = false;
+    debugger;
+   if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+        isCloseIconDisplay = false;
+    } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
+      isCloseIconDisplay = true;
+    }
+    else {
+      isCloseIconDisplay = false;
+    }
+    return isCloseIconDisplay;
+  }
 }
