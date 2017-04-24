@@ -1,11 +1,14 @@
 <template ngbModalContainer #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title">Notification Templates</h4>
+    <button type="button" class="close" aria-label="Close" #closeBtn (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="errors && errors && errors.detail">
+        <span> <strong>{{errors.detail}}</strong></span>
+    </div>
       <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
         <div class="form-group row">
               <label class="col-form-label col-2" for="template">Template</label>
@@ -18,7 +21,7 @@
       </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Send</button>
+     <button type="button" class="btn btn-secondary" (click)="updateNotification()">Send</button>
      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancle</button>
   </div>
 </template>
