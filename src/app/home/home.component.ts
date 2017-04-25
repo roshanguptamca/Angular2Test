@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
         private messageEvent: MessageEvent) { }
 
     ngOnInit() {
-        this.getHomePageList();
+        this.router.navigate(['/failure/broadband']);
     }
 
     getHomePageList() {

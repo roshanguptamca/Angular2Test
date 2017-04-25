@@ -5,7 +5,7 @@ import { FailureService, ApplicationUtillService } from '../../_services/index';
 import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { DateFormatorSerice } from '../../_helpers/index';
+import { DateFormatorSerice, YaraUtilsService } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
 import { Broadcaster } from '../../commons/application-broadcaster.service';
@@ -18,8 +18,8 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./fixed-component.scss']
 })
 export class FixedComponent implements OnInit{
-  
- startTime = {hour: 13, minute: 30};
+  selectedFailure: any;
+  startTime = {hour: 13, minute: 30};
   endTime = {hour:17, minute: 30};
   public selectedUrl: String;
   private searchString: string;
@@ -27,6 +27,7 @@ export class FixedComponent implements OnInit{
   public failureList: Failure[] = [];
   model: any = {};
   failureTypesList: FailureTypes[];
+  uiFailureTypesList: FailureTypes[];
   selectedFailureTypes: FailureTypes;
   sourceList: Source[];
   selectedsource: Source;
@@ -57,7 +58,8 @@ export class FixedComponent implements OnInit{
     private datePipe: DatePipe,
     private broadcaster: Broadcaster,
     private messageEvent: MessageEvent,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private yaraUtilsService: YaraUtilsService
   ) {
     this.selectedUrl = this.router.url;
   }
@@ -85,6 +87,7 @@ export class FixedComponent implements OnInit{
   // }
 
 bootstarpComponent(){
+    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(0);
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
@@ -134,13 +137,14 @@ bootstarpComponent(){
   // Method in component class
   updateFailure(failure: Failure) {
     this.mode = 'update';
+    this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
-    this.model.endDate = this.datePipe.transform(failure.end_date, "yyyy-MM-dd HH:mm:ss");
-    this.model.startDate = this.datePipe.transform(failure.start_date, "yyyy-MM-dd HH:mm:ss");
+    this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
+    this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
     this.model.description =  failure.description;
     this.model.longDescription =  failure.long_description;
@@ -290,12 +294,27 @@ bootstarpComponent(){
    if(this.failure.type && this.failure.type == 3 && this.selectedService){
       this.failure.service = this.selectedService.value;
    }
-    if(this.model.startDate){
+    // start date validation
+   if(this.mode == "update" &&  this.model.startDate && this.selectedFailure.start_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.startDate,this.selectedFailure.start_date );
+      if(!same){
+        this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else{
       this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
     }
-    if(this.model.endDate){
+    // end date validation
+    if(this.mode == "update" && this.model.endDate && this.selectedFailure.end_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.endDate,this.selectedFailure.end_date );
+      if(!same){
+        this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else {
       this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
     }
+
    this.failure.id = this.model.failureId;
 
     if(this.mode === "create" && this.model.criteria){

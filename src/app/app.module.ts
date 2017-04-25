@@ -20,7 +20,7 @@ import { Ng2DatetimePickerModule, Ng2Datetime } from 'ng2-datetime-picker';
 import { NgbdModalBasic } from './commons/components/ngbd-modal-basic'
 
 import {
-  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory
+  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory, YaraUtilsService
 } from './_helpers/index';
 
 import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -101,7 +101,8 @@ import {
     MockBackend,
     BaseRequestOptions,
     // lib providers
-    DatePipe
+    DatePipe,
+    YaraUtilsService
   ],
   bootstrap: [AppComponent]
 })

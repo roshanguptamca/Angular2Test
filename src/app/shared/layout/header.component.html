@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="btn btn-primary logout-btn hidden-md-down" routerLink="/login" role="button">logout</a>
+            <a *ngIf="authenticated" class="btn btn-primary logout-btn hidden-md-down" routerLink="/login" role="button">logout</a>
         </div>
 
         <div class="mobile-navigation collapse navbar-collapse" id="mobileNavbarSupportedContent" *ngIf="authenticated">
