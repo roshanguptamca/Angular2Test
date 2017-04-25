@@ -123,7 +123,6 @@ redirectToParent() {
   }
 
 pageChange(page,pageChangeFor){
-  debugger;
   if(pageChangeFor === "CUSTOMERS"){
     this.getAffectedCustomersByFailureId(this.failUreId, page);
   }

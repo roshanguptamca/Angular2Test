@@ -60,7 +60,7 @@
                         <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" *ngIf="selectedFailureTypes.id != 3">
                     <label class="col-2 col-form-label" for="region">Region</label>
                     <div class="col-8">
                         <input type="text" placeholder="Region" [ngClass]="{'form-control-success': region.valid , 'form-control-danger': !region.valid }" class="form-control" name="region" [(ngModel)]="model.region" #region="ngModel" />
@@ -73,7 +73,7 @@
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-8">
                         <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" name="startDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate"
-                            #startDate="ngModel" required ng2-datetime-picker/>
+                            #startDate="ngModel" required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@
                     <label class="col-2 col-form-label" for="endDate">End Date</label>
                     <div class="col-8">
                         <input [ngClass]="{'form-control-success': endDate.valid && endDate.touched, 'form-control-danger': !endDate.valid && endDate.touched }" class="form-control" name="endDate" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.endDate" name="endDate" #endDate="ngModel"
-                            required ng2-datetime-picker/>
+                            required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group row" *ngIf="mode === 'create' && selectedFailureTypes.id != 3">
+                <div class="form-group row" *ngIf="selectedFailureTypes.id != 3">
                     <label class="col-2 col-form-label" for="criteria">Criteria</label>
                     <div class="col-8">
                         <textarea rows="5" class="form-control" name="criteria" [(ngModel)]="model.criteria" #criteria="ngModel" id="criteria"></textarea>
@@ -136,10 +136,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Region</th>
+                        <th>Description</th>
                         <th>State</th>
                         <th>Type</th>
-                        <th>Service</th>
                         <th>Impact</th>
                         <th>Start</th>
                         <th>End</th>
@@ -151,22 +150,21 @@
                         <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failureTypesList[failure.type].value}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{ failure.service }}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{uiFailureTypesList[failure.type].value}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MMM-yyyy hh:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
-                            <i *ngIf="failure.state != 'new' && failure.state != 'planned'" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
+                            <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
                             <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
-                            <i class="fa fa-comments" aria-hidden="true" title="Chat"></i>
-                            <i (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                            <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="has-text-centered">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                <button (click)="addNewFailure()" type="button" title="Add" class="btn btn-primary">Create Failure</button>
             </div>
         </div>
     </div>

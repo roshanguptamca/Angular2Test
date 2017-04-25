@@ -17,9 +17,10 @@ import { OtherComponent } from './sub-navigation/other-component/other-component
 import { DatePipe } from '@angular/common';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { Ng2DatetimePickerModule, Ng2Datetime } from 'ng2-datetime-picker';
+import { NgbdModalBasic } from './commons/components/ngbd-modal-basic'
 
 import {
-  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory
+  ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory, YaraUtilsService
 } from './_helpers/index';
 
 import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -61,7 +62,8 @@ import {
     OtherComponent,
     LoginComponent,
     HomeComponent,
-    FailureOverviewComponent
+    FailureOverviewComponent,
+    NgbdModalBasic
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ import {
     MockBackend,
     BaseRequestOptions,
     // lib providers
-    DatePipe
+    DatePipe,
+    YaraUtilsService
   ],
   bootstrap: [AppComponent]
 })

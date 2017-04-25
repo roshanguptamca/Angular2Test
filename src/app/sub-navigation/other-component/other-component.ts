@@ -5,7 +5,7 @@ import { FailureService, ApplicationUtillService } from '../../_services/index';
 import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
-import { DateFormatorSerice } from '../../_helpers/index';
+import { DateFormatorSerice,YaraUtilsService } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
 import { Broadcaster } from '../../commons/application-broadcaster.service';
@@ -32,7 +32,7 @@ export class OtherComponent implements OnInit {
   selectedCause: Cause;
   serviceList: Service[];
   selectedService: Service;
-
+  selectedFailure: any;
   searchQuery: any[] = [];
   isApplicationLoading: boolean = false;
   addOrUpdateMode: boolean = false;
@@ -43,6 +43,7 @@ export class OtherComponent implements OnInit {
   page: number = 1;
   private sub: any;
   mode: string;
+  uiFailureTypesList: FailureTypes[];
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,7 +54,8 @@ export class OtherComponent implements OnInit {
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
     private broadcaster: Broadcaster,
-    private messageEvent: MessageEvent
+    private messageEvent: MessageEvent,
+    private yaraUtilsService: YaraUtilsService
   ) {
     this.selectedUrl = this.router.url;
   }
@@ -67,6 +69,7 @@ export class OtherComponent implements OnInit {
   }
 
 bootstarpComponent(){
+   this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(0);
    this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
@@ -115,13 +118,14 @@ bootstarpComponent(){
   // Method in component class
   updateFailure(failure: Failure) {
     this.mode = 'update';
+    this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
-    this.model.endDate = failure.end_date;
-    this.model.startDate = failure.start_date;
+    this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
+    this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
     this.model.description =  failure.description;
     this.model.longDescription =  failure.long_description;
@@ -129,15 +133,17 @@ bootstarpComponent(){
     this.model.state = failure.state;
   }
 
-  // Method in component class
+// Method in component classfailure
   addNewFailure(failure: Failure) {
     this.mode = 'create';
     this.errors.reset();
     let today = new Date();
+    let todayEndDate = new Date ( today );
+    todayEndDate.setHours ( today.getHours() + 4 );
     this.addOrUpdateMode = true;
     this.model = {
       startDate: new Date(),
-      endDate: this.datePipe.transform((today.setHours(today.getHours() + 4)),"yyyy-MM-dd hh:mm")
+      endDate: todayEndDate
     };
     this.bootstarpComponent();
   }
@@ -262,11 +268,31 @@ bootstarpComponent(){
     if(this.model.region){
       this.failure.region = this.model.region;
     }
-    this.failure.start_date = this.model.startDate;
-    this.failure.end_date = this.model.endDate;
 
-    if(this.failure.type && this.failure.type == 3 && this.selectedService){
-        this.failure.service = this.selectedService.value;
+
+    if (this.failure.type && this.failure.type == 3 && this.selectedService) {
+      this.failure.service = this.selectedService.value;
+    }
+
+    // start date validation
+   if(this.mode == "update" &&  this.model.startDate && this.selectedFailure.start_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.startDate,this.selectedFailure.start_date );
+      if(!same){
+        this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else{
+      this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+    }
+    // end date validation
+    if(this.mode == "update" && this.model.endDate && this.selectedFailure.end_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.endDate,this.selectedFailure.end_date );
+      if(!same){
+        this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else {
+      this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
     }
     
     this.failure.id = this.model.failureId;
@@ -306,5 +332,18 @@ onChangFailureType(newvalue) {
 onChangService(newvalue) {
   this.selectedService = this.serviceList[newvalue];
 }
+
+  isCloseButtonEnabled(failureStatus){
+    var isCloseIconDisplay = false;
+   if (AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl) {
+        isCloseIconDisplay = false;
+    } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
+      isCloseIconDisplay = true;
+    }
+    else {
+      isCloseIconDisplay = false;
+    }
+    return isCloseIconDisplay;
+  }
 
 }

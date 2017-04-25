@@ -17,3 +17,7 @@ export class Service {
 export class State {
   constructor(public id: string, public value: string) { }
 }
+
+export class Template {
+  constructor(public id: number, public value: string) { }
+}

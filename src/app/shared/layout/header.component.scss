@@ -14,6 +14,10 @@ $smallheader_megamenu: $top-md-height-reduced+360px;
     -o-transition: all 0.25s ease-out;
 }
 
+.logout-btn {
+    color: $white;
+}
+
 .kpn-yara-main-header {
     position: relative;
     z-index: 200;

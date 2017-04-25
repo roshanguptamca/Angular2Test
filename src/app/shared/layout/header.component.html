@@ -1,7 +1,7 @@
 <header class="kpn-yara-main-header">
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
         <div>
-            <button aria-controls="mobileNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler " type="button" data-toggle="collapse" data-target="#mobileNavbarSupportedContent">
+            <button aria-controls="mobileNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbarSupportedContent">
                 ☰
                 </button>
 
@@ -34,16 +34,12 @@
                     </li>
                     <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
                         <a class="nav-link" routerLink="/archived-planned-maintenance">
-                        Archived planned failure</a>
-                        <span></span>
-                    </li>
-                    <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
-                        <a class="nav-link" routerLink="/login">
-                        logout</a>
+                        Archived planned maintenance</a>
                         <span></span>
                     </li>
                 </ul>
             </div>
+            <a *ngIf="authenticated" class="btn btn-primary logout-btn hidden-md-down" routerLink="/login" role="button">logout</a>
         </div>
 
         <div class="mobile-navigation collapse navbar-collapse" id="mobileNavbarSupportedContent" *ngIf="authenticated">
@@ -61,7 +57,12 @@
                 </li>
                 <li class="nav-item megamenu__primary-li" routerLinkActive="mobile-active-link">
                     <a class="nav-link" routerLink="/archived-planned-maintenance">
-                        Archived planned failure</a>
+                        Archived planned maintenance</a>
+                </li>
+                <li class="nav-item megamenu__primary-li" routerLinkActive="active-link">
+                    <a class="nav-link" routerLink="/login">
+                        logout</a>
+                    <span></span>
                 </li>
             </ul>
         </div>

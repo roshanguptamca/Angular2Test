@@ -5,7 +5,7 @@ import { FailureService, ApplicationUtillService } from '../../_services/index';
 import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
-import { DateFormatorSerice } from '../../_helpers/index';
+import { DateFormatorSerice, YaraUtilsService } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
 import { Broadcaster } from '../../commons/application-broadcaster.service';
@@ -17,12 +17,15 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./broadband.component.scss']
 })
 export class BroadbandComponent implements OnInit {
+  disableType: boolean = false;
   public selectedUrl: String;
   private searchString: string;
   errors = new Errors();
   public failureList: Failure[] = [];
   model: any = {};
+  selectedFailure: any;
   failureTypesList: FailureTypes[];
+  uiFailureTypesList: FailureTypes[];
   selectedFailureTypes: FailureTypes;
   sourceList: Source[];
   selectedsource: Source;
@@ -51,7 +54,8 @@ export class BroadbandComponent implements OnInit {
     private dateFormatorSerice: DateFormatorSerice,
     private datePipe: DatePipe,
     private broadcaster: Broadcaster,
-    private messageEvent: MessageEvent
+    private messageEvent: MessageEvent,
+    private yaraUtilsService: YaraUtilsService
   ) {
     this.selectedUrl = this.router.url;
   }
@@ -62,6 +66,7 @@ export class BroadbandComponent implements OnInit {
   }
 
   bootstarpComponent() {
+    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(0);
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
@@ -109,13 +114,15 @@ export class BroadbandComponent implements OnInit {
   // Method in component class
   updateFailure(failure: Failure) {
     this.mode = 'update';
+    this.disableType = true;
+    this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
     this.selectedFailureTypes = this.failureTypesList[failure.type];
     this.selectedsource = this.sourceList[failure.source];
-    this.model.endDate = failure.end_date;
-    this.model.startDate = failure.start_date;
+    this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
+    this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
     this.model.longDescription = failure.long_description;
     this.model.description = failure.description;
@@ -126,12 +133,15 @@ export class BroadbandComponent implements OnInit {
   // Method in component classfailure
   addNewFailure(failure: Failure) {
     this.mode = 'create';
+    this.disableType = false;
     this.errors.reset();
     let today = new Date();
+    let todayEndDate = new Date ( today );
+    todayEndDate.setHours ( today.getHours() + 4 );
     this.addOrUpdateMode = true;
     this.model = {
       startDate: new Date(),
-      endDate: this.datePipe.transform((today.setHours(today.getHours() + 4)), "yyyy-MM-dd hh:mm")
+      endDate: todayEndDate
     };
     this.bootstarpComponent();
   }
@@ -152,7 +162,7 @@ export class BroadbandComponent implements OnInit {
   // Method in component class
   createFailure() {
     this.prepaireFailure();
-    if(this.failure.id){
+    if (this.failure.id) {
       this.patchFailure();
     }
     else {
@@ -160,7 +170,7 @@ export class BroadbandComponent implements OnInit {
     }
   }
 
-// Method in component class
+  // Method in component class
   saveFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -175,7 +185,7 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -187,7 +197,7 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   patchFailure() {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -202,7 +212,7 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -214,7 +224,7 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   closeFailure(failure: Failure) {
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
@@ -229,12 +239,12 @@ export class BroadbandComponent implements OnInit {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
-        else if(error.detail != null && error.detail === 'INVALID_TRANSITION'){
+        else if (error.detail != null && error.detail === 'INVALID_TRANSITION') {
           this.errors.apiError[0] = error.detail;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
         }
-        else{
+        else {
           this.errors.apiError = error;
           this.isApplicationLoading = false;
           this.emitApplicationLoadingBroadcast();
@@ -246,32 +256,50 @@ export class BroadbandComponent implements OnInit {
       });
   }
 
-// Method in component class
+  // Method in component class
   prepaireFailure() {
-   this.failure = new Failure();
-   this.failure.cause = this.selectedCause.id;
-   this.failure.source = this.selectedsource.id;
-   this.failure.type = this.selectedFailureTypes.id;
+    this.failure = new Failure();
+    this.failure.cause = this.selectedCause.id;
+    this.failure.source = this.selectedsource.id;
+    this.failure.type = this.selectedFailureTypes.id;
 
-   this.failure.long_description = this.model.longDescription;
-   this.failure.description = this.model.description;
-   if(this.model.region){
-    this.failure.region = this.model.region;
-   }
-   
-   if(this.failure.type && this.failure.type == 3 && this.selectedService){
+    this.failure.long_description = this.model.longDescription;
+    this.failure.description = this.model.description;
+    if (this.model.region) {
+      this.failure.region = this.model.region;
+    }
+
+    if (this.failure.type && this.failure.type == 3 && this.selectedService) {
       this.failure.service = this.selectedService.value;
-   }
-   this.failure.start_date = this.model.startDate;
-   this.failure.end_date = this.model.endDate;
-   this.failure.id = this.model.failureId;
+    }
+   // start date validation
+   if(this.mode == "update" &&  this.model.startDate && this.selectedFailure.start_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.startDate,this.selectedFailure.start_date );
+      if(!same){
+        this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else{
+      this.failure.start_date = this.datePipe.transform(this.model.startDate, "yyyy-MM-dd HH:mm:ss");
+    }
+    // end date validation
+    if(this.mode == "update" && this.model.endDate && this.selectedFailure.end_date){
+     var same = this.yaraUtilsService.isDateEquals(this.model.endDate,this.selectedFailure.end_date );
+      if(!same){
+        this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
+      }
+    }
+    else {
+      this.failure.end_date = this.datePipe.transform(this.model.endDate, "yyyy-MM-dd HH:mm:ss");
+    }
 
-   if(this.mode === "create" && this.model.criteria){
-    this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
-   }
 
+    this.failure.id = this.model.failureId;
+
+    if (this.mode === "create" && this.model.criteria) {
+      this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
+    }
   }
-
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -300,11 +328,24 @@ export class BroadbandComponent implements OnInit {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
   }
 
-onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
-}
+  onChangFailureType(newvalue) {
+    this.selectedFailureTypes = this.failureTypesList[newvalue];
+  }
 
-onChangService(newvalue) {
-  this.selectedService = this.serviceList[newvalue];
-}
+  onChangService(newvalue) {
+    this.selectedService = this.serviceList[newvalue];
+  }
+
+  isCloseButtonEnabled(failureStatus){
+    var isCloseIconDisplay = false;
+   if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+        isCloseIconDisplay = false;
+    } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
+      isCloseIconDisplay = true;
+    }
+    else {
+      isCloseIconDisplay = false;
+    }
+    return isCloseIconDisplay;
+  }
 }
