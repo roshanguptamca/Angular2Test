@@ -116,7 +116,7 @@
             <div class="form-group">
                 <button *ngIf="mode === 'create'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
                 <button *ngIf="mode === 'update'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Update</button>
-                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false" class="btn btn-primary">Back</button>
+                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false;errors.reset();" class="btn btn-primary">Back</button>
             </div>
             <!--hidden values-->
             <input type="hidden" name="failureId" [(ngModel)]="model.failureId" #failureId="ngModel" />

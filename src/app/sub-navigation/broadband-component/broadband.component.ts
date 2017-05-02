@@ -81,6 +81,7 @@ export class BroadbandComponent implements OnInit {
 
   getAllFailureList() {
     // get failurs from secure api end point
+    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.errors.reset();
@@ -296,7 +297,7 @@ export class BroadbandComponent implements OnInit {
 
     this.failure.id = this.model.failureId;
 
-    if (this.mode === "create" && this.model.criteria) {
+    if (this.model.criteria) {
       this.failure.criteria = this.failureService.getCriteriaList(this.model.criteria)
     }
   }

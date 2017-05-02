@@ -12,5 +12,5 @@ export class Errors {
     this.apiError =[];
     this.errors = {};
     this.timeOutError = "";
-  }
+   }
 }

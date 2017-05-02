@@ -59,7 +59,6 @@ onChangeTemplate(newvalue){
 
 // Method in component class
   updateNotification() {
-    debugger;
     var that = this;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
