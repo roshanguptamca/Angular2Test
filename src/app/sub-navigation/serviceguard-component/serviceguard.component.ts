@@ -313,9 +313,9 @@ export class ServiceguardComponent implements OnInit {
   getApiFilterString() {
     let queryString: string = "";
     if (AppConstant.APP_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=1&type=0";
+      queryString = "?cause=0&source=1&type=0&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=1&&type=0";
+      queryString = "?cause=1&source=1&&type=0&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
       queryString = "?cause=0&source=1&type=0&state=closed";
     } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {

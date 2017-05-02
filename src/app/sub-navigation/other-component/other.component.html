@@ -26,7 +26,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="cause">Cause</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <select [ngClass]="{'un-clickable':mode === 'update'}" [disabled]="(mode === 'update')" (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
                         <option *ngFor="let cause of causeList" value= {{cause.id}} [selected]="cause.id == selectedCause.id">
                             {{cause.value}}
                         </option>
@@ -52,7 +52,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="type">Type</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangFailureType($event)" class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <select [ngClass]="{'un-clickable':mode === 'update'}" [disabled]="(mode === 'update')" (ngModelChange)="onChangFailureType($event)" class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
                         <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}} [selected]="failureType.id == selectedFailureTypes.id">
                             {{failureType.value}}
                         </option>
@@ -116,7 +116,7 @@
             <div class="form-group">
                 <button *ngIf="mode === 'create'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Create</button>
                 <button *ngIf="mode === 'update'" type="submit" [disabled]="loading || !f.valid" class="btn btn-primary">Update</button>
-                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false" class="btn btn-primary">Back</button>
+                <button type="button" [disabled]="loading" (click)="addOrUpdateMode = false;errors.reset();" class="btn btn-primary">Back</button>
             </div>
             <!--hidden values-->
             <input type="hidden" name="failureId" [(ngModel)]="model.failureId" #failureId="ngModel" />
@@ -149,14 +149,14 @@
                     <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
                         <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state | capitalize}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{uiFailureTypesList[failure.type].value}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
                             <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
-                            <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
+                            <i *ngIf="failure.state !== 'closed'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                         </td>
                     </tr>

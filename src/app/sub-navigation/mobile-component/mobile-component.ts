@@ -288,9 +288,9 @@ export class MobileComponent implements OnInit {
   getApiFilterString() {
     let queryString: string = "";
     if (AppConstant.APP_FAILURE_MOBILE_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=0&source=2&type=6";
+      queryString = "?cause=0&source=0&source=2&type=6&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_PLANNED_MAINTENCE_MOBILE_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=0&source=2&type=6";
+      queryString = "?cause=1&source=0&source=2&type=6&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_ARCHIVED_FAILURE_MOBILE_URL === this.selectedUrl) {
       queryString = "?cause=0&source=0&source=2&type=6&state=closed";
     } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_MOBILE_URL === this.selectedUrl) {

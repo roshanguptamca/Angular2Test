@@ -34,7 +34,7 @@ export class FailureService {
          return this.apiService.postWithOption('/disturbances/v1/failures/' + id +"/", this.jwt1(), {"close":true});
     }
 
-    updateNotification(failure: Failure, templateId:number) {
+    updateNotification(failure: Failure, templateId:string) {
         var data = {
             "template_id": templateId
         }
