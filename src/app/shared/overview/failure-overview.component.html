@@ -9,20 +9,16 @@
            <table class="table table-striped" *ngIf="affectedElementList && affectedElementList.results && affectedElementList.results.length > 0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Failure</th>
-                        <th>Created AT</th>
-                        <th>Updated AT</th>
-                        <th>Attributes (zip_code4,zip_code)</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Elements</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
-                        <th scope="row">{{affectedElement.id}}</th>
-                        <td>{{affectedElement.failure}}</td>
                         <td>{{affectedElement.created_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
                         <td>{{affectedElement.updated_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
-                         <td>{{affectedElement.attributes.zip_code4}},{{affectedElement.attributes.zip_code}}</td>
+                        <td>{{affectedElement.attributes.zip_code4}},{{affectedElement.attributes.zip_code}}</td>
                     </tr>
                 </tbody>
             </table>

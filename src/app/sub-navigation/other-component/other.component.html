@@ -149,14 +149,14 @@
                     <tr *ngFor="let failure of failureList | failureListfilter:searchString | orderBy: ['-id'] | paginate: { itemsPerPage: sizePerPage, currentPage: page } ; let i = index; trackBy:trackByFn;">
                         <th (click)="redirectToOverview(failure.id)" class="clickable" scope="row">{{failure.id}}</th>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.region}}</td>
-                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state}}</td>
+                        <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.state | capitalize}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{uiFailureTypesList[failure.type].value}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">-</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
                             <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
-                            <i (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
+                            <i *ngIf="failure.state !== 'closed'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                         </td>
                     </tr>

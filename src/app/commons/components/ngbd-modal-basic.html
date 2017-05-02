@@ -1,6 +1,6 @@
 <template ngbModalContainer #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Notification Templates</h4>
+    <h4 class="modal-title">Send update (SMS and Mail)</h4>
     <button type="button" class="close" aria-label="Close" #closeBtn (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -22,7 +22,7 @@
   </div>
   <div class="modal-footer">
      <button type="button" class="btn btn-secondary" (click)="updateNotification()">Send</button>
-     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancle</button>
+     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
   </div>
 </template>
 <i (click)="open(content)" class="fa fa-comments clickable" aria-hidden="true" title="Chat"></i>
