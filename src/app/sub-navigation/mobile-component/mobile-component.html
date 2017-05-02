@@ -6,17 +6,17 @@
         </div>
 
         <div class="alert alert-danger" *ngIf="errors && errors.apiError.service && errors.apiError.service.length > 0">
-            <span *ngFor="let serviceError of errors.apiError.service"> <strong>{{serviceError}}</strong></span>
+            <span *ngFor="let serviceError of errors.apiError.service"> <strong>Service: {{serviceError}}</strong></span>
         </div>
         <div class="alert alert-danger" *ngIf="errors && errors.apiError.start_date && errors.apiError.start_date.length > 0">
-            <span *ngFor="let dateError of errors.apiError.start_date"> <strong>{{dateError}}</strong></span>
+            <span *ngFor="let dateError of errors.apiError.start_date"> <strong>Start Date:{{dateError}}</strong></span>
         </div>
         <div class="alert alert-danger" *ngIf="errors && errors.apiError.end_date && errors.apiError.end_date.length > 0">
-            <span *ngFor="let dateError of errors.apiError.end_date"> <strong>{{dateError}}</strong></span>
+            <span *ngFor="let dateError of errors.apiError.end_date"> <strong>End Date:{{dateError}}</strong></span>
         </div>
 
         <div class="alert alert-danger" *ngIf="errors && errors.apiError.criteria && errors.apiError.criteria.length > 0">
-            <span *ngFor="let criteriaError of errors.apiError.criteria"> <strong>{{criteriaError}}</strong></span>
+            <span *ngFor="let criteriaError of errors.apiError.criteria"> <strong>Criteria: {{criteriaError}}</strong></span>
         </div>
 
         <div class="alert alert-danger" *ngIf="errors && errors.apiError && errors.apiError.detail">
@@ -32,7 +32,6 @@
                             {{cause.value}}
                         </option>
                         </select>
-                        <div *ngIf="f.submitted && !cause.valid" class="help-block">Cause is required</div>
                     </div>
                 </div>
 
@@ -44,7 +43,6 @@
                             {{service.value}}
                         </option>
                         </select>
-                        <div *ngIf="f.submitted && !service.valid" class="help-block">Service is required</div>
                     </div>
                 </div>
             </div>
@@ -58,7 +56,6 @@
                             {{failureType.value}}
                         </option>
                         </select>
-                        <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
                     </div>
                 </div>
 
