@@ -315,9 +315,9 @@ export class BroadbandComponent implements OnInit {
   getApiFilterString() {
     let queryString: string = "";
     if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8";
+      queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8";
+      queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
       queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
     } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
