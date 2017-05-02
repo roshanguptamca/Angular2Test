@@ -235,7 +235,6 @@ export class BroadbandComponent implements OnInit {
         this.getAllFailureList();
       },
       error => {
-        console.error(error);
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
           this.redirectToLogin();
         }
