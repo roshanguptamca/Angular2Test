@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="cause">Cause</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
+                        <select [ngClass]="{'un-clickable':mode === 'update'}" [disabled]="(mode === 'update')" (ngModelChange)="onChangeCause($event)" class="form-control clickable" name="cause" [(ngModel)]="selectedCause.id" #cause="ngModel" required>
                         <option *ngFor="let cause of causeList" value= {{cause.id}} [selected]="cause.id == selectedCause.id">
                             {{cause.value}}
                         </option>
@@ -54,7 +54,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="type">Type</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangFailureType($event)" class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
+                        <select [ngClass]="{'un-clickable':mode === 'update'}" [disabled]="(mode === 'update')" (ngModelChange)="onChangFailureType($event)" class="form-control clickable" name="type" [(ngModel)]="selectedFailureTypes.id" #type="ngModel" required>
                         <option *ngFor="let failureType of failureTypesList" value= {{failureType.id}} [selected]="failureType.id == selectedFailureTypes.id">
                             {{failureType.value}}
                         </option>
