@@ -58,15 +58,36 @@ export class ApplicationUtillService {
     ];
 
 
-    templates = [
-        new Template(0,"template1"),
-        new Template(1,"template2"),
-        new Template(2,"template3"),
-        new Template(3,"template4"),
-        new Template(4,"template5"),
-        new Template(5,"template6"),
-        new Template(6,"template7")
-    ];
+    templates = {
+        'broadband': [
+            new Template(0,"FT0_Update", "Broadband")
+        ],
+        'geographical_broadband': [
+            new Template(1,"FT1_Update", "Geographical Broadband")
+        ],
+        'customer_id': [
+            new Template(2,"FT2_Update", "Customer ID")
+        ],
+        'generic': [
+            new Template(3,"FT3_Update", "Generic")
+        ],
+        'pstn_isdn': [
+            new Template(4,"FT4_Update", "PSTN/ISDN")
+        ],
+        'geographical_pstn_isdn': [
+            new Template(5,"FT5_Update", "Geographical PSTN/ISDN")
+        ],
+        'mobile': [
+            new Template(6,"FT6_Update", "Mobile")
+        ],
+        'fia_broadband': [
+            new Template(7,"FT7_Update", "FIA Broadband")
+        ],
+        'service_id_broadband': [
+            new Template(8,"FT8_Update", "Service ID Broadband")
+        ]
+        
+    };
     getFailureTypes(): FailureTypes[] {
         return  this.failureTypes;
     }
@@ -96,7 +117,36 @@ export class ApplicationUtillService {
         return  this.states;
     }
 
-     getTemplates(): Template[] {
-        return  this.templates;
+     getTemplates(failureType): Template[] {
+         if(failureType === 0){
+            return  this.templates.broadband;
+         }
+        else if(failureType === 1){
+            return  this.templates.geographical_broadband;
+         }
+         else if(failureType === 2){
+            return  this.templates.customer_id;
+         }
+         else if(failureType === 3){
+            return  this.templates.generic;
+         }
+         else if(failureType === 4){
+            return  this.templates.pstn_isdn;
+         }
+         else if(failureType === 5){
+            return  this.templates.geographical_pstn_isdn;
+         }
+         else if(failureType === 6){
+            return  this.templates.mobile;
+         }
+         else if(failureType === 7){
+            return  this.templates.fia_broadband;
+         }
+         else if(failureType === 8){
+            return  this.templates.service_id_broadband;
+         }
+         else{
+            return  null;
+         }
     }
 }

@@ -6,15 +6,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="alert alert-danger" *ngIf="errors && errors && errors.detail">
-        <span> <strong>{{errors.detail}}</strong></span>
+    <div class="alert alert-danger" *ngIf="errors">
+        <span *ngIf="errors.detail"> <strong>{{errors.detail}}</strong></span>
+        <span *ngIf="errors.template_id" > <strong>{{errors.template_id}}</strong></span>
     </div>
       <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
         <div class="form-group row">
               <label class="col-form-label col-2" for="template">Template</label>
-              <select (ngModelChange)="onChangeTemplate($event)" class="form-control clickable col-9" name="template" [(ngModel)]="selectedTemplate.id" #template="ngModel" required>
-                  <option *ngFor="let template of templateList" value= {{template.id}} [selected]="template.id == selectedTemplate.id">
-                       {{template.value}}
+              <select (ngModelChange)="onChangeTemplate($event)" class="form-control clickable col-9" name="template" [(ngModel)]="selectedTemplate.value" #template="ngModel" required>
+                  <option *ngFor="let template of templateList" value= {{template.value}} [selected]="template.value == selectedTemplate.value">
+                       {{template.gui}}
                   </option>
               </select>
         </div>

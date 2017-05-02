@@ -81,7 +81,6 @@ export class BroadbandComponent implements OnInit {
 
   getAllFailureList() {
     // get failurs from secure api end point
-    debugger;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
     this.errors.reset();

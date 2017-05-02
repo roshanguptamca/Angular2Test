@@ -19,5 +19,5 @@ export class State {
 }
 
 export class Template {
-  constructor(public id: number, public value: string) { }
+  constructor(public id: number, public value: string, public gui: string) { }
 }
