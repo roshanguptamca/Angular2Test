@@ -87,7 +87,7 @@ export class FixedComponent implements OnInit{
   // }
 
 bootstarpComponent(){
-    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(0);
+    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(1);
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
