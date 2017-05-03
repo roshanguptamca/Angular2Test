@@ -94,10 +94,11 @@ export class ApplicationUtillService {
 
     getFailureTypesByCause(selectedCause:number): FailureTypes[] {
          if(selectedCause == 1){
-            return this.failureTypesByCause;
+            return this.failureTypes;
+            
          }
          else {
-            return this.failureTypes;
+            return this.failureTypesByCause;
          }
     }
 

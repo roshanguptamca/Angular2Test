@@ -66,7 +66,7 @@ export class BroadbandComponent implements OnInit {
   }
 
   bootstarpComponent() {
-    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(0);
+    this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(1);
     this.sourceList = this.applicationUtillService.getSources();
     this.selectedsource = this.sourceList[0];
     this.causeList = this.applicationUtillService.getCauses();
@@ -126,7 +126,7 @@ export class BroadbandComponent implements OnInit {
     this.model.failureId = failure.id;
     this.model.longDescription = failure.long_description;
     this.model.description = failure.description;
-    this.model.region = failure.region;
+   // this.model.region = failure.region;
     this.model.state = failure.state;
   }
 
@@ -264,10 +264,9 @@ export class BroadbandComponent implements OnInit {
 
     this.failure.long_description = this.model.longDescription;
     this.failure.description = this.model.description;
-    if (this.model.region) {
-      this.failure.region = this.model.region;
-    }
-
+    // if (this.model.region) {
+    //   this.failure.region = this.model.region;
+    // }
     if (this.failure.type && this.failure.type == 3 && this.selectedService) {
       this.failure.service = this.selectedService.value;
     }
