@@ -22,4 +22,10 @@ export class MessageEvent {
     return this.broadcaster.on<boolean>(MessageEvent);
   }
 
+ fireFailureChanedNotifiation(data: boolean): void {
+    this.broadcaster.broadcast(MessageEvent, data);
+  }
+  onFailureChanedNotifiation(): Observable<boolean> {
+    return this.broadcaster.on<boolean>(MessageEvent);
+  }
 }

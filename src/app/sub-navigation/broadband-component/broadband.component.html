@@ -159,7 +159,8 @@
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.start_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
-                            <i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>
+                            <!--<i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>-->
+                            <ngbd-confirm-modal-basic *ngIf="isCloseButtonEnabled(failure.state)" [redirectUrl]="selectedUrl" [selectedfailure]="failure"></ngbd-confirm-modal-basic>
                             <i *ngIf="failure.state !== 'closed'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                             <!--<i  (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>-->

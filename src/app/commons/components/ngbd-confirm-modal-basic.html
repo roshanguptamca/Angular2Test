@@ -1,0 +1,24 @@
+<template ngbModalContainer #confirmContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Failure Closing Confirmation</h4>
+    <button type="button" class="close" aria-label="Close" #closeBtn (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="errors && errors.detail">
+        <span> <strong>{{errors.detail}}</strong></span>
+    </div>
+    <div class="alert alert-danger" *ngIf="errors.apiError && errors.apiError.detail">
+        <span> <strong>{{errors.apiError.detail}}</strong></span>
+    </div>
+    <div class="container">
+         <p>Are you sure you want to delete this failure?</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="closeFailure()">Delete</button>
+     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
+  </div>
+</template>
+<i (click)="open(confirmContent)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>

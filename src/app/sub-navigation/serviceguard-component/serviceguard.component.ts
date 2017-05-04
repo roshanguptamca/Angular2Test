@@ -45,6 +45,9 @@ export class ServiceguardComponent implements OnInit {
   selectedFailure:any;
   uiFailureTypesList: FailureTypes[];
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
+  message: string;
+  _timer: any;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -62,6 +65,22 @@ export class ServiceguardComponent implements OnInit {
 
   ngOnInit() {
     this.bootstarpComponent();
+    this.registerStringBroadcast();
+  }
+
+registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
   }
 
   emitApplicationLoadingBroadcast() {

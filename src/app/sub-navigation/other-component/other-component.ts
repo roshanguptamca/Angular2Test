@@ -17,6 +17,8 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./other.component.scss']
 })
 export class OtherComponent implements OnInit {
+  message: string;
+  _timer: any;
   startTime = {hour: 13, minute: 30};
   endTime = {hour:17, minute: 30};
   public selectedUrl: String;
@@ -62,6 +64,22 @@ export class OtherComponent implements OnInit {
 
   ngOnInit() {
     this.bootstarpComponent();
+    this.registerStringBroadcast();
+  }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
   }
 
   emitApplicationLoadingBroadcast() {
