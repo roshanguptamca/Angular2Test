@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FailureTypes, Cause, Service, State, Source, Template } from '../shared/models/index';
+import { ApiService } from '../_helpers/api.service';
+
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
  
 @Injectable()
 export class ApplicationUtillService {
-    constructor(){}
+    constructor(
+        private apiService: ApiService
+    ){}
     failureTypes = [
         new FailureTypes(0,"Broadband",false),
         new FailureTypes(1,"Geographical Broadband",false),
@@ -150,4 +157,22 @@ export class ApplicationUtillService {
             return  null;
          }
     }
+
+   getTemplateList(disturbance) {
+       return this.apiService.getWithOptions("/disturbances/v1/notifications/templates/?action=update&disturbance="+disturbance, this.jwt());
+   }
+    // private helper methods
+    private jwt() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({
+                'Authorization': 'Token ' + currentUser.token,
+                'Content-Type': 'application/json'
+            },
+            );
+            return new RequestOptions({ headers: headers });
+        }
+    }
+
 }

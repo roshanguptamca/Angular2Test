@@ -16,6 +16,9 @@ export class NgbdModalBasic implements OnInit {
   isApplicationLoading: boolean = true;
   errors: string;
   successMessage: any;
+  allTempletList:any;
+  disabledSend:boolean = true;
+
   @Input('selectedfailure') selectedfailure: any;
   @ViewChild('closeBtn') closeBtn: ElementRef;
   constructor(private modalService: NgbModal,
@@ -26,11 +29,18 @@ export class NgbdModalBasic implements OnInit {
   ) { }
 
   ngOnInit() {
-
+     
   }
 
   onChangeTemplate(newvalue) {
-    this.selectedTemplate.value = newvalue;
+    if(newvalue != -1){
+      this.disabledSend = false;
+      for (var index in this.templateList) { 
+              if(this.templateList[index].id === Number(newvalue)){
+                this.selectedTemplate = this.templateList[index];
+              }
+          }
+    }
   }
 
   //call this wherever you needed to close modal
@@ -39,9 +49,10 @@ export class NgbdModalBasic implements OnInit {
   }
 
   open(content) {
-    this.templateList = this.applicationUtillService.getTemplates(this.selectedfailure.type);
+    let tempList: Template[] = [];
+    this.templateList.push(new Template(-1,"Temp","Choose here"));
     this.selectedTemplate = this.templateList[0];
-
+    this.getTemplateList();
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -64,7 +75,7 @@ export class NgbdModalBasic implements OnInit {
     var that = this;
     this.isApplicationLoading = true;
     this.emitApplicationLoadingBroadcast();
-    this.failureService.updateNotification(this.selectedfailure, this.selectedTemplate.value)
+    this.failureService.updateNotification(this.selectedfailure, this.selectedTemplate.id)
       .subscribe(successResponse => {
         console.log(successResponse);
         this.successMessage = successResponse;
@@ -101,6 +112,42 @@ export class NgbdModalBasic implements OnInit {
     localStorage.removeItem('currentUser');
     this.isApplicationLoading = false;
     this.router.navigate(['/login']);
+  }
+
+ getTemplateList() {
+    // get TemplateList from secure api end point
+    let tempList: Template[] = [];
+    tempList.push(new Template(-1,"temp","Choose here"));
+    this.selectedTemplate = tempList[0];
+    this.isApplicationLoading = true;
+    this.emitApplicationLoadingBroadcast();
+    this.errors = "";
+    this.applicationUtillService.getTemplateList(this.selectedfailure.type)
+      .subscribe(allTemplets => {
+        this.allTempletList = allTemplets;
+        for (var index in allTemplets) { 
+              if(this.selectedfailure.type === allTemplets[index].disturbance){
+                tempList.push(new Template( allTemplets[index].id,allTemplets[index].description,allTemplets[index].name));
+              }
+          }
+        this.templateList = tempList;
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      },
+      error => {
+        console.error(error);
+        if (error.detail === "Invalid token." || error.detail === "Time-Out") {
+          this.redirectToLogin();
+        } else {
+          // todo
+        }
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      },
+      () => {
+        this.isApplicationLoading = false;
+        this.emitApplicationLoadingBroadcast();
+      });
   }
 
 }

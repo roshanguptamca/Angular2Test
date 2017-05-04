@@ -40,6 +40,12 @@ export class ApiService {
     .map((res:Response) => res.json());
   }
 
+  getAbsolute(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
+    return this.http.get(`${path}`, { headers: this.setHeaders(), search: params })
+    .catch(this.formatErrors)
+    .map((res:Response) => res.json());
+  }
+
   getWithOptions(path: string, requestOptions:RequestOptions): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`, requestOptions)
     //.timeoutWith(1000000, Observable.defer(() => Observable.throw({'errorCode': 'Time-Out'})))
