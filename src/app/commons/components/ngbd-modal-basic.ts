@@ -45,7 +45,8 @@ export class NgbdModalBasic implements OnInit {
 
   //call this wherever you needed to close modal
   private closeModal(): void {
-    this.closeBtn.nativeElement.click();
+    //this.closeBtn.nativeElement.click();
+    document.getElementById("closeBtn").click();
   }
 
   open(content) {
