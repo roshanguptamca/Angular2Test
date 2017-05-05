@@ -115,7 +115,7 @@ export class MobileComponent implements OnInit {
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
     this.selectedsource = this.sourceList[failure.source];
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -345,7 +345,7 @@ export class MobileComponent implements OnInit {
   }
 
 onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
+  this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
 }
 
 onChangService(newvalue) {
