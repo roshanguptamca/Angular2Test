@@ -70,8 +70,8 @@ export class NgbConfirmModalBasic implements OnInit {
     this.failureService.closeFailure(this.selectedfailure.id)
       .subscribe(newFailure => {
         console.log(newFailure);
-        this.broadcaster.broadcast('message', 'failureClosed');
         this.closeModal();
+        this.broadcaster.broadcast('message', 'failureClosed');
       },
       error => {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
