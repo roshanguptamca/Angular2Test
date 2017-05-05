@@ -39,8 +39,8 @@ export class NgbConfirmModalBasic implements OnInit {
 
   //call this wherever you needed to close modal
   private closeModal(): void {
-    var that = this;
-    that.closeBtn.nativeElement.click();
+    //var that = this;
+   document.getElementById("closeBtn").click();
   }
 
   open(confirmContent) {
