@@ -9,6 +9,7 @@
     <div class="alert alert-danger" *ngIf="errors">
         <span *ngIf="errors.detail"> <strong>{{errors.detail}}</strong></span>
         <span *ngIf="errors.template_id" > <strong>{{errors.template_id}}</strong></span>
+        <span *ngIf="errors && !errors.detail"> <strong>{{errors}}</strong></span>
     </div>
       <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
         <div class="form-group row">
