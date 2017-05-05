@@ -17,6 +17,8 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./broadband.component.scss']
 })
 export class BroadbandComponent implements OnInit {
+  message: string;
+  _timer: any;
   disableType: boolean = false;
   public selectedUrl: String;
   private searchString: string;
@@ -63,6 +65,22 @@ export class BroadbandComponent implements OnInit {
   ngOnInit() {
     // get dashboard data from secure api end point
     this.bootstarpComponent();
+    this.registerStringBroadcast();
+  }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
   }
 
   bootstarpComponent() {
@@ -77,6 +95,7 @@ export class BroadbandComponent implements OnInit {
     this.selectedFailureTypes = this.failureTypesList[0];
     // get dashboard data from secure api end point
     this.getAllFailureList();
+    //this.registerFaliureListChangeBroadcast();
   }
 
   getAllFailureList() {
@@ -119,7 +138,7 @@ export class BroadbandComponent implements OnInit {
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
     this.selectedsource = this.sourceList[failure.source];
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -327,7 +346,7 @@ export class BroadbandComponent implements OnInit {
   }
 
   onChangFailureType(newvalue) {
-    this.selectedFailureTypes = this.failureTypesList[newvalue];
+    this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
   }
 
   onChangService(newvalue) {

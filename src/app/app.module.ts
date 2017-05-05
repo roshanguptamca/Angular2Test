@@ -17,8 +17,8 @@ import { OtherComponent } from './sub-navigation/other-component/other-component
 import { DatePipe } from '@angular/common';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { Ng2DatetimePickerModule, Ng2Datetime } from 'ng2-datetime-picker';
-import { NgbdModalBasic } from './commons/components/ngbd-modal-basic'
-
+import { NgbdModalBasic } from './commons/components/ngbd-modal-basic';
+import { NgbConfirmModalBasic } from './commons/components/ngbd-confirm-modal-basic';
 import {
   ApiService, DateFormatorSerice, CustomNgbDateParserFormatter, CustomNgbDateParserFormatterFactory, YaraUtilsService
 } from './_helpers/index';
@@ -63,7 +63,8 @@ import {
     LoginComponent,
     HomeComponent,
     FailureOverviewComponent,
-    NgbdModalBasic
+    NgbdModalBasic,
+    NgbConfirmModalBasic
   ],
   imports: [
     BrowserModule,

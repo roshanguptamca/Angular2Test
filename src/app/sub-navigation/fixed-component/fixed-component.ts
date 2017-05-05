@@ -48,6 +48,9 @@ export class FixedComponent implements OnInit{
   mode: string;
   closeResult: string;
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
+    message: string;
+  _timer: any;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -66,25 +69,23 @@ export class FixedComponent implements OnInit{
 
   ngOnInit() {
    this.bootstarpComponent();
+   this.registerStringBroadcast();
   }
 
-  // open(content) {
-  //   this.modalService.open(content).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return  `with: ${reason}`;
-  //   }
-  // }
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
+  }
 
 bootstarpComponent(){
     this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(1);
@@ -141,7 +142,7 @@ bootstarpComponent(){
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
     this.selectedsource =  this.sourceList[failure.source];
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -351,7 +352,7 @@ getApiFilterString(){
   }
 
 onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
+  this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
 }
 
 onChangService(newvalue) {

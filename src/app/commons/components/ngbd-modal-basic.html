@@ -9,12 +9,15 @@
     <div class="alert alert-danger" *ngIf="errors">
         <span *ngIf="errors.detail"> <strong>{{errors.detail}}</strong></span>
         <span *ngIf="errors.template_id" > <strong>{{errors.template_id}}</strong></span>
+        <span *ngIf="errors && !errors.detail"> <strong>{{errors}}</strong></span>
     </div>
       <form name="form" (ngSubmit)="f.form.valid && createFailure()" #f="ngForm" novalidate>
         <div class="form-group row">
               <label class="col-form-label col-2" for="template">Template</label>
-              <select (ngModelChange)="onChangeTemplate($event)" class="form-control clickable col-9" name="template" [(ngModel)]="selectedTemplate.value" #template="ngModel" required>
-                  <option *ngFor="let template of templateList" value= {{template.value}} [selected]="template.value == selectedTemplate.value">
+              <select (ngModelChange)="onChangeTemplate($event)" class="form-control clickable col-9" name="template" 
+              [(ngModel)]="selectedTemplate.id" #template="ngModel" required>
+                  <option *ngFor="let template of templateList" 
+                  value= {{template.id}} [selected]="template.id == selectedTemplate.id">
                        {{template.gui}}
                   </option>
               </select>
@@ -22,7 +25,7 @@
       </form>
   </div>
   <div class="modal-footer">
-     <button type="button" class="btn btn-secondary" (click)="updateNotification()">Send</button>
+     <button [disabled]="selectedTemplate.id == '-1'" type="button" class="btn btn-primary" (click)="updateNotification()">Send</button>
      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
   </div>
 </template>

@@ -45,6 +45,9 @@ export class ServiceguardComponent implements OnInit {
   selectedFailure:any;
   uiFailureTypesList: FailureTypes[];
   sizePerPage: number = AppConstant.APP_LIST_SIZE_PERPAGE;
+  message: string;
+  _timer: any;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -62,6 +65,22 @@ export class ServiceguardComponent implements OnInit {
 
   ngOnInit() {
     this.bootstarpComponent();
+    this.registerStringBroadcast();
+  }
+
+registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
   }
 
   emitApplicationLoadingBroadcast() {
@@ -122,7 +141,7 @@ export class ServiceguardComponent implements OnInit {
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
     this.selectedsource = this.sourceList[failure.source];
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -326,7 +345,7 @@ export class ServiceguardComponent implements OnInit {
 
 
   onChangFailureType(newvalue) {
-    this.selectedFailureTypes = this.failureTypesList[newvalue];
+    this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
   }
 
   onChangService(newvalue) {

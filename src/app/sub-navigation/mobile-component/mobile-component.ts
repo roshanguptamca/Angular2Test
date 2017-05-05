@@ -17,6 +17,8 @@ import { MessageEvent } from '../../commons/message-event';
   styleUrls: ['./mobile-component.scss']
 })
 export class MobileComponent implements OnInit {
+  message: string;
+  _timer: any;
   startTime = { hour: 13, minute: 30 };
   endTime = { hour: 17, minute: 30 };
   public selectedUrl: String;
@@ -62,6 +64,22 @@ export class MobileComponent implements OnInit {
 
   ngOnInit() {
     this.bootstarpComponent();
+    this.registerStringBroadcast();
+  }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('message')
+      .subscribe(message => {
+        this.message = message;
+        this.getAllFailureList();
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+          this.message = '';
+          this._timer = null;
+        }, 3000);
+      });
   }
 
   emitApplicationLoadingBroadcast() {
@@ -97,7 +115,7 @@ export class MobileComponent implements OnInit {
     this.errors.reset();
     this.addOrUpdateMode = true;
     this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.failureTypesList[failure.type];
+    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
     this.selectedsource = this.sourceList[failure.source];
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -327,7 +345,7 @@ export class MobileComponent implements OnInit {
   }
 
 onChangFailureType(newvalue) {
-  this.selectedFailureTypes = this.failureTypesList[newvalue];
+  this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
 }
 
 onChangService(newvalue) {
