@@ -39,7 +39,8 @@ export class NgbConfirmModalBasic implements OnInit {
 
   //call this wherever you needed to close modal
   private closeModal(): void {
-    this.closeBtn.nativeElement.click();
+    var that = this;
+    that.closeBtn.nativeElement.click();
   }
 
   open(confirmContent) {
@@ -70,8 +71,8 @@ export class NgbConfirmModalBasic implements OnInit {
     this.failureService.closeFailure(this.selectedfailure.id)
       .subscribe(newFailure => {
         console.log(newFailure);
-        this.closeModal();
         this.broadcaster.broadcast('message', 'failureClosed');
+        this.closeModal();
       },
       error => {
         if (error.detail === "Invalid token." || error.detail === "Time-Out") {
