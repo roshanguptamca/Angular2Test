@@ -71,8 +71,8 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-8">
-                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate" #startDate="ngModel"
-                            required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
+                        <input [disabled]="(mode === 'update')" [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate"
+                            name="startDate" #startDate="ngModel" required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
 
                     </div>
                 </div>
