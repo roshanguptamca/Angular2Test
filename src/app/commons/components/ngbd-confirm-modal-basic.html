@@ -12,6 +12,9 @@
     <div class="alert alert-danger" *ngIf="errors.apiError && errors.apiError.detail">
         <span> <strong>{{errors.apiError.detail}}</strong></span>
     </div>
+    <div class="alert alert-danger" *ngIf="errors && errors.apiError.length > 0">
+         <span *ngFor="let error of errors.apiError"> <strong>{{error}}</strong></span>
+    </div>
     <div class="container">
          <p>Are you sure you want to delete this failure?</p>
     </div>

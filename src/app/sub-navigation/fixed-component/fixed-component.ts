@@ -363,7 +363,7 @@ onChangService(newvalue) {
     var isCloseIconDisplay = false;
    if (AppConstant.APP_ARCHIVED_FAILURE_FIXED_URL === this.selectedUrl || AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_FIXED_URL === this.selectedUrl) {
         isCloseIconDisplay = false;
-    } else if(failureStatus === 'open' || failureStatus === 'state_awaiting_approval' || failureStatus === 'state_planned'){
+    } else if(failureStatus === 'open' || failureStatus === 'new' || failureStatus === 'planned' || failureStatus === 'awaiting'){
       isCloseIconDisplay = true;
     }
     else {

@@ -38,7 +38,7 @@
                 <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
                     <label class="col-2 col-form-label" for="service">Service</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangService($event)" class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
+                        <select (ngModelChange)="onChangService($event)" [disabled]="(mode === 'update')" class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
                         <option *ngFor="let service of serviceList" value= {{service.id}} [selected]="service.id == selectedService.id">
                             {{service.value}}
                         </option>
@@ -71,8 +71,8 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label" for="startDate">Start date</label>
                     <div class="col-8">
-                        <input [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate" name="startDate" #startDate="ngModel"
-                            required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
+                        <input [disabled]="(mode === 'update')" [ngClass]="{'form-control-success': startDate.valid && startDate.touched, 'form-control-danger': !startDate.valid && startDate.touched }" class="form-control" placeholder="YYYY-MM-DD HH:MM" [(ngModel)]="model.startDate"
+                            name="startDate" #startDate="ngModel" required ng2-datetime-picker date-format="DD-MM-YYYY HH:mm:ss" />
 
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <td>
                             <!--<i *ngIf="isCloseButtonEnabled(failure.state)" (click)="closeFailure(failure)" class="fa fa-trash-o" aria-hidden="true" title="Close"></i>-->
                             <ngbd-confirm-modal-basic *ngIf="isCloseButtonEnabled(failure.state)" [redirectUrl]="selectedUrl" [selectedfailure]="failure"></ngbd-confirm-modal-basic>
-                            <i *ngIf="failure.state !== 'closed'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
+                            <i *ngIf="failure.state === 'planned' || failure.state === 'open'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                             <!--<i  (click)="addNewFailure()" class="fa fa-plus" aria-hidden="true" title="Add"></i>-->
                         </td>

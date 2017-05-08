@@ -44,6 +44,7 @@ export class NgbConfirmModalBasic implements OnInit {
   }
 
   open(confirmContent) {
+    this.errors.reset();
     this.templateList = this.applicationUtillService.getTemplates(this.selectedfailure.type);
     this.selectedTemplate = this.templateList[0];
 
