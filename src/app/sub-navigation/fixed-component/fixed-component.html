@@ -39,7 +39,7 @@
                 <div class="form-group row" *ngIf="selectedFailureTypes.id == 3">
                     <label class="col-2 col-form-label" for="service">Service</label>
                     <div class="col-8">
-                        <select (ngModelChange)="onChangService($event)" class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
+                        <select (ngModelChange)="onChangService($event)" [disabled]="(mode === 'update')" class="form-control clickable" name="service" [(ngModel)]="selectedService.id" #service="ngModel">
                         <option *ngFor="let service of serviceList" value= {{service.id}} [selected]="service.id == selectedService.id">
                             {{service.value}}
                         </option>
@@ -171,7 +171,7 @@
                         <td (click)="redirectToOverview(failure.id)" class="clickable">{{failure.end_date | date:"dd-MM-yyyy HH:mm:ss"}}</td>
                         <td>
                             <ngbd-confirm-modal-basic [redirectUrl]="selectedUrl" *ngIf="isCloseButtonEnabled(failure.state)" [selectedfailure]="failure"></ngbd-confirm-modal-basic>
-                            <i *ngIf="failure.state !== 'closed'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
+                            <i *ngIf="failure.state === 'planned' || failure.state === 'open'" (click)="updateFailure(failure)" class="fa fa-edit" title="Edit"></i>
                             <ngbd-modal-basic [selectedfailure]="failure"></ngbd-modal-basic>
                         </td>
                     </tr>
