@@ -37,20 +37,16 @@
        <table class="table table-striped" *ngIf="affectedCoustomerList && affectedCoustomerList.results && affectedCoustomerList.results.length > 0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Failure</th>
-                        <th>Created AT</th>
-                        <th>Updated AT</th>
-                        <th>Attributes (zip_code4,zip_code)</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Elements</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
-                        <th scope="row">{{affectedCoustomer.id}}</th>
-                        <td>{{affectedCoustomer.failure}}</td>
-                        <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
+                         <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
                         <td>{{affectedCoustomer.updated_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
-                         <td>{{affectedCoustomer.attributes.zip_code4}},{{affectedCoustomer.attributes.zip_code}}</td>
+                        <td>{{affectedCoustomer.attributes.zip_code4}},{{affectedCoustomer.attributes.zip_code}}</td>
                     </tr>
                 </tbody>
             </table>
