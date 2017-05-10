@@ -38,7 +38,7 @@ export class FailureService {
         var data = {
             "template_id": templateId
         }
-        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/"+"/update-notification/", this.jwt(), data);
+        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/update-notification/", this.jwt(), data);
     }
 
     // private helper methods
