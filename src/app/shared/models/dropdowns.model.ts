@@ -1,9 +1,9 @@
 export class FailureTypes {
-  constructor(public id: number, public value: string, public disabled:boolean) { }
+  constructor(public id: number,public key: string, public value: string, public disabled:boolean) { }
 }
 
 export class Cause {
-  constructor(public id: number, public value: string) { }
+  constructor(public id: number,public key: string, public value: string) { }
 }
 
 export class Source {

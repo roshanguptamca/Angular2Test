@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
 import { Broadcaster } from '../../commons/application-broadcaster.service';
 import { MessageEvent } from '../../commons/message-event';
+import * as _ from "lodash";
 
 @Component({
   selector: 'broadband-component',
@@ -325,7 +326,7 @@ export class BroadbandComponent implements OnInit {
   onChangeCause(newvalue) {
     this.selectedCause = this.causeList[newvalue];
     this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
-    this.selectedFailureTypes = this.failureTypesList[0];
+    this.selectedFailureTypes =  _.find(this.failureTypesList, function(o) { return o.id = newvalue; });
   }
 
   getApiFilterString() {
@@ -346,11 +347,11 @@ export class BroadbandComponent implements OnInit {
   }
 
   onChangFailureType(newvalue) {
-    this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
+    this.selectedFailureTypes = _.find(this.uiFailureTypesList, function(o) { return o.id = newvalue; });
   }
 
   onChangService(newvalue) {
-    this.selectedService = this.serviceList[newvalue];
+    this.selectedService = _.find(this.serviceList, function(o) { return o.id = newvalue; });
   }
 
   isCloseButtonEnabled(failureStatus){

@@ -12,31 +12,31 @@ export class ApplicationUtillService {
         private apiService: ApiService
     ){}
     failureTypes = [
-        new FailureTypes(0,"Broadband",false),
-        new FailureTypes(1,"Geographical Broadband",false),
-        new FailureTypes(2,"Customer ID",false),
-        new FailureTypes(3,"Generic",false),
-        new FailureTypes(4,"PSTN-ISDN",false),
-        new FailureTypes(5,"Geographical PSTN-ISDN",false),
-        new FailureTypes(6,"Mobile",false),
-        new FailureTypes(7,"FIA Broadband",false),
-        new FailureTypes(8,"Service ID Broadband",false)
+        new FailureTypes(0,"Broadband","Broadband",false),
+        new FailureTypes(1,"geographical-broadband","Geographical Broadband",false),
+        new FailureTypes(2,"customer-id","Customer ID",false),
+        new FailureTypes(3,"generic","Generic",false),
+        new FailureTypes(4,"pstn-isdn","PSTN-ISDN",false),
+        new FailureTypes(5,"geographical-broadband-pstn-isdn","Geographical PSTN-ISDN",false),
+        new FailureTypes(6,"mobile","Mobile",false),
+        new FailureTypes(7,"fia-broadband","FIA Broadband",false),
+        new FailureTypes(8,"eervice-id-broadband","Service ID Broadband",false)
     ];
 
      failureTypesByCause = [
-        new FailureTypes(1,"Geographical Broadband",false),
-        new FailureTypes(2,"Customer ID",false),
-        new FailureTypes(3,"Generic",false),
-        new FailureTypes(4,"PSTN-ISDN",false),
-        new FailureTypes(5,"Geographical PSTN-ISDN",false),
-        new FailureTypes(6,"Mobile",false),
-        new FailureTypes(7,"FIA Broadband",false),
-        new FailureTypes(8,"Service ID Broadband",false)
+        new FailureTypes(1,"geographical-broadband","Geographical Broadband",false),
+        new FailureTypes(2,"customer-id","Customer ID",false),
+        new FailureTypes(3,"generic","Generic",false),
+        new FailureTypes(4,"pstn-isdn","PSTN-ISDN",false),
+        new FailureTypes(5,"geographical-broadband-pstn-isdn","Geographical PSTN-ISDN",false),
+        new FailureTypes(6,"mobile","Mobile",false),
+        new FailureTypes(7,"fia-broadband","FIA Broadband",false),
+        new FailureTypes(8,"eervice-id-broadband","Service ID Broadband",false)
     ];
 
     causes = [
-        new Cause(0,"Failure"),
-        new Cause(1,"Planned maintenance")
+        new Cause(0,"failure","Failure"),
+        new Cause(1,"planned-maintenance","Planned maintenance")
     ];
     sources = [
         new Source(0,"SOURCE_GUI"),
