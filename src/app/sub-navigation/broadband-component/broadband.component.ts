@@ -329,33 +329,33 @@ export class BroadbandComponent implements OnInit {
     this.selectedFailureTypes =  _.find(this.failureTypesList, function(o) { return o.id = newvalue; });
   }
 
-  getApiFilterString() {
-    let queryString: string = "";
-    if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-    } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-    } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
-    } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
-    }
-    return queryString;
-  }
-  /** for int to String */
-  //   getApiFilterString() {
+  // getApiFilterString() {
   //   let queryString: string = "";
   //   if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //     queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
   //   } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //     queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
   //   } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+  //     queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
   //   } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+  //     queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
   //   }
   //   return queryString;
   // }
+  /** for int to String */
+    getApiFilterString() {
+    let queryString: string = "";
+    if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
+      queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+    } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+      queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+    } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
+      queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+    } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+      queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+    }
+    return queryString;
+  }
 
   emitApplicationLoadingBroadcast() {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);

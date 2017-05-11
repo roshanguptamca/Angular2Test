@@ -329,33 +329,33 @@ onChangeCause(newvalue){
   this.selectedFailureTypes = this.failureTypesList[0];
 }
 
-getApiFilterString(){
-  let queryString: string ="";
-  if(AppConstant.APP_FAILURE_OTHER_URL === this.selectedUrl){
-      queryString = "?cause=0&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-  } else if(AppConstant.APP_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=1&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-  } else if(AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=0&source=0&source=2&type=3&state=closed";
-  } else if(AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=1&source=0&source=2&type=3&state=closed";
-  }
-  return queryString;
-}
-
 // getApiFilterString(){
 //   let queryString: string ="";
 //   if(AppConstant.APP_FAILURE_OTHER_URL === this.selectedUrl){
-//       queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+//       queryString = "?cause=0&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
 //   } else if(AppConstant.APP_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-//      queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+//      queryString = "?cause=1&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
 //   } else if(AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl){
-//      queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=closed";
+//      queryString = "?cause=0&source=0&source=2&type=3&state=closed";
 //   } else if(AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-//      queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=closed";
+//      queryString = "?cause=1&source=0&source=2&type=3&state=closed";
 //   }
 //   return queryString;
 // }
+
+getApiFilterString(){
+  let queryString: string ="";
+  if(AppConstant.APP_FAILURE_OTHER_URL === this.selectedUrl){
+      queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  } else if(AppConstant.APP_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
+     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  } else if(AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl){
+     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=closed";
+  } else if(AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
+     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=closed";
+  }
+  return queryString;
+}
 
 onChangFailureType(newvalue) {
   this.selectedFailureTypes = this.uiFailureTypesList[newvalue];
