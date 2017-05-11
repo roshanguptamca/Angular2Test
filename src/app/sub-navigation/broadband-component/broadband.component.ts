@@ -342,6 +342,21 @@ export class BroadbandComponent implements OnInit {
     }
     return queryString;
   }
+  /** for int to String */
+  //   getApiFilterString() {
+  //   let queryString: string = "";
+  //   if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+  //     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+  //   } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
+  //     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=broadband&type=geographical-broadband&type=customers-broadband&type=fia-broadband&type=services-broadband&state=closed";
+  //   }
+  //   return queryString;
+  // }
+
   emitApplicationLoadingBroadcast() {
     this.messageEvent.fireApplicationLoading(this.isApplicationLoading);
   }

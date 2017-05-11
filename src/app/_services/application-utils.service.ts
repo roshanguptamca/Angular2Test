@@ -12,35 +12,38 @@ export class ApplicationUtillService {
         private apiService: ApiService
     ){}
     failureTypes = [
-        new FailureTypes(0,"Broadband","Broadband",false),
+        new FailureTypes(0,"broadband","Broadband",false),
         new FailureTypes(1,"geographical-broadband","Geographical Broadband",false),
-        new FailureTypes(2,"customer-id","Customer ID",false),
+        new FailureTypes(2,"customers-broadband","Customer ID Broadband",false),
         new FailureTypes(3,"generic","Generic",false),
-        new FailureTypes(4,"pstn-isdn","PSTN-ISDN",false),
-        new FailureTypes(5,"geographical-broadband-pstn-isdn","Geographical PSTN-ISDN",false),
+        new FailureTypes(4,"fixed","PSTN-ISDN",false),
+        new FailureTypes(5,"geographical-fixed","Geographical PSTN-ISDN",false),
         new FailureTypes(6,"mobile","Mobile",false),
         new FailureTypes(7,"fia-broadband","FIA Broadband",false),
-        new FailureTypes(8,"eervice-id-broadband","Service ID Broadband",false)
+        new FailureTypes(8,"services-broadband","Service ID Broadband",false),
+        new FailureTypes(9,"customers-fixed	","Customer ID Fixed",false)
     ];
 
      failureTypesByCause = [
         new FailureTypes(1,"geographical-broadband","Geographical Broadband",false),
-        new FailureTypes(2,"customer-id","Customer ID",false),
+        new FailureTypes(2,"customers-broadband","Customer ID Broadband",false),
         new FailureTypes(3,"generic","Generic",false),
-        new FailureTypes(4,"pstn-isdn","PSTN-ISDN",false),
-        new FailureTypes(5,"geographical-broadband-pstn-isdn","Geographical PSTN-ISDN",false),
+        new FailureTypes(4,"fixed","PSTN-ISDN",false),
+        new FailureTypes(5,"geographical-fixed","Geographical PSTN-ISDN",false),
         new FailureTypes(6,"mobile","Mobile",false),
         new FailureTypes(7,"fia-broadband","FIA Broadband",false),
-        new FailureTypes(8,"eervice-id-broadband","Service ID Broadband",false)
+        new FailureTypes(8,"services-broadband","Service ID Broadband",false),
+        new FailureTypes(9,"customers-fixed	","Customer ID Fixed",false)
     ];
 
     causes = [
-        new Cause(0,"failure","Failure"),
+        new Cause(0,"disturbance","Failure"),
         new Cause(1,"planned-maintenance","Planned maintenance")
     ];
     sources = [
-        new Source(0,"SOURCE_GUI"),
-        new Source(1,"SOURCE_SERVICEGUARD")
+        new Source(0,"gui","GUI"),
+        new Source(1,"serviceguard","SERVICEGUARD"),
+        new Source(1,"trendanalyser","TRENDANALYSER")
     ];
 
     services = [

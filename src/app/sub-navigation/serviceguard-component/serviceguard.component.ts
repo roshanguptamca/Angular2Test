@@ -343,6 +343,20 @@ registerStringBroadcast() {
     return queryString;
   }
 
+  // getApiFilterString() {
+  //   let queryString: string = "";
+  //   if (AppConstant.APP_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=serviceguard&type=broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
+  //     queryString = "?cause=planned-maintenance&source=serviceguard&&type=broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=serviceguard&type=broadband&state=closed";
+  //   } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
+  //     queryString = "?cause=planned-maintenance&source=serviceguard&type=broadband&state=closed";
+  //   }
+  //   return queryString;
+  // }
+
 
   onChangFailureType(newvalue) {
     this.selectedFailureTypes = this.uiFailureTypesList[newvalue];

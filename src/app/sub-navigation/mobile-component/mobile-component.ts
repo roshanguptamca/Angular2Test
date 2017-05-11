@@ -303,6 +303,20 @@ export class MobileComponent implements OnInit {
     this.selectedFailureTypes = this.failureTypesList[0];
   }
 
+  // getApiFilterString() {
+  //   let queryString: string = "";
+  //   if (AppConstant.APP_FAILURE_MOBILE_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=mobile&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_PLANNED_MAINTENCE_MOBILE_URL === this.selectedUrl) {
+  //     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=mobile&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+  //   } else if (AppConstant.APP_ARCHIVED_FAILURE_MOBILE_URL === this.selectedUrl) {
+  //     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=mobile&state=closed";
+  //   } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_MOBILE_URL === this.selectedUrl) {
+  //     queryString = "?cause=1&source=gui&source=trendanalyser&type=mobile&state=closed";
+  //   }
+  //   return queryString;
+  // }
+
   getApiFilterString() {
     let queryString: string = "";
     if (AppConstant.APP_FAILURE_MOBILE_URL === this.selectedUrl) {

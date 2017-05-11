@@ -7,7 +7,7 @@ export class Cause {
 }
 
 export class Source {
-  constructor(public id: number, public value: string) { }
+  constructor(public id: number,public key: string, public value: string) { }
 }
 
 export class Service {
