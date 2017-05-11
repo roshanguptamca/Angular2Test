@@ -138,9 +138,9 @@ export class BroadbandComponent implements OnInit {
     this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
-    this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
-    this.selectedsource = this.sourceList[failure.source];
+    this.selectedCause = _.find(this.causeList, function(o) { return o.key == failure.cause; });
+    this.selectedFailureTypes = _.find(this.uiFailureTypesList, function(o) { return o.key == failure.type;});
+    this.selectedsource = _.find(this.sourceList, function(o) { return o.key == failure.source; });
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
@@ -329,19 +329,6 @@ export class BroadbandComponent implements OnInit {
     this.selectedFailureTypes =  _.find(this.failureTypesList, function(o) { return o.id = newvalue; });
   }
 
-  // getApiFilterString() {
-  //   let queryString: string = "";
-  //   if (AppConstant.APP_FAILURE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-  //   } else if (AppConstant.APP_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
-  //   } else if (AppConstant.APP_ARCHIVED_FAILURE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=0&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
-  //   } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_BORDBAND_URL === this.selectedUrl) {
-  //     queryString = "?cause=1&source=0&source=2&type=0&type=1&type=2&type=7&type=8&state=closed";
-  //   }
-  //   return queryString;
-  // }
   /** for int to String */
     getApiFilterString() {
     let queryString: string = "";

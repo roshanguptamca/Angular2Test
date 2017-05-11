@@ -12,7 +12,7 @@ export class GuiFailureType implements PipeTransform {
     }
     transform(value: any) {
         if (value) {
-          this.failureTypes =  _.find(this.uiFailureTypesList, function(o) { return o.key = value; });
+          this.failureTypes =  _.find(this.uiFailureTypesList, function(o) { return o.key == value; });
             return this.failureTypes.value;
         }
         return value;

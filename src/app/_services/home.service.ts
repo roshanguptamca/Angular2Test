@@ -4,11 +4,14 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import {ApiService } from '../_helpers/api.service';
  
-import { Failure, User } from '../shared/models/index';
+import { Failure, User,FailureTypes } from '../shared/models/index';
  
 @Injectable()
 export class HomeService {
     private user: User;
+    uiFailureTypesList: FailureTypes[];
+    failureTypes:FailureTypes;
+
     constructor(
         private apiService: ApiService) {
     }

@@ -45,9 +45,6 @@ export class NgbConfirmModalBasic implements OnInit {
 
   open(confirmContent) {
     this.errors.reset();
-    this.templateList = this.applicationUtillService.getTemplates(this.selectedfailure.type);
-    this.selectedTemplate = this.templateList[0];
-
     this.modalService.open(confirmContent).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
