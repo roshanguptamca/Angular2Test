@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
 import { Broadcaster } from '../../commons/application-broadcaster.service';
 import { MessageEvent } from '../../commons/message-event';
+import * as _ from "lodash";
 
 @Component({
   selector: 'other-component',
@@ -139,9 +140,9 @@ bootstarpComponent(){
     this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
-    this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
-    this.selectedsource =  this.sourceList[failure.source];
+    this.selectedCause = _.find(this.causeList, function(o) { return o.key == failure.cause; });
+    this.selectedFailureTypes = _.find(this.uiFailureTypesList, function(o) { return o.key == failure.type;});
+    this.selectedsource = _.find(this.sourceList, function(o) { return o.key == failure.source; });
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
@@ -332,13 +333,13 @@ onChangeCause(newvalue){
 getApiFilterString(){
   let queryString: string ="";
   if(AppConstant.APP_FAILURE_OTHER_URL === this.selectedUrl){
-      queryString = "?cause=0&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+      queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
   } else if(AppConstant.APP_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=1&source=0&source=2&type=3&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
   } else if(AppConstant.APP_ARCHIVED_FAILURE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=0&source=0&source=2&type=3&state=closed";
+     queryString = "?cause=disturbance&source=gui&source=trendanalyser&type=generic&state=closed";
   } else if(AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_OTHER_URL === this.selectedUrl){
-     queryString = "?cause=1&source=0&source=2&type=3&state=closed";
+     queryString = "?cause=planned-maintenance&source=gui&source=trendanalyser&type=generic&state=closed";
   }
   return queryString;
 }

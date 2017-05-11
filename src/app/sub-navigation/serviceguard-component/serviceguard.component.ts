@@ -4,7 +4,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { FailureService, ApplicationUtillService } from '../../_services/index';
 import { Failure, FailureTypes, Source, Cause, Errors, Service } from '../../shared/models/index';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
-
+import * as _ from "lodash";
 import { DateFormatorSerice, YaraUtilsService } from '../../_helpers/index';
 import { DatePipe } from '@angular/common';
 import { AppConstant } from '../../commons/application.constant';
@@ -140,9 +140,9 @@ registerStringBroadcast() {
     this.selectedFailure = failure;
     this.errors.reset();
     this.addOrUpdateMode = true;
-    this.selectedCause = this.causeList[failure.cause];
-    this.selectedFailureTypes = this.uiFailureTypesList[failure.type];
-    this.selectedsource = this.sourceList[failure.source];
+    this.selectedCause = _.find(this.causeList, function(o) { return o.key == failure.cause; });
+    this.selectedFailureTypes = _.find(this.uiFailureTypesList, function(o) { return o.key == failure.type;});
+    this.selectedsource = _.find(this.sourceList, function(o) { return o.key == failure.source; });
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
     this.model.failureId = failure.id;
@@ -332,13 +332,13 @@ registerStringBroadcast() {
   getApiFilterString() {
     let queryString: string = "";
     if (AppConstant.APP_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=1&type=0&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+      queryString = "?cause=disturbance&source=serviceguard&type=broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=1&&type=0&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
+      queryString = "?cause=planned-maintenance&source=serviceguard&&type=broadband&state=new&state=collecting&state=planned&state=open&state=awaiting&state=notifying";
     } else if (AppConstant.APP_ARCHIVED_FAILURE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=0&source=1&type=0&state=closed";
+      queryString = "?cause=disturbance&source=serviceguard&type=broadband&state=closed";
     } else if (AppConstant.APP_ARCHIVED_PLANNED_MAINTENCE_SERVICEGARD_URL === this.selectedUrl) {
-      queryString = "?cause=1&source=1&type=0&state=closed";
+      queryString = "?cause=planned-maintenance&source=serviceguard&type=broadband&state=closed";
     }
     return queryString;
   }

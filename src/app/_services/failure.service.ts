@@ -3,15 +3,27 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { ApiService } from '../_helpers/api.service';
-
-import { Failure, User } from '../shared/models/index';
+import { Failure, User, FailureTypes, Cause, Service, State, Source } from '../shared/models/index';
+import { ApplicationUtillService } from '../_services/index';
+import * as _ from "lodash";
 
 @Injectable()
 export class FailureService {
     private user: User;
+    uiFailureTypesList: FailureTypes[];
+    uiCauseList: Cause[];
+    uiSourceList: Source[];
+    failureTypes:FailureTypes;
+    uiCause:Cause;
+    uiSource:Source;
     constructor(
-        private apiService: ApiService) {
-    }
+        private apiService: ApiService,
+        private applicationUtillService: ApplicationUtillService
+        ) {
+            this.uiFailureTypesList = this.applicationUtillService.getFailureTypesByCause(1);
+            this.uiCauseList = this.applicationUtillService.getCauses();
+            this.uiSourceList = this.applicationUtillService.getSources();
+        }
 
     getFailureList(queryString: string): Observable<Failure[]> {
         // add authorization header with jwt token
@@ -23,10 +35,12 @@ export class FailureService {
     }
 
     create(failure: Failure) {
+        failure = this.formateFailureForBackend(failure);
         return this.apiService.postWithOption('/disturbances/v1/failures/', this.jwt(), failure);
     }
 
     update(failure: Failure) {
+        failure = this.formateFailureForBackend(failure);
         return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/", this.jwt1(), failure);
     }
 
@@ -38,7 +52,7 @@ export class FailureService {
         var data = {
             "template_id": templateId
         }
-        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/"+"/update-notification/", this.jwt(), data);
+        return this.apiService.postWithOption('/disturbances/v1/failures/' + failure.id +"/update-notification/", this.jwt(), data);
     }
 
     // private helper methods
@@ -100,5 +114,24 @@ export class FailureService {
         else {
             return "";
         }
+    }
+    
+   formateFailureForBackend(failure:Failure){
+       debugger;
+       if(failure != null && failure){
+           if(failure.cause != null){
+             this.uiCause =  this.uiCauseList[failure.cause];
+             failure.cause = this.uiCause.key;
+           }
+           if(failure.source != null){
+             this.uiSource =  this.uiSourceList[failure.source];
+             failure.source = this.uiSource.key;
+           }
+           if(failure.type != null){
+             this.failureTypes = this.uiFailureTypesList[failure.type];
+             failure.type = this.failureTypes.key;
+           }
+       }
+        return failure;
     }
 }

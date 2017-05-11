@@ -15,7 +15,6 @@ export class SearchPipe implements PipeTransform {
   ) {}
 
  transform(failures: Failure[], args: any[]): any {
-   debugger;
   this.failureTypesList = this.applicationUtillService.getFailureTypes();
 
    if(args != null && args.length > 0 ){
