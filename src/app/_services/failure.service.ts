@@ -117,7 +117,6 @@ export class FailureService {
     }
     
    formateFailureForBackend(failure:Failure){
-       debugger;
        if(failure != null && failure){
            if(failure.cause != null){
              this.uiCause =  this.uiCauseList[failure.cause];
