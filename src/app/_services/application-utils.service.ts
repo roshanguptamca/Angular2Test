@@ -21,7 +21,7 @@ export class ApplicationUtillService {
         new FailureTypes(6,"mobile","Mobile",false),
         new FailureTypes(7,"fia-broadband","FIA Broadband",false),
         new FailureTypes(8,"services-broadband","Service ID Broadband",false),
-        new FailureTypes(9,"customers-fixed	","Customer ID Fixed",false)
+        new FailureTypes(9,"customers-fixed","Customer ID Fixed",false)
     ];
 
      failureTypesByCause = [
@@ -33,7 +33,7 @@ export class ApplicationUtillService {
         new FailureTypes(6,"mobile","Mobile",false),
         new FailureTypes(7,"fia-broadband","FIA Broadband",false),
         new FailureTypes(8,"services-broadband","Service ID Broadband",false),
-        new FailureTypes(9,"customers-fixed	","Customer ID Fixed",false)
+        new FailureTypes(9,"customers-fixed","Customer ID Fixed",false)
     ];
 
     causes = [
