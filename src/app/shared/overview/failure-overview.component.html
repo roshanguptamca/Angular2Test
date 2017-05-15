@@ -18,7 +18,7 @@
                     <tr *ngFor="let affectedElement of affectedElementList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
                         <td>{{affectedElement.created_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
                         <td>{{affectedElement.updated_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
-                        <td>{{affectedElement.attributes.zip_code4}},{{affectedElement.attributes.zip_code}}</td>
+                        <td>{{affectedElement.attributes.zip_code}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -46,7 +46,7 @@
                     <tr *ngFor="let affectedCoustomer of affectedCoustomerList.results | orderBy: ['-id']; let i = index; trackBy:trackByFn;">
                          <td>{{affectedCoustomer.created_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
                         <td>{{affectedCoustomer.updated_at | date:"dd-MMM-yyyy HH:mm:ss"}}</td>
-                        <td>{{affectedCoustomer.attributes.zip_code4}},{{affectedCoustomer.attributes.zip_code}}</td>
+                        <td>{{affectedCoustomer.attributes.zip_code}}</td>
                     </tr>
                 </tbody>
             </table>
