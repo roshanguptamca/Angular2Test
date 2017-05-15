@@ -140,6 +140,7 @@ export class BroadbandComponent implements OnInit {
     this.addOrUpdateMode = true;
     this.selectedCause = _.find(this.causeList, function(o) { return o.key == failure.cause; });
     this.selectedFailureTypes = _.find(this.uiFailureTypesList, function(o) { return o.key == failure.type;});
+    this.failureTypesList =  this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
     this.selectedsource = _.find(this.sourceList, function(o) { return o.key == failure.source; });
     this.model.endDate = this.datePipe.transform(failure.end_date, "dd-MM-yyyy HH:mm:ss");
     this.model.startDate = this.datePipe.transform(failure.start_date, "dd-MM-yyyy HH:mm:ss");
@@ -326,9 +327,8 @@ export class BroadbandComponent implements OnInit {
   onChangeCause(newvalue) {
     this.selectedCause = this.causeList[newvalue];
     this.failureTypesList = this.applicationUtillService.getFailureTypesByCause(this.selectedCause.id);
-    this.selectedFailureTypes =  _.find(this.failureTypesList, function(o) { return o.id = newvalue; });
+    this.selectedFailureTypes =  this.failureTypesList[0];
   }
-
   /** for int to String */
     getApiFilterString() {
     let queryString: string = "";
